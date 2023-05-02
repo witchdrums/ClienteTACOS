@@ -12,21 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using VistaModelo;
 
 namespace Vista
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for RegistrarMiembro.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RegistrarMiembro : Page
     {
-        public MainWindow()
+        public RegistrarMiembro()
         {
             InitializeComponent();
-            //this.Frame_Main.Navigate(new Menu(new MenuVistaModelo()));
-            this.Frame_Main.Navigate(new RegistrarMiembro());
+        }
+
+        private void Unirse(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as MiembroVistaModelo).RegistrarMiembro(this.PasswordBox.Password);
         }
     }
 }
