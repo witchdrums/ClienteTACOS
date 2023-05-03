@@ -33,6 +33,7 @@ namespace Vista
 
         private void AgregarAlimentoAPedido(object sender, RoutedEventArgs e)
         {
+            this.Expander_Pedido.IsExpanded = true;
             this.contexto.AgregarAlimentoAPedido((sender as Button).Tag as AlimentoModelo);
         }
     }

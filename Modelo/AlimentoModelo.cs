@@ -29,7 +29,18 @@ namespace Modelo
         public double Precio { set; get; }
 
         //Otros
-        public int Cantidad { set; get; }
+        private int cantidad;
+        public int Cantidad
+        {
+            set
+            {
+                this.cantidad = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Subtotal));
+            }
+            get { return this.cantidad; }
+        }
+        public double Subtotal => this.Cantidad * this.Precio;
 
         //INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
