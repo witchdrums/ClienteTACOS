@@ -25,8 +25,8 @@ namespace Vista
         public MainWindow()
         {
             InitializeComponent();
-            //this.Frame_Main.Navigate(new Menu(new MenuVistaModelo()));
-            this.Frame_Main.Navigate(new RegistrarMiembro());
+            this.Frame_Main.Navigate(new Menu(new MenuVistaModelo()));
+            //this.Frame_Main.Navigate(new RegistrarMiembro());
         }
     }
 }
