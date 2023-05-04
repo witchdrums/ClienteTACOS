@@ -38,6 +38,21 @@ namespace Servicios
             return menu;
         }
 
+        public async void RegistrarPedido(PedidoModelo pedidoNuevo)
+        {
+            using (var clienteHttp = new HttpClient())
+            {
+                clienteHttp.BaseAddress = new Uri("http://localhost:8083");
+                HttpResponseMessage respuesta =
+                    await clienteHttp.PostAsJsonAsync(
+                        "api/menu/pedidos",
+                        pedidoNuevo
+                    );
+                respuesta.EnsureSuccessStatusCode();
+            }
+        }
+
+
         public async void ConectarAMenu()
         {
             //ESTE SI FUNCIONO: https://github.com/doghappy/socket.io-servidor-csharp

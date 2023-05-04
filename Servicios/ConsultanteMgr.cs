@@ -14,9 +14,7 @@ namespace Servicios
     {
         public ConsultanteMgr() { }
         public async void RegistrarMiembro(MiembroModelo nuevoMiembro)
-        {
-            Console.WriteLine("fuck");
-            
+        {            
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = new Uri("http://localhost:8083");

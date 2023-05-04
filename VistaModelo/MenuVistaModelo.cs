@@ -19,12 +19,13 @@ namespace VistaModelo
         private ObservableCollection<AlimentoModelo> alimentosPedidos =
             new ObservableCollection<AlimentoModelo>();
         private readonly MenuMgr menuMgr;
+
         private double total = 0;
         public double Total 
         {
             get { return this.total; }
             set
-            { 
+            {
                 this.total = value;
                 OnPropertyChanged();
             }
@@ -44,10 +45,22 @@ namespace VistaModelo
             {
                 alimentosPedidos.Add(alimento);
             }
-            this.total += alimento.Precio;
+            this.Total += alimento.Precio;
             //this.menuMgr.AgregarAlimentoAPedido(alimento);
         }
 
+        public void RegistrarPedido()
+        {
+            this.menuMgr.RegistrarPedido(
+                new PedidoModelo()
+                {
+                    IdMiembro = 1,
+                    Total = this.Total,
+                    Estado = Estados.Ordenado,
+                    Alimentos = this.alimentosPedidos,
+                }
+            );
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
