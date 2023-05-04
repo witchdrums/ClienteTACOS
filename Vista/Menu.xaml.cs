@@ -35,6 +35,12 @@ namespace Vista
         {
             this.Expander_Pedido.IsExpanded = true;
             this.contexto.AgregarAlimentoAPedido((sender as Button).Tag as AlimentoModelo);
+            //this.TextBlock_Total.Text = this.contexto.Total.ToString();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.contexto.RegistrarPedido();
         }
     }
 }
