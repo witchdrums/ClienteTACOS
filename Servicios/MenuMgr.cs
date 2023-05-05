@@ -68,7 +68,7 @@ namespace Servicios
             {
                 var alimento = respuesta.GetValue<AlimentoModelo>();
 
-                this.Menu.First(a => a.Id == alimento.Id).Existencia -= alimento.Cantidad;
+                this.Menu.First(a => a.Id == alimento.Id).Existencia -= 1;
             });
 
             await this.servidor.ConnectAsync();

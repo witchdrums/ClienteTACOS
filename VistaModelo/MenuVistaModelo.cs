@@ -46,7 +46,7 @@ namespace VistaModelo
                 alimentosPedidos.Add(alimento);
             }
             this.Total += alimento.Precio;
-            //this.menuMgr.AgregarAlimentoAPedido(alimento);
+            this.menuMgr.AgregarAlimentoAPedido(alimento);
         }
 
         public void RegistrarPedido()
@@ -54,7 +54,7 @@ namespace VistaModelo
             this.menuMgr.RegistrarPedido(
                 new PedidoModelo()
                 {
-                    IdMiembro = 1,
+                    IdMiembro = Sesion.Miembro.id,
                     Total = this.Total,
                     Estado = Estados.Ordenado,
                     Alimentos = this.alimentosPedidos,

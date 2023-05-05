@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,11 +19,11 @@ using VistaModelo;
 namespace Vista
 {
     /// <summary>
-    /// Interaction logic for RegistrarMiembro.xaml
+    /// Interaction logic for InicioDeSesion.xaml
     /// </summary>
-    public partial class RegistrarMiembro : Page
+    public partial class InicioDeSesion : Page
     {
-        public RegistrarMiembro()
+        public InicioDeSesion()
         {
             InitializeComponent();
         }
@@ -31,7 +32,7 @@ namespace Vista
         {
             try
             {
-                (this.DataContext as MiembroVistaModelo).RegistrarMiembro(this.PasswordBox.Password);
+                this.NavigationService.Navigate(new RegistrarMiembro());
             }
             catch (HttpRequestException excepcion)
             {
@@ -39,9 +40,20 @@ namespace Vista
             }
         }
 
-        private void Regresar(object sender, RoutedEventArgs e)
+        private void Entrar(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.GoBack();
+            try
+            {
+                (this.DataContext as MiembroVistaModelo).IniciarSesion(
+                    this.TextBox_Email.Text,
+                    this.TextBox_Contrasena.Password
+                );
+                this.NavigationService.Navigate(new Menu(new MenuVistaModelo()));
+            }
+            catch (HttpRequestException excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
         }
     }
 }

@@ -8,13 +8,14 @@ namespace Modelo
 {
     public class MiembroModelo
     {
-        public string Contrasena { set; get; }
-        public int PedidosPagados { set; get; }
-        public PersonaModelo PersonaModelo { set; get; }
+        public int id { set; get; }
+        public string contrasena { set; get; }
+        public int pedidosPagados { set; get; }
+        public PersonaModelo persona { set; get; }
 
         public MiembroModelo()
         { 
-            this.PersonaModelo = new PersonaModelo();
+            this.persona = new PersonaModelo();
         }
     }
 }

@@ -1,0 +1,64 @@
+﻿<Page x:Class="Vista.InicioDeSesion"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Vista"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="InicioDeSesion"
+      ShowsNavigationUI="False">
+
+    <Page.DataContext>
+        <vistaModelo:MiembroVistaModelo/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid
+            VerticalAlignment="Center"
+            Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <xctk:WatermarkTextBox  
+                Grid.Row="0"
+                Name="TextBox_Email"
+                Watermark="Email"
+                VerticalContentAlignment="Center"/>
+            <xctk:WatermarkPasswordBox 
+                Grid.Row="2"
+                Name="TextBox_Contrasena"
+                Watermark="Contraseña"
+                VerticalContentAlignment="Center"/>
+            <Button 
+                Grid.Row="4"
+                Content="Entrar" Click="Entrar"/>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                    Grid.Column="0"
+                    Margin="0,10,10,10"
+                    Content="Entrar como staff"/>                
+                <Button 
+                    Grid.Column="1"
+                    Margin="10,10,0,10"
+                    Content="Unirse" Click="Unirse"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
