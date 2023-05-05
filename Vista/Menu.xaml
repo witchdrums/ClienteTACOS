@@ -12,7 +12,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Expander 
             Name="Expander_Pedido"

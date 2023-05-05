@@ -12,23 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using VistaModelo;
 
 namespace Vista
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PanelPrincipal.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class PanelPrincipal : Page
     {
-        public MainWindow()
+        public PanelPrincipal()
         {
             InitializeComponent();
-            //this.Frame_Main.Navigate(new Menu(new MenuVistaModelo()));
-            //this.Frame_Main.Navigate(new RegistrarMiembro());
-            //this.Frame_Main.Navigate(new PanelPrincipal());
-            this.NavigationService.Navigate(new InicioDeSesion());
+        }
+
+        private void CargarMenu(object sender, RoutedEventArgs e)
+        {
+            this.Frame_Menu.Navigate(new Menu(new MenuVistaModelo()));
         }
     }
 }
