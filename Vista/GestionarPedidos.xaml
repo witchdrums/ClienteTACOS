@@ -1,0 +1,39 @@
+﻿<Page x:Class="Vista.GestionarPedidos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Vista"
+      mc:Ignorable="d" 
+      xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="GestionarPedidos">
+
+    <Page.DataContext>
+        <vistaModelo:PedidoVistaModelo/>
+    </Page.DataContext>
+
+    <Grid>
+        <DataGrid
+            IsSynchronizedWithCurrentItem="True"
+            ItemsSource="{Binding Pedidos}"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Fecha}"/>
+                <DataGridTextColumn Binding="{Binding Total}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding estado}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding DataContext.Estados, RelativeSource={RelativeSource AncestorType=DataGrid}}" SelectionChanged="CambiarEstado"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="MenuVistaModelo.cs" />
     <Compile Include="MiembroVistaModelo.cs" />
+    <Compile Include="PedidoVistaModelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

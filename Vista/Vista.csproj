@@ -70,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GestionarPedidos.xaml.cs">
+      <DependentUpon>GestionarPedidos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InicioDeSesion.xaml.cs">
       <DependentUpon>InicioDeSesion.xaml</DependentUpon>
     </Compile>
@@ -79,6 +82,10 @@
     <Compile Include="RegistrarMiembro.xaml.cs">
       <DependentUpon>RegistrarMiembro.xaml</DependentUpon>
     </Compile>
+    <Page Include="GestionarPedidos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InicioDeSesion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

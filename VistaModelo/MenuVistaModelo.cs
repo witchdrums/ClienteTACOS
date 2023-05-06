@@ -56,7 +56,7 @@ namespace VistaModelo
                 {
                     IdMiembro = Sesion.Miembro.id,
                     Total = this.Total,
-                    Estado = Estados.Ordenado,
+                    estado = Estados.Ordenado,
                     Alimentos = this.alimentosPedidos,
                 }
             );
