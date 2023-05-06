@@ -28,7 +28,8 @@ namespace Vista
             //this.Frame_Main.Navigate(new Menu(new MenuVistaModelo()));
             //this.Frame_Main.Navigate(new RegistrarMiembro());
             //this.Frame_Main.Navigate(new PanelPrincipal());
-            this.NavigationService.Navigate(new InicioDeSesion());
+            //this.NavigationService.Navigate(new InicioDeSesion());
+            this.NavigationService.Navigate(new GestionarPedidos());
         }
     }
 }

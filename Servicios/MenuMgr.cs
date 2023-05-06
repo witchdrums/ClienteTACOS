@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Modelo;
+using System.Net.Http.Json;
 
 namespace Servicios
 {
@@ -16,6 +17,7 @@ namespace Servicios
     {
         private SocketIO servidor;
         public ObservableCollection<AlimentoModelo> Menu;
+        private Uri uri = new Uri("http://localhost:8083");
 
         public MenuMgr()
         {
@@ -49,6 +51,31 @@ namespace Servicios
                         pedidoNuevo
                     );
                 respuesta.EnsureSuccessStatusCode();
+            }
+        }
+        public ObservableCollection<PedidoModelo> ObtenerPedidos()
+        {
+            ObservableCollection<PedidoModelo> pedidosObtenidos = new ObservableCollection<PedidoModelo>();
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = this.uri;
+                var response = cliente.GetAsync("api/menu/pedidos").Result;
+                response.EnsureSuccessStatusCode();
+                pedidosObtenidos = response.Content.ReadAsAsync<ObservableCollection<PedidoModelo>>().Result;
+            }
+            return pedidosObtenidos;
+        }
+        public async void ActualizarPedido(PedidoModelo pedido)
+        {
+            using (var clienteHttp = new HttpClient())
+            {
+                clienteHttp.BaseAddress = this.uri;
+                ValidadorRespuestaHttp.Validar(
+                    await clienteHttp.PatchAsJsonAsync(
+                        "api/menu/pedidos",
+                        pedido
+                    )
+                );
             }
         }
 
