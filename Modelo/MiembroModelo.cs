@@ -2,20 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Modelo
 {
     public class MiembroModelo
     {
-        public int id { set; get; }
-        public string contrasena { set; get; }
-        public int pedidosPagados { set; get; }
-        public PersonaModelo persona { set; get; }
+        public int Id { set; get; }
+        public string Contrasena { set; get; }
+        public int PedidosPagados { set; get; }
+        public int IdPersona { get; set; }
+        public PersonaModelo Persona { set; get; }
+
+        [JsonIgnore]
+        public virtual ICollection<PedidoModelo> Pedidos { get; set; }
+
+
 
         public MiembroModelo()
         { 
-            this.persona = new PersonaModelo();
+            this.Persona = new PersonaModelo();
         }
     }
 }

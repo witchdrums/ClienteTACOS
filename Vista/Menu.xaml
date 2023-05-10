@@ -48,13 +48,13 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
                                     Grid.Column="0"
-                                    Text="{Binding Nombre}"
+                                    Text="{Binding IdAlimentoNavigation.Nombre}"
                                     VerticalAlignment="Center"/>
                                 <TextBlock
                                     Grid.Column="1"
                                     TextAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Text="{Binding Precio,
+                                    Text="{Binding IdAlimentoNavigation.Precio,
                                            StringFormat='{}{0:c}'}"/>
                                 <xctk:IntegerUpDown
                                     Grid.Column="2"

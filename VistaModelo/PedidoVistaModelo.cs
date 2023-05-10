@@ -40,7 +40,7 @@ namespace VistaModelo
         public void CambiarEstado(Modelo.Estados nuevoEstado)
         {
             PedidoModelo pedidoSeleccionado = (this.Pedidos.CurrentItem as PedidoModelo);
-            pedidoSeleccionado.estado = nuevoEstado;
+            pedidoSeleccionado.EstadoEnum = nuevoEstado;
             this.menuMgr.ActualizarPedido(pedidoSeleccionado);
         }
     }

@@ -4,33 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Modelo
 {
-    public class AlimentoModelo : INotifyPropertyChanged
+    public class AlimentoPedidoModelo : INotifyPropertyChanged
     {
-        //Columnas
         public int Id { get; set; }
-        public string Nombre { set; get; }
-        public string Descripcion { set; get; }
 
-        private int existencia;
-        public int Existencia
-        {
-            set
-            {
-                this.existencia = value;
-                OnPropertyChanged();
-            }
-            get { return this.existencia; }
-        }
-        public byte[] Imagen { set; get; }
-        public double Precio { set; get; }
-        public int IdCategoria { get; set; }
-
-
-        //Otros
         private int cantidad;
         public int Cantidad
         {
@@ -42,7 +24,18 @@ namespace Modelo
             }
             get { return this.cantidad; }
         }
-        public double Subtotal => this.Cantidad * this.Precio;
+
+        public int IdAlimento { get; set; }
+
+        public int IdPedido { get; set; }
+
+        [JsonIgnore]
+        public virtual AlimentoModelo IdAlimentoNavigation { get; set; }
+        [JsonIgnore]
+        public virtual PedidoModelo IdPedidoNavigation { get; set; }
+
+        [JsonIgnore]
+        public double Subtotal => this.Cantidad * this.IdAlimentoNavigation.Precio;
 
         //INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,6 +43,5 @@ namespace Modelo
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
     }
 }
