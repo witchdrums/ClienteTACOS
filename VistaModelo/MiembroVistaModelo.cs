@@ -21,15 +21,14 @@ namespace VistaModelo
 
         public void RegistrarMiembro(string contrasena)
         {
-            this.MiembroModelo.contrasena = contrasena;
-            this.MiembroModelo.pedidosPagados = 0;
+            this.MiembroModelo.Contrasena = contrasena;
+            this.MiembroModelo.PedidosPagados = 0;
             this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
         }
 
         public void IniciarSesion(string email, string contrasena)
         {
-            MiembroModelo miembroObtenido = this.consultanteMgr.IniciarSesion(email, contrasena);
-            Sesion.Miembro = miembroObtenido;
+            Sesion.Miembro = this.consultanteMgr.IniciarSesion(email, contrasena);
         }
     }
 }

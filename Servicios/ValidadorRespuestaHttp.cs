@@ -16,13 +16,13 @@ namespace Servicios
             if (!respuesta.IsSuccessStatusCode)
             {
                 throw new HttpRequestException(
-                    respuesta.Content.ReadAsAsync<Mensaje>().Result.message
+                    respuesta.Content.ReadAsAsync<Error>().Result.Mensaje
                 );
             }
         }
-        private class Mensaje
+        private class Error
         {
-            public string message { get; set; }
+            public string Mensaje { get; set; }
         }
     }
 

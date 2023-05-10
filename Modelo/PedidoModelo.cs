@@ -1,24 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Collections.ObjectModel;
 
 namespace Modelo
 {
     public class PedidoModelo
     {
-        public int id { set; get; }
+        public int Id { set; get; }
         public double Total { set; get; }
-        public Estados estado { set; get; }
-        public int idEstado => (int)estado;
+        public DateTime Fecha { set; get; }
         public int IdMiembro { set; get; }
-        public string updatedAt { set; get; }
-        public DateTime Fecha => DateTime.Parse(updatedAt);
+        public string Estado => EstadoEnum.ToString();
+        public ObservableCollection<AlimentoPedidoModelo> Alimentospedidos { get; set; }
+        public MiembroModelo IdMiembroNavigation { set; get; }
 
-        public MiembroModelo MiembroModelo { set; get; }
-        public ObservableCollection<AlimentoModelo> Alimentos { get; set; }
+
+        [JsonIgnore]
+        public int idEstado => (int)EstadoEnum;
+        [JsonIgnore]
+        public Estados EstadoEnum { set; get; }
     }
 }

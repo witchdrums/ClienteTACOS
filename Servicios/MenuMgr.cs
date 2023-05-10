@@ -17,37 +17,38 @@ namespace Servicios
     {
         private SocketIO servidor;
         public ObservableCollection<AlimentoModelo> Menu;
-        private Uri uri = new Uri("http://localhost:8083");
+        private Uri uri = new Uri(Properties.Recursos.direccion);
 
         public MenuMgr()
         {
-            this.Menu = ObtenerMenu();
+            this.Menu = ObtenerAlimentos();
         }
 
-        public ObservableCollection<AlimentoModelo> ObtenerMenu()
+        public ObservableCollection<AlimentoModelo> ObtenerAlimentos()
         {
-            ObservableCollection<AlimentoModelo> menu;
+            ObservableCollection<AlimentoModelo> alimentos;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:8083");
+                client.BaseAddress = this.uri;
                 client.DefaultRequestHeaders.Add("User-Agent", "Anything");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = client.GetAsync("api/menu").Result;
+                var response = client.GetAsync("menu/alimentos").Result;
                 response.EnsureSuccessStatusCode();
-                menu = response.Content.ReadAsAsync<ObservableCollection<AlimentoModelo>>().Result;
+                alimentos = response.Content.ReadAsAsync<ObservableCollection<AlimentoModelo>>().Result;
             }
-            return menu;
+            return alimentos;
         }
 
+        //ESTOS VAN EN CONSULTANTEMGR:
         public async void RegistrarPedido(PedidoModelo pedidoNuevo)
         {
             using (var clienteHttp = new HttpClient())
             {
-                clienteHttp.BaseAddress = new Uri("http://localhost:8083");
+                clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
                     await clienteHttp.PostAsJsonAsync(
-                        "api/menu/pedidos",
+                        "/personas/pedidos",
                         pedidoNuevo
                     );
                 respuesta.EnsureSuccessStatusCode();
@@ -59,7 +60,7 @@ namespace Servicios
             using (var cliente = new HttpClient())
             {
                 cliente.BaseAddress = this.uri;
-                var response = cliente.GetAsync("api/menu/pedidos").Result;
+                var response = cliente.GetAsync("/personas/pedidos").Result;
                 response.EnsureSuccessStatusCode();
                 pedidosObtenidos = response.Content.ReadAsAsync<ObservableCollection<PedidoModelo>>().Result;
             }
@@ -72,13 +73,25 @@ namespace Servicios
                 clienteHttp.BaseAddress = this.uri;
                 ValidadorRespuestaHttp.Validar(
                     await clienteHttp.PatchAsJsonAsync(
-                        "api/menu/pedidos",
+                        "api/alimentos/pedidos",
                         pedido
                     )
                 );
             }
         }
-
+        public void AgregarAlimentoAPedido(AlimentoPedidoModelo alimento)
+        {
+            using (var clienteHttp = new HttpClient())
+            {
+                clienteHttp.BaseAddress = this.uri;
+                HttpResponseMessage respuesta =
+                    clienteHttp.PatchAsJsonAsync(
+                        "menu/alimentos",
+                        alimento
+                    ).Result;
+                ValidadorRespuestaHttp.Validar(respuesta);
+            }
+        }
 
         public async void ConectarAMenu()
         {
@@ -109,9 +122,10 @@ namespace Servicios
             this.servidor.Dispose();
         }
 
-        public async void AgregarAlimentoAPedido(AlimentoModelo alimento)
+        /*
+        public async void AgregarAlimentoAPedido(AlimentoPedidoModelo alimento)
         {
             await this.servidor.EmitAsync("AgregarAlimentoAPedido", alimento);
-        }
+        }*/        
     }
 }

@@ -16,9 +16,10 @@ namespace VistaModelo
     {
         public ICollectionView Menu { private set; get; }
         public ICollectionView Pedido { private set; get; }
-        private ObservableCollection<AlimentoModelo> alimentosPedidos =
-            new ObservableCollection<AlimentoModelo>();
+        private ObservableCollection<AlimentoPedidoModelo> alimentosPedidos =
+            new ObservableCollection<AlimentoPedidoModelo>();
         private readonly MenuMgr menuMgr;
+        private readonly ConsultanteMgr consultanteMgr;
 
         private double total = 0;
         public double Total 
@@ -33,33 +34,51 @@ namespace VistaModelo
         public MenuVistaModelo()
         {
             this.menuMgr = new MenuMgr();
+            this.consultanteMgr = new ConsultanteMgr();
             this.Menu = CollectionViewSource.GetDefaultView(menuMgr.Menu);
             this.Pedido = CollectionViewSource.GetDefaultView(this.alimentosPedidos);
-            this.menuMgr.ConectarAMenu();
+            //this.menuMgr.ConectarAMenu();
         }
 
         public void AgregarAlimentoAPedido(AlimentoModelo alimento)
         {
-            alimento.Cantidad += 1;
-            if (!alimentosPedidos.Contains(alimento))
+            if (!alimentosPedidos.Any(a => a.IdAlimento == alimento.Id))
             {
-                alimentosPedidos.Add(alimento);
+                alimentosPedidos.Add(new AlimentoPedidoModelo
+                {
+                    IdAlimento = alimento.Id,
+                    IdAlimentoNavigation = alimento,
+                    Cantidad = 1
+                });
+            }
+            else
+            {
+                alimentosPedidos.First(a => a.IdAlimento == alimento.Id)
+                                .Cantidad += 1;
             }
             this.Total += alimento.Precio;
-            this.menuMgr.AgregarAlimentoAPedido(alimento);
+            /*
+            AlimentoPedidoModelo alimentoPedido = new AlimentoPedidoModelo()
+            {
+                IdAlimento = alimento.Id,
+                Cantidad = 1
+            };*/
+            //this.menuMgr.AgregarAlimentoAPedido(alimentoPedido);
         }
 
         public void RegistrarPedido()
         {
-            this.menuMgr.RegistrarPedido(
+            this.consultanteMgr.RegistrarPedido(
                 new PedidoModelo()
                 {
-                    IdMiembro = Sesion.Miembro.id,
+                    IdMiembro = Sesion.Miembro.Id,
+                    //IdMiembroNavigation = Sesion.Miembro,
                     Total = this.Total,
-                    estado = Estados.Ordenado,
-                    Alimentos = this.alimentosPedidos,
+                    EstadoEnum = Estados.Ordenado,
+                    Alimentospedidos = this.alimentosPedidos,
+                    Fecha = DateTime.Now,
                 }
-            );
+            ); ;;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
