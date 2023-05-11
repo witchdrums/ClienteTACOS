@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace Modelo
 {
@@ -31,6 +36,20 @@ namespace Modelo
 
 
         //Otros
+        public BitmapSource ImagenConvertida => byteArrayToImage();
+        public BitmapSource byteArrayToImage()
+        {
+            Bitmap bitmap;
+            using (var stream = new MemoryStream(Imagen))
+            {
+                bitmap = new Bitmap(stream);
+            }
+            var puntero = bitmap.GetHbitmap();
+
+            return Imaging.CreateBitmapSourceFromHBitmap(puntero, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            
+        }
+
         private int cantidad;
         public int Cantidad
         {
