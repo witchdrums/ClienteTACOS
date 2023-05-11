@@ -71,8 +71,8 @@ namespace VistaModelo
             this.consultanteMgr.RegistrarPedido(
                 new PedidoModelo()
                 {
-                    IdMiembro = Sesion.Miembro.Id,
-                    //IdMiembroNavigation = Sesion.Miembro,
+                    IdMiembro = Sesion.Persona.Miembros[0].Id,
+                    //IdMiembroNavigation = Sesion.Persona,
                     Total = this.Total,
                     EstadoEnum = Estados.Ordenado,
                     Alimentospedidos = this.alimentosPedidos,
