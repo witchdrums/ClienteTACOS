@@ -9,7 +9,7 @@ namespace Modelo
     public sealed class Sesion
     {
         private static readonly Sesion instancia = new Sesion();
-        public static MiembroModelo Miembro { get; set; }
+        public static PersonaModelo Persona { get; set; }
 
         static Sesion()
         {

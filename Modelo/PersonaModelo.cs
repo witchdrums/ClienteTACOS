@@ -23,7 +23,7 @@ namespace Modelo
         public string Telefono { get; set; } 
 
 
-        //public List<IdMiembroNavigation> Miembros { get; set; } = new List<IdMiembroNavigation>();
+        public List<MiembroModelo> Miembros { get; set; } = new List<MiembroModelo>();
 
     }
 }

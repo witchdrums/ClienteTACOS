@@ -41,7 +41,7 @@
             Grid.Row="1"
             VerticalContentAlignment="Center"
             Watermark="Email"
-            Text="{Binding MiembroModelo.persona.email, Mode=TwoWay}"/>
+            Text="{Binding MiembroModelo.Email, Mode=TwoWay}"/>
             <xctk:WatermarkPasswordBox
             Name="PasswordBox"
             Grid.Row="2"
@@ -51,27 +51,27 @@
             Grid.Row="4"
             VerticalContentAlignment="Center"
             Watermark="Nombre(s)"
-            Text="{Binding MiembroModelo.persona.nombre, Mode=TwoWay}"/>
+            Text="{Binding MiembroModelo.Nombre, Mode=TwoWay}"/>
             <xctk:WatermarkTextBox
             Grid.Row="5"
             VerticalContentAlignment="Center"
             Watermark="Apellido paterno"
-            Text="{Binding MiembroModelo.persona.apellidoPaterno, Mode=TwoWay}"/>
+            Text="{Binding MiembroModelo.ApellidoPaterno, Mode=TwoWay}"/>
             <xctk:WatermarkTextBox
             Grid.Row="6"
             VerticalContentAlignment="Center"
             Watermark="Apellido materno"
-            Text="{Binding MiembroModelo.persona.apellidoMaterno, Mode=TwoWay}"/>
+            Text="{Binding MiembroModelo.ApellidoMaterno, Mode=TwoWay}"/>
             <xctk:WatermarkTextBox
             Grid.Row="7"
             VerticalContentAlignment="Center"
             Watermark="Dirección"
-            Text="{Binding MiembroModelo.persona.direccion, Mode=TwoWay}"/>
+            Text="{Binding MiembroModelo.Direccion, Mode=TwoWay}"/>
             <xctk:WatermarkTextBox
             Grid.Row="8"
             VerticalContentAlignment="Center"
             Watermark="Teléfono"
-            Text="{Binding MiembroModelo.persona.telefono, Mode=TwoWay}"/>
+            Text="{Binding MiembroModelo.Telefono, Mode=TwoWay}"/>
             <Grid
                 Grid.Row="10">
                 <Grid.ColumnDefinitions>

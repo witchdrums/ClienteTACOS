@@ -17,35 +17,53 @@ namespace Servicios
         private Uri uri = new Uri(Properties.Recursos.direccion);
 
         public ConsultanteMgr() { }
-        public void RegistrarMiembro(MiembroModelo nuevoMiembro)
+        public void RegistrarMiembro(PersonaModelo persona)
         {            
             using (var clienteHttp = new HttpClient())
             {
-                clienteHttp.BaseAddress = new Uri("http://localhost:8083");
+                clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta = 
                     clienteHttp.PostAsJsonAsync(
-                        "api/miembros", 
-                        nuevoMiembro
+                        "persona", 
+                        persona
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
             }
 
         }
-        public MiembroModelo IniciarSesion(string email, string contrasena)
+        public PersonaModelo IniciarSesion(string email, string contrasena)
         {
-            MiembroModelo miembroObtenido = new MiembroModelo();
+            PersonaModelo personaObtenida = new PersonaModelo()
+            {
+                Id = 2,
+                Nombre = "asdf",
+                ApellidoMaterno = "sadf",
+                ApellidoPaterno = "354",
+                Direccion = "fdsa",
+                Telefono = "fgdsa",
+                Email = email,
+                Miembros = new List<MiembroModelo>() { 
+                    new MiembroModelo 
+                    { 
+                        Id = 3,
+                        IdPersona = 2,
+                        Contrasena = contrasena 
+                    } 
+                }
+            };
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
                     clienteHttp.PostAsJsonAsync(
-                        "personas/miembros",
-                        new { Email = email, Contrasena = contrasena }
+                        "miembros",
+                        //new { Email = email, Contrasena = contrasena }
+                        personaObtenida
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
-                miembroObtenido = respuesta.Content.ReadAsAsync<MiembroModelo>().Result;
+                personaObtenida = respuesta.Content.ReadAsAsync<PersonaModelo>().Result;
             }
-            return miembroObtenido;
+            return personaObtenida;
         }
         public async void RegistrarPedido(PedidoModelo pedidoNuevo)
         {

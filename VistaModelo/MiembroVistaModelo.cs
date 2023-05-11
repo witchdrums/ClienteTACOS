@@ -10,25 +10,26 @@ namespace VistaModelo
 {
     public class MiembroVistaModelo
     {
-        public MiembroModelo MiembroModelo { get; set; }
+        public PersonaModelo MiembroModelo { get; set; }
         private ConsultanteMgr consultanteMgr { get; set; }
 
         public MiembroVistaModelo()
         { 
-            this.MiembroModelo = new MiembroModelo();
+            this.MiembroModelo = new PersonaModelo();
+            this.MiembroModelo.Miembros.Add(new MiembroModelo());
             this.consultanteMgr = new ConsultanteMgr();
         }
 
         public void RegistrarMiembro(string contrasena)
         {
-            this.MiembroModelo.Contrasena = contrasena;
-            this.MiembroModelo.PedidosPagados = 0;
+            this.MiembroModelo.Miembros[0].Contrasena = contrasena;
+            this.MiembroModelo.Miembros[0].PedidosPagados = 0;
             this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
         }
 
         public void IniciarSesion(string email, string contrasena)
         {
-            Sesion.Miembro = this.consultanteMgr.IniciarSesion(email, contrasena);
+            Sesion.Persona = this.consultanteMgr.IniciarSesion(email, contrasena);
         }
     }
 }
