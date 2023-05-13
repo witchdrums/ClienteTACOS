@@ -14,9 +14,34 @@
         <Button Click="IniciarSesion">
             Iniciar Sesión
         </Button>
-        <Frame 
-            Grid.Row="1"
-            Name="Frame" 
-            NavigationUIVisibility="Hidden"/>
+        <TabControl 
+            TabStripPlacement="Left"
+            Grid.Row="1">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <ContentPresenter Content="{TemplateBinding Content}">
+                                    <ContentPresenter.LayoutTransform>
+                                        <RotateTransform Angle="270" />
+                                    </ContentPresenter.LayoutTransform>
+                                </ContentPresenter>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Padding" Value="3" />
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Menu">
+                <Frame 
+                    Grid.Row="1"
+                    Name="Frame" 
+                    NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem Header="Reseñas" />
+            <TabItem Header="Pedidos" />
+
+        </TabControl>
     </Grid>
 </Window>
