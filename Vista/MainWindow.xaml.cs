@@ -20,17 +20,22 @@ namespace Vista
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            //this.NavigationService.Navigate(new Menu(new MenuVistaModelo()));
+            this.Frame.Navigate(new Menu(new MenuVistaModelo()));
             //this.Frame_Main.Navigate(new RegistrarMiembro());
             //this.Frame_Main.Navigate(new PanelPrincipal());
-            this.NavigationService.Navigate(new InicioDeSesion());
+            //this.NavigationService.Navigate(new InicioDeSesion());
             //this.NavigationService.Navigate(new GestionarPedidos());
             //this.NavigationService.Navigate(new TestPage());
         }
+        private void IniciarSesion(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(new InicioDeSesion());
+        }
+
     }
 }

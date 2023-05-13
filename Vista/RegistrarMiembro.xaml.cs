@@ -34,8 +34,8 @@ namespace Vista
             {
                 MiembroVistaModelo contexto = this.DataContext as MiembroVistaModelo;
                 contexto.RegistrarMiembro(this.PasswordBox.Password);
-                Confirmacion dialogo = new Confirmacion(contexto);
-                dialogo.ShowDialog();
+                Confirmacion confirmacino = new Confirmacion(contexto);
+                confirmacino.ShowDialog();
             }
             catch (HttpRequestException excepcion)
             {

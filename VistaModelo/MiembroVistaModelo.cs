@@ -13,6 +13,8 @@ namespace VistaModelo
         public PersonaModelo MiembroModelo { get; set; }
         private ConsultanteMgr consultanteMgr { get; set; }
 
+
+
         public MiembroVistaModelo()
         { 
             this.MiembroModelo = new PersonaModelo();
@@ -24,18 +26,17 @@ namespace VistaModelo
         {
             this.MiembroModelo.Miembros[0].Contrasena = contrasena;
             this.MiembroModelo.Miembros[0].PedidosPagados = 0;
-            this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
+            Sesion.Persona = this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
         }
 
-        public bool IniciarSesion(string email, string contrasena)
+        public void IniciarSesion(string email, string contrasena)
         {
             Sesion.Persona = this.consultanteMgr.IniciarSesion(email, contrasena);
-            return Sesion.Persona.Miembros.ElementAt(0).CodigoConfirmacion == 0;
         }
 
-        public bool EnviarCodigoConfirmacion(PersonaModelo persona)
+        public void EnviarCodigoConfirmacion(PersonaModelo persona)
         {
-            return true;
+            Sesion.Persona = this.consultanteMgr.ConfirmarRegistro(persona);
         }
     }
 }

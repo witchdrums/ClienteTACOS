@@ -17,8 +17,9 @@ namespace Servicios
         private Uri uri = new Uri(Properties.Recursos.direccion);
 
         public ConsultanteMgr() { }
-        public void RegistrarMiembro(PersonaModelo persona)
+        public PersonaModelo RegistrarMiembro(PersonaModelo persona)
         {            
+            PersonaModelo personaRegistrada = new PersonaModelo();
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
@@ -28,12 +29,26 @@ namespace Servicios
                         persona
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
+                personaRegistrada = respuesta.Content.ReadAsAsync<PersonaModelo>().Result;
             }
+            return personaRegistrada;
         }
 
-        public void ConfirmarRegistro(PersonaModelo persona)
-        { 
-            
+        public PersonaModelo ConfirmarRegistro(PersonaModelo persona)
+        {
+            PersonaModelo personaRegistrada = new PersonaModelo();
+            using (var clienteHttp = new HttpClient())
+            {
+                clienteHttp.BaseAddress = this.uri;
+                HttpResponseMessage respuesta =
+                    clienteHttp.PutAsJsonAsync(
+                        "persona",
+                        persona
+                    ).Result;
+                ValidadorRespuestaHttp.Validar(respuesta);
+                personaRegistrada = respuesta.Content.ReadAsAsync<PersonaModelo>().Result;
+            }
+            return personaRegistrada;
         }
 
         public PersonaModelo IniciarSesion(string email, string contrasena)

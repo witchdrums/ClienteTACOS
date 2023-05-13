@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Modelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -44,26 +46,30 @@ namespace Vista
         {
             try
             {
-                bool miembroConfirmado = 
-                    (this.DataContext as MiembroVistaModelo).IniciarSesion(
-                        this.TextBox_Email.Text,
-                        this.TextBox_Contrasena.Password
-                    );
-                //Page siguientePagina = miembroConfirmado ? new Menu(new MenuVistaModelo()) : new ConfirmarRegistro();
-                if ( miembroConfirmado ) 
+                MiembroVistaModelo contexto = this.DataContext as MiembroVistaModelo;
+                contexto.IniciarSesion(
+                    this.TextBox_Email.Text,
+                    this.TextBox_Contrasena.Password
+                );
+                if ( !Sesion.MiembroConfirmado ) 
                 {
-                    this.NavigationService.Navigate(new Menu(new MenuVistaModelo()));
+                    Confirmacion confirmacino = new Confirmacion(contexto);
+                    confirmacino.ShowDialog();
                 }
                 else
                 {
-                    //this.NavigationService.Navigate(new ConfirmarRegistro());
+                    this.NavigationService.GoBack();
                 }
-
             }
             catch (HttpRequestException excepcion)
             {
                 MessageBox.Show(excepcion.Message);
             }
+        }
+
+        private void Regresar(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
     }
 }

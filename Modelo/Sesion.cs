@@ -10,7 +10,7 @@ namespace Modelo
     {
         private static readonly Sesion instancia = new Sesion();
         public static PersonaModelo Persona { get; set; }
-
+        public static bool MiembroConfirmado => Persona.Miembros.ElementAt(0).CodigoConfirmacion == 0;
         static Sesion()
         {
         }
