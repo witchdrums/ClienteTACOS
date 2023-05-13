@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -31,7 +32,10 @@ namespace Vista
         {
             try
             {
-                (this.DataContext as MiembroVistaModelo).RegistrarMiembro(this.PasswordBox.Password);
+                MiembroVistaModelo contexto = this.DataContext as MiembroVistaModelo;
+                contexto.RegistrarMiembro(this.PasswordBox.Password);
+                Confirmacion dialogo = new Confirmacion(contexto);
+                dialogo.ShowDialog();
             }
             catch (HttpRequestException excepcion)
             {

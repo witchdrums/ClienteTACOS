@@ -13,6 +13,7 @@ namespace Modelo
         public string Contrasena { set; get; }
         public int PedidosPagados { set; get; }
         public int IdPersona { get; set; }
+        public int CodigoConfirmacion { set; get; }
         public PersonaModelo Persona { set; get; }
 
         [JsonIgnore]

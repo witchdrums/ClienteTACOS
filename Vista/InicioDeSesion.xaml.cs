@@ -44,11 +44,21 @@ namespace Vista
         {
             try
             {
-                (this.DataContext as MiembroVistaModelo).IniciarSesion(
-                    this.TextBox_Email.Text,
-                    this.TextBox_Contrasena.Password
-                );
-                this.NavigationService.Navigate(new Menu(new MenuVistaModelo()));
+                bool miembroConfirmado = 
+                    (this.DataContext as MiembroVistaModelo).IniciarSesion(
+                        this.TextBox_Email.Text,
+                        this.TextBox_Contrasena.Password
+                    );
+                //Page siguientePagina = miembroConfirmado ? new Menu(new MenuVistaModelo()) : new ConfirmarRegistro();
+                if ( miembroConfirmado ) 
+                {
+                    this.NavigationService.Navigate(new Menu(new MenuVistaModelo()));
+                }
+                else
+                {
+                    //this.NavigationService.Navigate(new ConfirmarRegistro());
+                }
+
             }
             catch (HttpRequestException excepcion)
             {

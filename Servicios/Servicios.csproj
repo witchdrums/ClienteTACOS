@@ -103,6 +103,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Recursos.resx</DependentUpon>
     </Compile>
+    <Compile Include="Respuesta.cs" />
     <Compile Include="ValidadorRespuestaHttp.cs" />
     <Compile Include="MenuMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

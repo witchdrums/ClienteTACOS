@@ -29,35 +29,25 @@ namespace Servicios
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
             }
-
         }
+
+        public void ConfirmarRegistro(PersonaModelo persona)
+        { 
+            
+        }
+
         public PersonaModelo IniciarSesion(string email, string contrasena)
         {
-            PersonaModelo personaObtenida = new PersonaModelo()
-            {
-                Id = 2,
-                Nombre = "asdf",
-                ApellidoMaterno = "sadf",
-                ApellidoPaterno = "354",
-                Direccion = "fdsa",
-                Telefono = "fgdsa",
-                Email = email,
-                Miembros = new List<MiembroModelo>() { 
-                    new MiembroModelo 
-                    { 
-                        Id = 3,
-                        IdPersona = 2,
-                        Contrasena = contrasena 
-                    } 
-                }
-            };
+            PersonaModelo personaObtenida = new PersonaModelo();
+            personaObtenida.LlenarPropiedades();
+            personaObtenida.Email = email;
+            personaObtenida.Miembros.ElementAt(0).Contrasena = contrasena;
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
                     clienteHttp.PostAsJsonAsync(
                         "miembros",
-                        //new { Email = email, Contrasena = contrasena }
                         personaObtenida
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
