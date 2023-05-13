@@ -96,14 +96,21 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="10,15">
+                    <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
+                        <Image
+                            Grid.Column="0"
+                            Source="{Binding ImagenConvertida}">
+                            
+                        </Image>
+                        <Grid Grid.Column="1"
+                              Margin="10,15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
@@ -113,19 +120,21 @@
                             <TextBlock 
                                 Grid.Row="0"
                                 Text="{Binding Nombre}"
-                                FontSize="15"/>
+                                FontSize="20"/>
                             <TextBlock 
                                 Grid.Row="1"
-                                Text="{Binding Descripcion}"/>
+                                Text="{Binding Descripcion}"
+                                FontSize="15"/>
                             <TextBlock 
                                 Grid.Row="2"
+                                FontSize="15"
                                 Text="{Binding Existencia,
                                        StringFormat='Disponibles: {0}'}"/>
                         </Grid>
-                        <Button Grid.Column="1"/>
                         <Button Grid.Column="2"/>
+                        <Button Grid.Column="3"/>
                         <Button 
-                            Grid.Column="3"
+                            Grid.Column="4"
                             Tag="{Binding }"
                             Name="Button_AgregarAlimentoAPedido"
                             Click="AgregarAlimentoAPedido"

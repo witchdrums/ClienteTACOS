@@ -30,6 +30,7 @@ namespace Vista
             //this.Frame_Main.Navigate(new PanelPrincipal());
             this.NavigationService.Navigate(new InicioDeSesion());
             //this.NavigationService.Navigate(new GestionarPedidos());
+            //this.NavigationService.Navigate(new TestPage());
         }
     }
 }

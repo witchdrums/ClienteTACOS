@@ -27,9 +27,15 @@ namespace VistaModelo
             this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
         }
 
-        public void IniciarSesion(string email, string contrasena)
+        public bool IniciarSesion(string email, string contrasena)
         {
             Sesion.Persona = this.consultanteMgr.IniciarSesion(email, contrasena);
+            return Sesion.Persona.Miembros.ElementAt(0).CodigoConfirmacion == 0;
+        }
+
+        public bool EnviarCodigoConfirmacion(PersonaModelo persona)
+        {
+            return true;
         }
     }
 }
