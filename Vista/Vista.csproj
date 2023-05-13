@@ -85,6 +85,9 @@
     <Compile Include="RegistrarMiembro.xaml.cs">
       <DependentUpon>RegistrarMiembro.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Subventana.xaml.cs">
+      <DependentUpon>Subventana.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TestPage.xaml.cs">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RegistrarMiembro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Subventana.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

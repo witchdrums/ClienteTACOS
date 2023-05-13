@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Vista"
         mc:Ignorable="d"
         Title="Confirmacion" Height="350" Width="500"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Closing="Window_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -41,6 +42,7 @@
             <TextBox 
                 Grid.Row="1"
                 Margin="15"
+                Name="TextBox_Codigo"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 FontSize="23"
