@@ -15,14 +15,12 @@ namespace Modelo
         public double Total { set; get; }
         public DateTime Fecha { set; get; }
         public int IdMiembro { set; get; }
-        public string Estado => EstadoEnum.ToString();
+        public int Estado { set; get; }
         public ObservableCollection<AlimentoPedidoModelo> Alimentospedidos { get; set; }
         public MiembroModelo IdMiembroNavigation { set; get; }
 
 
         [JsonIgnore]
-        public int idEstado => (int)EstadoEnum;
-        [JsonIgnore]
-        public Estados EstadoEnum { set; get; }
+        public string EstadoStr => ((Estados)Estado).ToString();
     }
 }
