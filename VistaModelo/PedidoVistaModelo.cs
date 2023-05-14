@@ -17,7 +17,7 @@ namespace VistaModelo
         public ICollectionView Pedidos { get; private set; }
         public ICollectionView Estados { get; private set; }
         private ObservableCollection<PedidoModelo> pedidos;
-        private MenuMgr menuMgr = new MenuMgr();
+        private ConsultanteMgr consultanteMgr = new ConsultanteMgr();
 
         public PedidoVistaModelo() 
         {
@@ -34,14 +34,14 @@ namespace VistaModelo
         private void MostrarPedidos() 
         {
             this.Pedidos = CollectionViewSource.GetDefaultView(
-                this.menuMgr.ObtenerPedidos()
+                this.consultanteMgr.ObtenerPedidos()
             );
         }
         public void CambiarEstado(Modelo.Estados nuevoEstado)
         {
             PedidoModelo pedidoSeleccionado = (this.Pedidos.CurrentItem as PedidoModelo);
-            pedidoSeleccionado.EstadoEnum = nuevoEstado;
-            this.menuMgr.ActualizarPedido(pedidoSeleccionado);
+            pedidoSeleccionado.Estado = (int)nuevoEstado;
+            this.consultanteMgr.ActualizarPedido(pedidoSeleccionado);
         }
     }
 }

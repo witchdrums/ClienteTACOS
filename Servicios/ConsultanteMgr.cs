@@ -78,7 +78,7 @@ namespace Servicios
                 Console.WriteLine(JsonConvert.SerializeObject(pedidoNuevo).ToString());
                 HttpResponseMessage respuesta =
                     await clienteHttp.PostAsJsonAsync(
-                        "/personas/pedidos",
+                        "pedidos",
                         pedidoNuevo
                     );
                 ValidadorRespuestaHttp.Validar(respuesta);
@@ -90,9 +90,11 @@ namespace Servicios
             using (var cliente = new HttpClient())
             {
                 cliente.BaseAddress = this.uri;
-                var response = cliente.GetAsync("/personas/pedidos").Result;
-                response.EnsureSuccessStatusCode();
-                pedidosObtenidos = response.Content.ReadAsAsync<ObservableCollection<PedidoModelo>>().Result;
+                var respuesta = cliente.GetAsync("pedidos").Result;
+                ValidadorRespuestaHttp.Validar(respuesta);
+                pedidosObtenidos = respuesta.Content
+                                            .ReadAsAsync<ObservableCollection<PedidoModelo>>()
+                                            .Result;
             }
             return pedidosObtenidos;
         }
@@ -103,7 +105,7 @@ namespace Servicios
                 clienteHttp.BaseAddress = this.uri;
                 ValidadorRespuestaHttp.Validar(
                     await clienteHttp.PatchAsJsonAsync(
-                        "api/alimentos/pedidos",
+                        "pedidos",
                         pedido
                     )
                 );

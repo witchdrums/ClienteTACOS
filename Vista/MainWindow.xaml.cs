@@ -25,7 +25,8 @@ namespace Vista
         public MainWindow()
         {
             InitializeComponent();
-            this.Frame.Navigate(new Menu(new MenuVistaModelo()));
+            //this.Frame.Navigate(new Menu(new MenuVistaModelo()));
+            this.Frame.Navigate(new GestionarPedidos());
             //this.Frame_Main.Navigate(new RegistrarMiembro());
             //this.Frame_Main.Navigate(new PanelPrincipal());
             //this.NavigationService.Navigate(new InicioDeSesion());

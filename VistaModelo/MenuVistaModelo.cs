@@ -74,7 +74,7 @@ namespace VistaModelo
                     IdMiembro = Sesion.Persona.Miembros[0].Id,
                     //IdMiembroNavigation = Sesion.Persona,
                     Total = this.Total,
-                    EstadoEnum = Estados.Ordenado,
+                    Estado = (int)Estados.Ordenado,
                     Alimentospedidos = this.alimentosPedidos,
                     Fecha = DateTime.Now,
                 }
