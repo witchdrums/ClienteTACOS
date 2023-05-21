@@ -11,9 +11,9 @@ namespace Modelo
     {
         public int Id { set; get; }
         public string Contrasena { set; get; }
-        public int PedidosPagados { set; get; }
+        public int? PedidosPagados { set; get; }
         public int IdPersona { get; set; }
-        public int CodigoConfirmacion { set; get; }
+        public int? CodigoConfirmacion { set; get; }
         public PersonaModelo Persona { set; get; }
 
         [JsonIgnore]

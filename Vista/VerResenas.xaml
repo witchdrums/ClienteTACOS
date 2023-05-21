@@ -1,0 +1,84 @@
+﻿<Page x:Class="Vista.VerResenas"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Vista"
+      mc:Ignorable="d" 
+      Background="White"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="VerResenas">
+
+    <Grid>
+        <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding Resenas}"
+            IsSynchronizedWithCurrentItem="True"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" 
+                                       Text="{Binding Fecha, StringFormat=dd-MM-yyyy}"/>
+                            <Image Grid.Row="1"
+                            Source="ImagenesEstaticas/ImagenPerfilUsuario.jpg"/>
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" 
+                                       Text="{Binding Miembro.Persona.NombreUsuario}"/>
+                        </Grid>
+                        <Grid Grid.Column="1"
+                              Margin="10,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock 
+                                Grid.Row="0"
+                                Text="{Binding Descripcion}"
+                                FontSize="20"
+                                TextWrapping="Wrap"/>
+                            <Grid Grid.Row ="1">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Grid.Row="1"  RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                       Source="{Binding ImagenConvertida}" Width="200" Height="200" />
+
+                            </Grid>
+                        </Grid>
+                        <Button 
+                            Grid.Column="2"
+                            Tag="{Binding}"
+                            Name="Button_EliminarResena"
+                            Click="EliminarResenaSeleccionada"
+                            Content="X"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

@@ -16,19 +16,25 @@ using VistaModelo;
 
 namespace Vista
 {
-    /// <summary>
-    /// Interaction logic for PanelPrincipal.xaml
-    /// </summary>
     public partial class PanelPrincipal : Page
     {
         public PanelPrincipal()
         {
             InitializeComponent();
+            this.Frame_Menu.Navigate(new Menu(new MenuVistaModelo()));
         }
-
+        private void IniciarSesion(object sender, RoutedEventArgs e)
+        {
+           NavigationService.Navigate(new InicioDeSesion());
+        }
         private void CargarMenu(object sender, RoutedEventArgs e)
         {
             this.Frame_Menu.Navigate(new Menu(new MenuVistaModelo()));
+        }
+
+        private void CargarResenas(object sender, RoutedEventArgs e)
+        {
+            this.Frame_VerResenas.Navigate(new VerResenas(new ResenaVistaModelo()));
         }
     }
 }
