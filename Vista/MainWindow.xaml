@@ -5,43 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vista"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Button Click="IniciarSesion">
-            Iniciar Sesión
-        </Button>
-        <TabControl 
-            TabStripPlacement="Left"
-            Grid.Row="1">
-            <TabControl.Resources>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="HeaderTemplate">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <ContentPresenter Content="{TemplateBinding Content}">
-                                    <ContentPresenter.LayoutTransform>
-                                        <RotateTransform Angle="270" />
-                                    </ContentPresenter.LayoutTransform>
-                                </ContentPresenter>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Padding" Value="3" />
-                </Style>
-            </TabControl.Resources>
-            <TabItem Header="Menu">
-                <Frame 
-                    Grid.Row="1"
-                    Name="Frame" 
-                    NavigationUIVisibility="Hidden"/>
-            </TabItem>
-            <TabItem Header="Reseñas" />
-            <TabItem Header="Pedidos" />
-
-        </TabControl>
+        <Border Grid.Row="1" Margin="10">
+            <Frame x:Name="Frame_PagesNavigation" NavigationUIVisibility="Hidden" Margin="-10,-10,-10,-10">
+                <!-- Page Content -->
+            </Frame>
+        </Border>
     </Grid>
 </Window>

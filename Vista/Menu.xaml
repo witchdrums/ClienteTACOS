@@ -110,7 +110,6 @@
                         <Image
                             Grid.Column="0"
                             Source="{Binding ImagenConvertida}">
-                            
                         </Image>
                         <Grid Grid.Column="1"
                               Margin="10,15">

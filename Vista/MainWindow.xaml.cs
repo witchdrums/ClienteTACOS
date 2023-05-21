@@ -26,17 +26,15 @@ namespace Vista
         {
             InitializeComponent();
             //this.Frame.Navigate(new Menu(new MenuVistaModelo()));
-            this.Frame.Navigate(new GestionarPedidos());
+            //this.Frame.Navigate(new GestionarPedidos());
             //this.Frame_Main.Navigate(new RegistrarMiembro());
-            //this.Frame_Main.Navigate(new PanelPrincipal());
+            //this.Frame.Navigate(new PanelPrincipal());
             //this.NavigationService.Navigate(new InicioDeSesion());
             //this.NavigationService.Navigate(new GestionarPedidos());
             //this.NavigationService.Navigate(new TestPage());
+            //this.Frame.Navigate(new VerResenas(new ResenaVistaModelo()));
+            //Frame_PagesNavigation.Navigate(new PanelPrincipal());
+            this.Frame_PagesNavigation.Navigate(new PanelPrincipal());
         }
-        private void IniciarSesion(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(new InicioDeSesion());
-        }
-
     }
 }

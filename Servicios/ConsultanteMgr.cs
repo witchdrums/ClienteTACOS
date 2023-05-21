@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http.Json;
+using System.Runtime.Remoting.Contexts;
+using System.Windows;
 
 namespace Servicios
 {
@@ -110,6 +112,22 @@ namespace Servicios
                     )
                 );
             }
+        }
+
+        public ObservableCollection<ResenaModelo> ObtenerResenas()
+        {
+            ObservableCollection<ResenaModelo> resenas;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = this.uri;
+                client.DefaultRequestHeaders.Add("User-Agent", "Anything");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var respuesta = client.GetAsync("Resenas").Result;
+                respuesta.EnsureSuccessStatusCode();
+                resenas = respuesta.Content.ReadAsAsync<ObservableCollection<ResenaModelo>>().Result;
+            }
+            return resenas;
         }
     }
 }
