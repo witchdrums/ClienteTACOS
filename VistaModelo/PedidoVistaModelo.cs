@@ -23,6 +23,7 @@ namespace VistaModelo
         {
             MostrarEstados();
             MostrarPedidos();
+
         }
         private void MostrarEstados()
         {
