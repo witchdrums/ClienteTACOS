@@ -61,7 +61,7 @@ namespace Servicios.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://localhost:5087.
+        ///   Looks up a localized string similar to http://localhost:5174.
         /// </summary>
         internal static string direccion {
             get {

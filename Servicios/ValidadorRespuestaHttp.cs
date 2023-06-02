@@ -14,7 +14,7 @@ namespace Servicios
         public static void Validar(HttpResponseMessage respuesta)
         {
             if (!respuesta.IsSuccessStatusCode)
-            {
+            {   
                 throw new HttpRequestException(
                     respuesta.Content.ReadAsAsync<Error>().Result.Mensaje
                 );
@@ -23,6 +23,8 @@ namespace Servicios
         private class Error
         {
             public string Mensaje { get; set; }
+
+     
         }
     }
 

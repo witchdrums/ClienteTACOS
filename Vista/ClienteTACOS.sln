@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VistaModelo", "..\VistaMode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicios", "..\Servicios\Servicios.csproj", "{DF857900-529F-44E9-8894-56710C41F0C6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TACOS", "..\..\API-TACOS-CSharp2\TACOS.csproj", "{49AAC836-21A7-419D-A34E-3E9B98A58E81}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TACOSGateway", "..\..\API-TACOS-CSharp2\TACOSGateway\TACOSGateway.csproj", "{06EF0737-2D78-4E43-A5ED-141501EC1C5C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TACOSMenuAPI", "..\..\API-TACOS-CSharp2\TACOSMenuAPI\TACOSMenuAPI.csproj", "{11B76AEE-A6BC-43ED-98AE-6E9DAD930626}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TACOSImagenesAPI", "..\..\TACOSImagenesAPI\TACOSImagenesAPI.csproj", "{BAE9313C-3D24-4D01-B571-F913E22B1377}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,22 @@ Global
 		{DF857900-529F-44E9-8894-56710C41F0C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF857900-529F-44E9-8894-56710C41F0C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF857900-529F-44E9-8894-56710C41F0C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49AAC836-21A7-419D-A34E-3E9B98A58E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49AAC836-21A7-419D-A34E-3E9B98A58E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49AAC836-21A7-419D-A34E-3E9B98A58E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49AAC836-21A7-419D-A34E-3E9B98A58E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06EF0737-2D78-4E43-A5ED-141501EC1C5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06EF0737-2D78-4E43-A5ED-141501EC1C5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06EF0737-2D78-4E43-A5ED-141501EC1C5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06EF0737-2D78-4E43-A5ED-141501EC1C5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11B76AEE-A6BC-43ED-98AE-6E9DAD930626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B76AEE-A6BC-43ED-98AE-6E9DAD930626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B76AEE-A6BC-43ED-98AE-6E9DAD930626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B76AEE-A6BC-43ED-98AE-6E9DAD930626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAE9313C-3D24-4D01-B571-F913E22B1377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE9313C-3D24-4D01-B571-F913E22B1377}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAE9313C-3D24-4D01-B571-F913E22B1377}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAE9313C-3D24-4D01-B571-F913E22B1377}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

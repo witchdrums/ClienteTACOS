@@ -25,8 +25,10 @@ namespace Vista
     /// </summary>
     public partial class InicioDeSesion : Page
     {
-        public InicioDeSesion()
+        private PanelPrincipalVistaModelo panelPrincipalVistaModelo;
+        public InicioDeSesion(PanelPrincipalVistaModelo panelPrincipalVistaModelo)
         {
+            this.panelPrincipalVistaModelo = panelPrincipalVistaModelo;
             InitializeComponent();
         }
 
@@ -58,6 +60,7 @@ namespace Vista
                 }
                 else
                 {
+                    panelPrincipalVistaModelo.CambiarEstadoSesion(true);
                     this.NavigationService.GoBack();
                 }
             }

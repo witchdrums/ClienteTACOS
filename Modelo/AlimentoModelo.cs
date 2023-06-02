@@ -30,7 +30,8 @@ namespace Modelo
             }
             get { return this.existencia; }
         }
-        public byte[] Imagen { set; get; }
+        public Imagen Imagen { set; get; }
+        public int IdImagen { set; get; }
         public double Precio { set; get; }
         public int IdCategoria { get; set; }
 
@@ -40,7 +41,7 @@ namespace Modelo
         public BitmapSource byteArrayToImage()
         {
             Bitmap bitmap;
-            using (var stream = new MemoryStream(Imagen))
+            using (var stream = new MemoryStream(Imagen.ImagenBytes))
             {
                 bitmap = new Bitmap(stream);
             }
