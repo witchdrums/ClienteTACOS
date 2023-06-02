@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+
+
+package IMG;
+
+
+
+
+
+message ImagenesRequest{
+
+  repeated int32 id = 1;
+
+}
+message Peticion {
+	repeated int32 id = 1;
+}
+
+
+
+message ImagenesResponse{
+	repeated Imagen imagen = 1;
+}
+
+message Imagen{
+	int32 id = 1;
+	string nombre = 2;
+	bytes imagen = 3;
+}
+
+service ImagenesService{
+
+  rpc ObtenerImagenes(ImagenesRequest) returns (ImagenesResponse);
+
+}

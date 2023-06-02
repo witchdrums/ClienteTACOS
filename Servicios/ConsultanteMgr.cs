@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Net.Http.Json;
 using System.Runtime.Remoting.Contexts;
 using System.Windows;
+using Modelo.PeticionesRespuestas;
 
 namespace Servicios
 {
@@ -19,67 +20,66 @@ namespace Servicios
         private Uri uri = new Uri(Properties.Recursos.direccion);
 
         public ConsultanteMgr() { }
-        public PersonaModelo RegistrarMiembro(PersonaModelo persona)
-        {            
-            PersonaModelo personaRegistrada = new PersonaModelo();
+        public MiembroModelo RegistrarMiembro(PersonaModelo persona)
+        {
+            MiembroModelo miembro = persona.Miembros.First();
+            miembro.Persona = persona;
+            persona.Miembros.Clear();
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta = 
                     clienteHttp.PostAsJsonAsync(
-                        "persona", 
-                        persona
+                        "miembro", 
+                        miembro
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
-                personaRegistrada = respuesta.Content.ReadAsAsync<PersonaModelo>().Result;
+                miembro = respuesta.Content.ReadAsAsync<MiembroModelo>().Result;
             }
-            return personaRegistrada;
+            return miembro;
         }
 
-        public PersonaModelo ConfirmarRegistro(PersonaModelo persona)
+        public void ConfirmarRegistro(MiembroModelo miembro)
         {
-            PersonaModelo personaRegistrada = new PersonaModelo();
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
                     clienteHttp.PutAsJsonAsync(
-                        "persona",
-                        persona
+                        "miembro",
+                        miembro
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
-                personaRegistrada = respuesta.Content.ReadAsAsync<PersonaModelo>().Result;
             }
-            return personaRegistrada;
+
         }
 
-        public PersonaModelo IniciarSesion(string email, string contrasena)
+        public Credenciales IniciarSesion(string email, string contrasena)
         {
-            PersonaModelo personaObtenida = new PersonaModelo();
-            personaObtenida.LlenarPropiedades();
-            personaObtenida.Email = email;
-            personaObtenida.Miembros.ElementAt(0).Contrasena = contrasena;
+            Credenciales credencialesObtenidas = new Credenciales();
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
                     clienteHttp.PostAsJsonAsync(
-                        "miembros",
-                        personaObtenida
+                        "Login",
+                        new { Email = email, Contrasena = contrasena}
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
-                personaObtenida = respuesta.Content.ReadAsAsync<PersonaModelo>().Result;
+                credencialesObtenidas = respuesta.Content.ReadAsAsync<Credenciales>().Result;
             }
-            return personaObtenida;
+            return credencialesObtenidas;
         }
         public async void RegistrarPedido(PedidoModelo pedidoNuevo)
         {
-            using (var clienteHttp = new HttpClient())
+            using (var cliente = new HttpClient())
             {
-                clienteHttp.BaseAddress = this.uri;
+                cliente.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                cliente.BaseAddress = this.uri;
                 Console.WriteLine(JsonConvert.SerializeObject(pedidoNuevo).ToString());
                 HttpResponseMessage respuesta =
-                    await clienteHttp.PostAsJsonAsync(
+                    await cliente.PostAsJsonAsync(
                         "pedidos",
                         pedidoNuevo
                     );
@@ -91,6 +91,8 @@ namespace Servicios
             ObservableCollection<PedidoModelo> pedidosObtenidos = new ObservableCollection<PedidoModelo>();
             using (var cliente = new HttpClient())
             {
+                cliente.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 var respuesta = cliente.GetAsync("pedidos").Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
@@ -102,11 +104,13 @@ namespace Servicios
         }
         public async void ActualizarPedido(PedidoModelo pedido)
         {
-            using (var clienteHttp = new HttpClient())
+            using (var cliente = new HttpClient())
             {
-                clienteHttp.BaseAddress = this.uri;
+                cliente.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                cliente.BaseAddress = this.uri;
                 ValidadorRespuestaHttp.Validar(
-                    await clienteHttp.PatchAsJsonAsync(
+                    await cliente.PatchAsJsonAsync(
                         "pedidos",
                         pedido
                     )

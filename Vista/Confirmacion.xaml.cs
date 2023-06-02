@@ -29,33 +29,31 @@ namespace Vista
 
         private void EnviarCodigo(object sender, RoutedEventArgs e)
         {
-            PersonaModelo persona;
-            if (Sesion.Persona.Id == 0)
+            MiembroModelo miembro;
+            if (Sesion.Credenciales.Miembro.Persona.Id == 0)
             {
-                persona = new PersonaModelo();
-                persona.LlenarPropiedades();
+                miembro = new MiembroModelo();
             }
             else
             {
-                persona = Sesion.Persona;
+                miembro = Sesion.Credenciales.Miembro;
             }
-            persona.Miembros.ElementAt(0).Id = Sesion.Persona.Miembros.ElementAt(0).Id;
-            persona.Miembros.ElementAt(0).CodigoConfirmacion = Int32.Parse(this.TextBox_Codigo.Text);
-            (this.DataContext as MiembroVistaModelo).EnviarCodigoConfirmacion(persona);
+            miembro.CodigoConfirmacion = Int32.Parse(this.TextBox_Codigo.Text);
+            (this.DataContext as MiembroVistaModelo).EnviarCodigoConfirmacion(miembro);
             this.Close();
         }
 
         private void Cancelar(object sender, RoutedEventArgs e)
         {
-            Sesion.Persona = null;
+            Sesion.Credenciales = null;
             this.Close();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (Sesion.Persona != null && !Sesion.MiembroConfirmado)
+            if (Sesion.Credenciales != null && !Sesion.MiembroConfirmado)
             {
-                Sesion.Persona = null;
+                Sesion.Credenciales = null;
             }
         }
     }

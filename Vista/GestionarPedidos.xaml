@@ -5,35 +5,105 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Vista"
       mc:Ignorable="d" 
+      xmlns:rh="http://schemas.rollinghours.com/wpf"
       xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
       d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:p="clr-namespace:Vista.Properties"
       Title="GestionarPedidos">
 
-    <Page.DataContext>
-        <vistaModelo:PedidoVistaModelo/>
-    </Page.DataContext>
-
+    
     <Grid>
-        <DataGrid
-            IsSynchronizedWithCurrentItem="True"
-            ItemsSource="{Binding Pedidos}"
-            AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Fecha}"/>
-                <DataGridTextColumn Binding="{Binding Total}"/>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding EstadoStr}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding DataContext.Estados, RelativeSource={RelativeSource AncestorType=DataGrid}}" SelectionChanged="CambiarEstado"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <TabControl>
+
+            <TabItem Header="Reportes">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <rh:DateRangePicker 
+                            From="{Binding DateRangeFrom, Source={x:Static p:Settings.Default}}"
+                            To="{Binding DateRangeTo, Source={x:Static p:Settings.Default}}"
+                            KindOfRange="{Binding DateRangeKind, Source={x:Static p:Settings.Default}}"
+                            VerticalAlignment="Center"/>
+                        <Button Grid.Column="1" Content="Consultar"/>
+                    </Grid>
+                    <Grid
+                        Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <DataGrid
+                            IsSynchronizedWithCurrentItem="True"
+                            ItemsSource="{Binding Pedidos}"
+                            AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn 
+                                Header="Miembro" 
+                                Width="*"
+                                Binding="{Binding Miembro.Persona.NombreCompleto}"/>
+                                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}"/>
+                                <DataGridTextColumn Header="Total" Binding="{Binding Total}"/>
+                                <DataGridTemplateColumn Header="Estado">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding EstadoStr}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding DataContext.Estados, RelativeSource={RelativeSource AncestorType=DataGrid}}" SelectionChanged="CambiarEstado"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+
+
+
+                    </Grid>
+                </Grid>
+
+                
+                
+
+            </TabItem>
+            <TabItem Header="Historial">
+                <DataGrid
+                    IsSynchronizedWithCurrentItem="True"
+                    ItemsSource="{Binding Pedidos}"
+                    AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn 
+                    Header="Miembro" 
+                    Width="*"
+                    Binding="{Binding Miembro.Persona.NombreCompleto}"/>
+                        <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}"/>
+                        <DataGridTextColumn Header="Total" Binding="{Binding Total}"/>
+                        <DataGridTemplateColumn Header="Estado">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EstadoStr}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding DataContext.Estados, RelativeSource={RelativeSource AncestorType=DataGrid}}" SelectionChanged="CambiarEstado"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

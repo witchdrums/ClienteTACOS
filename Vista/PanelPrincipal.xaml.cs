@@ -18,14 +18,18 @@ namespace Vista
 {
     public partial class PanelPrincipal : Page
     {
+        private PanelPrincipalVistaModelo vistaModelo;
         public PanelPrincipal()
         {
             InitializeComponent();
+            this.vistaModelo = (this.DataContext as PanelPrincipalVistaModelo);
+            this.vistaModelo.Perfil = this.Button_Perfil;
+            this.vistaModelo.Entrar = this.Button_Entrar;
             this.Frame_Menu.Navigate(new Menu(new MenuVistaModelo()));
         }
         private void IniciarSesion(object sender, RoutedEventArgs e)
         {
-           NavigationService.Navigate(new InicioDeSesion());
+           NavigationService.Navigate(new InicioDeSesion((this.DataContext as PanelPrincipalVistaModelo)));
         }
         private void CargarMenu(object sender, RoutedEventArgs e)
         {
@@ -35,6 +39,21 @@ namespace Vista
         private void CargarResenas(object sender, RoutedEventArgs e)
         {
             this.Frame_VerResenas.Navigate(new VerResenas(new ResenaVistaModelo()));
+        }
+
+        private void CargarPedidos(object sender, RoutedEventArgs e)
+        {
+            this.Frame_Pedidos.Navigate(new GestionarPedidos());
+        }
+
+        private void VerPerfil(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Salir(object sender, RoutedEventArgs e)
+        {
+            this.vistaModelo.Salir();
         }
     }
 }

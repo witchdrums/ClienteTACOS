@@ -22,5 +22,7 @@ namespace Modelo
 
         [JsonIgnore]
         public string EstadoStr => ((Estados)Estado).ToString();
+
+        public MiembroModelo Miembro { get; set; }
     }
 }

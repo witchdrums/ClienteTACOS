@@ -26,17 +26,18 @@ namespace VistaModelo
         {
             this.MiembroModelo.Miembros[0].Contrasena = contrasena;
             this.MiembroModelo.Miembros[0].PedidosPagados = 0;
-            Sesion.Persona = this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
+            Sesion.Credenciales = new Modelo.PeticionesRespuestas.Credenciales();
+            Sesion.Credenciales.Miembro = this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
         }
 
         public void IniciarSesion(string email, string contrasena)
         {
-            Sesion.Persona = this.consultanteMgr.IniciarSesion(email, contrasena);
+            Sesion.Credenciales = this.consultanteMgr.IniciarSesion(email, contrasena);
         }
 
-        public void EnviarCodigoConfirmacion(PersonaModelo persona)
+        public void EnviarCodigoConfirmacion(MiembroModelo persona)
         {
-            Sesion.Persona = this.consultanteMgr.ConfirmarRegistro(persona);
+            this.consultanteMgr.ConfirmarRegistro(persona);
         }
     }
 }

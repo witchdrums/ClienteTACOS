@@ -81,9 +81,11 @@
     <Compile Include="AlimentoModelo.cs" />
     <Compile Include="AlimentoPedidoModelo.cs" />
     <Compile Include="Estados.cs" />
+    <Compile Include="Imagen.cs" />
     <Compile Include="MiembroModelo.cs" />
     <Compile Include="PedidoModelo.cs" />
     <Compile Include="PersonaModelo.cs" />
+    <Compile Include="PeticionesRespuestas\Credenciales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResenaModelo.cs" />
     <Compile Include="Sesion.cs" />
