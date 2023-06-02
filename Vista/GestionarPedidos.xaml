@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:Vista"
       mc:Ignorable="d" 
       xmlns:rh="http://schemas.rollinghours.com/wpf"
+      xmlns:ScottPlot="clr-namespace:ScottPlot;assembly=ScottPlot.WPF"
+
       xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:p="clr-namespace:Vista.Properties"
@@ -68,6 +70,9 @@
                         </DataGrid>
 
 
+                        <ScottPlot:WpfPlot 
+                            Grid.Column="2"
+                            x:Name="WpfPlot1" />
 
 
                     </Grid>

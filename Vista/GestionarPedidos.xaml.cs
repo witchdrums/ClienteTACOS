@@ -25,6 +25,15 @@ namespace Vista
         public GestionarPedidos()
         {
             InitializeComponent();
+            double[] values = { 26, 20, 23, 7, 16 };
+            double[] positions = { 0, 1, 2, 3, 4 };
+            string[] labels = { "PHP", "JS", "C++", "GO", "VB" };
+
+            //WpfPlot1.Plot.AddBar(values, positions);
+            WpfPlot1.Plot.AddPie(values);
+            WpfPlot1.Plot.XTicks(positions, labels);
+            WpfPlot1.Plot.SetAxisLimits(yMin: 0);
+            WpfPlot1.Refresh();
         }
 
         private void CambiarEstado(object sender, SelectionChangedEventArgs e)
