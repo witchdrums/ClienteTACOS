@@ -31,6 +31,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="30"/>
+                    <RowDefinition Height="10"/>
                 </Grid.RowDefinitions>
                 <ListView
                     ItemsSource="{Binding Pedido}"
@@ -48,6 +49,7 @@
                                     <ColumnDefinition Width="70"/>
                                     <ColumnDefinition Width="50"/>
                                     <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="50"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
                                     Grid.Column="0"
@@ -59,16 +61,20 @@
                                     VerticalAlignment="Center"
                                     Text="{Binding IdAlimentoNavigation.Precio,
                                            StringFormat='{}{0:c}'}"/>
-                                <xctk:IntegerUpDown
+                                <TextBlock
                                     Grid.Column="2"
-                                    Text="{Binding Cantidad}"
-                                    VerticalContentAlignment="Center"/>
+                                    Text="{Binding Cantidad}"/>
                                 <TextBlock
                                     Grid.Column="3"
                                     TextAlignment="Center"
                                     VerticalAlignment="Center"
                                     Text="{Binding Subtotal,
                                            StringFormat='{}{0:c}'}"/>
+                                <Button
+                                    Grid.Column="4"
+                                    VerticalAlignment="Center"
+                                    Content="X" Click="QuitarDePedido"
+                                    Tag="{Binding}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -79,12 +85,26 @@
                     TextAlignment="Right"
                     Text="{Binding Total,
                            StringFormat='{}{0:c}'}"/>
-                <Button 
-                    Content="Confirmar pedido"
-                    Grid.Row="2"
-                    Padding="20,0"
-                    Margin="10,0"
-                    HorizontalAlignment="Right" Click="Button_Click"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <Button 
+                        Content="Confirmar pedido"
+                        Grid.Column="2"
+
+                        Margin="10,0"
+                        Click="Button_Click"/>
+                    <Button 
+                        Content="Cancelar"
+                        Grid.Column="1"
+
+                        Margin="10,0"
+                        Click="Cancelar"/>
+                </Grid>
             </Grid>
         </Expander>
 

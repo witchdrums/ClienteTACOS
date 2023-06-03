@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Vista"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Closing="LimpiarPedido">
     <Grid>
         <Border Grid.Row="1" Margin="10">
             <Frame x:Name="Frame_PagesNavigation" NavigationUIVisibility="Hidden" Margin="-10,-10,-10,-10">
