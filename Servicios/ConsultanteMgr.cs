@@ -86,7 +86,7 @@ namespace Servicios
                 ValidadorRespuestaHttp.Validar(respuesta);
             }
         }
-        public ObservableCollection<PedidoModelo> ObtenerPedidos()
+        public ObservableCollection<PedidoModelo> ObtenerPedidos(DateTime desde, DateTime hasta)
         {
             ObservableCollection<PedidoModelo> pedidosObtenidos = new ObservableCollection<PedidoModelo>();
             using (var cliente = new HttpClient())
@@ -94,7 +94,10 @@ namespace Servicios
                 cliente.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
-                var respuesta = cliente.GetAsync("pedidos").Result;
+                var respuesta = cliente.PostAsJsonAsync(
+                    "pedidos/ObtenerPedidosEntre",
+                    new { desde, hasta }
+                ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
                 pedidosObtenidos = respuesta.Content
                                             .ReadAsAsync<ObservableCollection<PedidoModelo>>()
