@@ -104,92 +104,25 @@ namespace Servicios
             return imagenesObtenidas;
         }
 
-            //ESTOS VAN EN CONSULTANTEMGR:
-        public async void RegistrarPedido(PedidoModelo pedidoNuevo)
-        {
-            using (var clienteHttp = new HttpClient())
-            {
-                clienteHttp.BaseAddress = this.uri;
-                HttpResponseMessage respuesta =
-                    await clienteHttp.PostAsJsonAsync(
-                        "/personas/pedidos",
-                        pedidoNuevo
-                    );
-                respuesta.EnsureSuccessStatusCode();
-            }
-        }
-        public ObservableCollection<PedidoModelo> ObtenerPedidos()
-        {
-            ObservableCollection<PedidoModelo> pedidosObtenidos = new ObservableCollection<PedidoModelo>();
-            using (var cliente = new HttpClient())
-            {
-                cliente.BaseAddress = this.uri;
-                var response = cliente.GetAsync("/personas/pedidos").Result;
-                response.EnsureSuccessStatusCode();
-                pedidosObtenidos = response.Content.ReadAsAsync<ObservableCollection<PedidoModelo>>().Result;
-            }
-            return pedidosObtenidos;
-        }
-        public async void ActualizarPedido(PedidoModelo pedido)
-        {
-            using (var clienteHttp = new HttpClient())
-            {
-                clienteHttp.BaseAddress = this.uri;
-                ValidadorRespuestaHttp.Validar(
-                    await clienteHttp.PatchAsJsonAsync(
-                        "api/alimentos/pedidos",
-                        pedido
-                    )
-                );
-            }
-        }
-        public void AgregarAlimentoAPedido(AlimentoPedidoModelo alimento)
+
+        public void ActualizarExistenciaAlimentos(Dictionary<int,int> alimentoPedido)
         {
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
                     clienteHttp.PatchAsJsonAsync(
-                        "menu/alimentos",
-                        alimento
+                        "menu",
+                        alimentoPedido
                     ).Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
             }
-        }
-
-        public async void ConectarAMenu()
-        {
-            //ESTE SI FUNCIONO: https://github.com/doghappy/socket.io-servidor-csharp
-            this.servidor = new SocketIO("http://localhost:8083/");
-            this.servidor.On("hi", response =>
+            foreach (KeyValuePair<int,int> registro in alimentoPedido)
             {
-                Console.WriteLine(response);
-
-                string text = response.GetValue<string>();
-            });
-
-            this.servidor.On("ActualizarExistencias", respuesta =>
-            {
-                var alimento = respuesta.GetValue<AlimentoModelo>();
-
-                this.Menu.First(a => a.Id == alimento.Id).Existencia -= 1;
-            });
-
-            await this.servidor.ConnectAsync();
-
-            //FALTA VER COMO DESCONECTAR
+                this.Menu
+                    .FirstOrDefault(a => a.Id == registro.Key)
+                    .Existencia += registro.Value;
+            }
         }
-
-        public void DesconectarDeMenu()
-        {
-
-            this.servidor.Dispose();
-        }
-
-        /*
-        public async void AgregarAlimentoAPedido(AlimentoPedidoModelo alimento)
-        {
-            await this.servidor.EmitAsync("AgregarAlimentoAPedido", alimento);
-        }*/        
     }
 }

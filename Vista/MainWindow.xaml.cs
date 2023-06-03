@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Modelo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,11 @@ namespace Vista
             //this.Frame.Navigate(new VerResenas(new ResenaVistaModelo()));
             //Frame_PagesNavigation.Navigate(new PanelPrincipal());
             this.Frame_PagesNavigation.Navigate(new PanelPrincipal());
+        }
+
+        private void LimpiarPedido(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            new MenuVistaModelo().DevolverPedido();
         }
     }
 }

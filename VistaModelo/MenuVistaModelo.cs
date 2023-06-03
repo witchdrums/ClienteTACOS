@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,9 @@ namespace VistaModelo
     public class MenuVistaModelo : INotifyPropertyChanged
     {
         public ICollectionView Menu { private set; get; }
+        private ObservableCollection<AlimentoModelo> menu;
         public ICollectionView Pedido { private set; get; }
-        private ObservableCollection<AlimentoPedidoModelo> alimentosPedidos =
-            new ObservableCollection<AlimentoPedidoModelo>();
+        private ObservableCollection<AlimentoPedidoModelo> alimentosPedidos = Sesion.AlimentosPedidos;
         private readonly MenuMgr menuMgr;
         private readonly ConsultanteMgr consultanteMgr;
 
@@ -40,7 +41,36 @@ namespace VistaModelo
             //this.menuMgr.ConectarAMenu();
         }
 
-        public void AgregarAlimentoAPedido(AlimentoModelo alimento)
+        public void ReservarAlimentoEnBD(AlimentoModelo alimento)
+        {
+            Dictionary<int,int> alimentoPedido = new Dictionary<int,int> { { alimento.Id, -1} };
+            this.menuMgr.ActualizarExistenciaAlimentos(alimentoPedido);
+            this.AgregarAlimentoAPedidoEnGUI(alimento);
+        }
+
+        public void DevolverAlimento(AlimentoPedidoModelo alimento)
+        {
+            AlimentoPedidoModelo alimentoPedido = this.alimentosPedidos.FirstOrDefault(a => a.IdAlimento == alimento.IdAlimento);
+            this.menuMgr.ActualizarExistenciaAlimentos(
+                new Dictionary<int, int> { { alimentoPedido.IdAlimento, alimentoPedido.Cantidad } }
+            );
+            this.alimentosPedidos.Remove(alimentoPedido);
+            this.Total -= alimentoPedido.Subtotal;
+        }
+
+        public void DevolverPedido()
+        {
+            Dictionary<int,int> alimentosADevolver = new Dictionary<int, int>();
+            foreach (AlimentoPedidoModelo alimento in this.alimentosPedidos)
+            {
+                alimentosADevolver.Add(alimento.IdAlimento, alimento.Cantidad);
+            }
+            this.menuMgr.ActualizarExistenciaAlimentos(alimentosADevolver);
+            this.alimentosPedidos.Clear();
+            this.Total = 0;
+        }
+
+        private void AgregarAlimentoAPedidoEnGUI(AlimentoModelo alimento)
         {
             if (!alimentosPedidos.Any(a => a.IdAlimento == alimento.Id))
             {
@@ -57,14 +87,8 @@ namespace VistaModelo
                                 .Cantidad += 1;
             }
             this.Total += alimento.Precio;
-            /*
-            AlimentoPedidoModelo alimentoPedido = new AlimentoPedidoModelo()
-            {
-                IdAlimento = alimento.Id,
-                Cantidad = 1
-            };*/
-            //this.menuMgr.AgregarAlimentoAPedido(alimentoPedido);
         }
+
 
         public void RegistrarPedido()
         {
@@ -78,7 +102,7 @@ namespace VistaModelo
                     Alimentospedidos = this.alimentosPedidos,
                     Fecha = DateTime.Now,
                 }
-            ); ;;
+            );
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
