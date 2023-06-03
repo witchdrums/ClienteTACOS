@@ -60,6 +60,10 @@ namespace VistaModelo
 
         public void DevolverPedido()
         {
+            if (this.alimentosPedidos.Count == 0)
+            {
+                return;
+            }
             Dictionary<int,int> alimentosADevolver = new Dictionary<int, int>();
             foreach (AlimentoPedidoModelo alimento in this.alimentosPedidos)
             {

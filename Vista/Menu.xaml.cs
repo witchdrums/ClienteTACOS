@@ -43,7 +43,6 @@ namespace Vista
             {
                 MessageBox.Show(excepcion.Message);
             }
-            //this.TextBlock_Total.Text = this.contexto.Total.ToString();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -54,6 +53,14 @@ namespace Vista
         private void Cancelar(object sender, RoutedEventArgs e)
         {
             this.contexto.DevolverPedido();
+        }
+
+        private void CrashearApp()
+        {
+            //Para mostrar que los alimentos reservados se regresan a BD
+            //en caso de crash.
+            int x = 0;
+            double a = 1/x;
         }
 
         private void QuitarDePedido(object sender, RoutedEventArgs e)
