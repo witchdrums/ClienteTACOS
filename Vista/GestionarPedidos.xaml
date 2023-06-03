@@ -13,6 +13,9 @@
       xmlns:p="clr-namespace:Vista.Properties"
       Title="GestionarPedidos">
 
+    <Page.DataContext>
+        <vistaModelo:PedidoVistaModelo/>
+    </Page.DataContext>
     
     <Grid>
         <TabControl>
@@ -29,11 +32,11 @@
                             <ColumnDefinition Width="100"/>
                         </Grid.ColumnDefinitions>
                         <rh:DateRangePicker 
-                            From="{Binding DateRangeFrom, Source={x:Static p:Settings.Default}}"
-                            To="{Binding DateRangeTo, Source={x:Static p:Settings.Default}}"
+                            From="{Binding Desde}"
+                            To="{Binding Hasta}"
                             KindOfRange="{Binding DateRangeKind, Source={x:Static p:Settings.Default}}"
                             VerticalAlignment="Center"/>
-                        <Button Grid.Column="1" Content="Consultar"/>
+                        <Button Grid.Column="1" Content="Consultar" Click="Consultar" />
                     </Grid>
                     <Grid
                         Grid.Row="1">
@@ -48,6 +51,11 @@
                             ItemsSource="{Binding Pedidos}"
                             AutoGenerateColumns="False">
                             <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Header="id"
+                                    Binding="{Binding Id}">
+                                    
+                                </DataGridTextColumn>
                                 <DataGridTextColumn 
                                 Header="Miembro" 
                                 Width="*"

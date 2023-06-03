@@ -29,6 +29,8 @@ namespace Modelo
 
         public int IdPedido { get; set; }
 
+        public virtual AlimentoModelo Alimento { get; set; }
+
         [JsonIgnore]
         public virtual AlimentoModelo IdAlimentoNavigation { get; set; }
         [JsonIgnore]
