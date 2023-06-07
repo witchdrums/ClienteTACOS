@@ -41,7 +41,7 @@ namespace Modelo
             this.Miembros.Add(new MiembroModelo());
             Miembros.ElementAt(0).Contrasena = "Contrasena";
             Miembros.ElementAt(0).CodigoConfirmacion = 0;
-        } 
+        }
         public List<MiembroModelo> Miembros { get; set; }
 
     }

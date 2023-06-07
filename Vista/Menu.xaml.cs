@@ -25,6 +25,7 @@ namespace Vista
     public partial class Menu : Page
     {
         private MenuVistaModelo contexto;
+        public PanelPrincipalVistaModelo panelPrincipalVistaModelo;
         public Menu(MenuVistaModelo contexto)
         {
             InitializeComponent();
@@ -47,7 +48,26 @@ namespace Vista
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.contexto.RegistrarPedido();
+            if ( Sesion.MiembroEnLinea)
+            {
+                this.RegistrarPedido();
+            }
+            else
+            {
+                NavigationService.Navigate(new InicioDeSesion(this.panelPrincipalVistaModelo));
+            }
+        }
+
+        private void RegistrarPedido()
+        {
+            try
+            {
+                this.contexto.RegistrarPedido();
+            }
+            catch (HttpRequestException excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
         }
 
         private void Cancelar(object sender, RoutedEventArgs e)

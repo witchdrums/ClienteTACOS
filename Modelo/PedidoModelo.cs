@@ -19,6 +19,10 @@ namespace Modelo
         public ObservableCollection<AlimentoPedidoModelo> Alimentospedidos { get; set; }
         public MiembroModelo IdMiembroNavigation { set; get; }
 
+        [JsonIgnore]
+        public bool EstadoModificable => this.Estado < 3;
+        [JsonIgnore]
+        public bool EstadoFijo => this.Estado == 3;
 
         [JsonIgnore]
         public string EstadoStr => ((Estados)Estado).ToString();

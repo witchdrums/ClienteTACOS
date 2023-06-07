@@ -10,6 +10,7 @@ using System.Windows.Data;
 using Servicios;
 using ScottPlot;
 using System.Drawing;
+using System.Windows;
 
 namespace VistaModelo
 {
@@ -102,11 +103,13 @@ namespace VistaModelo
             this.pedidosColeccion = this.consultanteMgr.ObtenerPedidos(this.Desde, this.Hasta);
             this.Pedidos = CollectionViewSource.GetDefaultView(this.pedidosColeccion);
         }
-        public void CambiarEstado(Modelo.Estados nuevoEstado)
+        public async Task CambiarEstado(Modelo.Estados nuevoEstado)
         {
+
             PedidoModelo pedidoSeleccionado = (this.Pedidos.CurrentItem as PedidoModelo);
             pedidoSeleccionado.Estado = (int)nuevoEstado;
-            this.consultanteMgr.ActualizarPedido(pedidoSeleccionado);
+            await this.consultanteMgr.ActualizarPedido(pedidoSeleccionado);
+
         }
 
         internal class AlimentoReporte

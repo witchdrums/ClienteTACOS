@@ -20,21 +20,19 @@ namespace Servicios
         private Uri uri = new Uri(Properties.Recursos.direccion);
 
         public ConsultanteMgr() { }
-        public MiembroModelo RegistrarMiembro(PersonaModelo persona)
+        public MiembroModelo RegistrarMiembro(MiembroModelo miembro)
         {
-            MiembroModelo miembro = persona.Miembros.First();
-            miembro.Persona = persona;
-            persona.Miembros.Clear();
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
-                HttpResponseMessage respuesta = 
+                HttpResponseMessage respuestaHttp = 
                     clienteHttp.PostAsJsonAsync(
                         "miembro", 
                         miembro
                     ).Result;
+                var respuesta = respuestaHttp.Content.ReadAsAsync<Respuesta<MiembroModelo>>().Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
-                miembro = respuesta.Content.ReadAsAsync<MiembroModelo>().Result;
+                miembro = respuesta.Datos;
             }
             return miembro;
         }
@@ -44,14 +42,11 @@ namespace Servicios
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
-                HttpResponseMessage respuesta =
-                    clienteHttp.PutAsJsonAsync(
-                        "miembro",
-                        miembro
-                    ).Result;
+                HttpResponseMessage respuestaHttp =
+                    clienteHttp.PutAsJsonAsync("miembro",miembro).Result;
+                var respuesta = respuestaHttp.Content.ReadAsAsync<Respuesta<MiembroModelo>>().Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
             }
-
         }
 
         public Credenciales IniciarSesion(string email, string contrasena)
@@ -65,8 +60,14 @@ namespace Servicios
                         "Login",
                         new { Email = email, Contrasena = contrasena}
                     ).Result;
-                ValidadorRespuestaHttp.Validar(respuesta);
+                
                 credencialesObtenidas = respuesta.Content.ReadAsAsync<Credenciales>().Result;
+                ValidadorRespuestaHttp.Validar(
+                    new Respuesta<object> { 
+                        Codigo = (int)respuesta.StatusCode, 
+                        Mensaje=credencialesObtenidas.Mensaje}
+                );
+
             }
             return credencialesObtenidas;
         }
@@ -79,11 +80,12 @@ namespace Servicios
                 cliente.BaseAddress = this.uri;
                 Console.WriteLine(JsonConvert.SerializeObject(pedidoNuevo).ToString());
                 HttpResponseMessage respuesta =
-                    await cliente.PostAsJsonAsync(
+                    cliente.PostAsJsonAsync(
                         "pedidos",
                         pedidoNuevo
-                    );
-                ValidadorRespuestaHttp.Validar(respuesta);
+                    ).Result;
+
+                ValidadorRespuestaHttp.Validar(respuesta.Content.ReadAsAsync<Respuesta<PedidoModelo>>().Result);
             }
         }
         public ObservableCollection<PedidoModelo> ObtenerPedidos(DateTime desde, DateTime hasta)
@@ -94,30 +96,28 @@ namespace Servicios
                 cliente.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
-                var respuesta = cliente.PostAsJsonAsync(
+                var respuestaHttp = cliente.PostAsJsonAsync(
                     "pedidos/ObtenerPedidosEntre",
                     new { desde, hasta }
                 ).Result;
-                ValidadorRespuestaHttp.Validar(respuesta);
-                pedidosObtenidos = respuesta.Content
-                                            .ReadAsAsync<ObservableCollection<PedidoModelo>>()
+                var respuesta = respuestaHttp.Content
+                                            .ReadAsAsync<Respuesta<ObservableCollection<PedidoModelo>>>()
                                             .Result;
+                ValidadorRespuestaHttp.Validar(respuesta);
+                pedidosObtenidos = respuesta.Datos;
             }
             return pedidosObtenidos;
         }
-        public async void ActualizarPedido(PedidoModelo pedido)
+        public async Task ActualizarPedido(PedidoModelo pedido)
         {
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
+                var respuestaHttp = await cliente.PatchAsJsonAsync("pedidos",new PedidoSimple(pedido));
                 ValidadorRespuestaHttp.Validar(
-                    await cliente.PatchAsJsonAsync(
-                        "pedidos",
-                        pedido
-                    )
-                );
+                    await respuestaHttp.Content.ReadAsAsync<Respuesta<ObservableCollection<PedidoSimple>>>());
             }
         }
 

@@ -62,17 +62,17 @@
                                 Binding="{Binding Miembro.Persona.NombreCompleto}"/>
                                 <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}"/>
                                 <DataGridTextColumn Header="Total" Binding="{Binding Total}"/>
-                                <DataGridTemplateColumn Header="Estado">
+                                <DataGridTemplateColumn 
+                                    Header="Estado">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding EstadoStr}"/>
+                                            <ComboBox 
+                                                IsEnabled="{Binding EstadoModificable}" 
+                                                SelectedIndex="{Binding Estado}" 
+                                                ItemsSource="{Binding DataContext.Estados, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                SelectionChanged="CambiarEstado"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
-                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                        <DataTemplate>
-                                            <ComboBox ItemsSource="{Binding DataContext.Estados, RelativeSource={RelativeSource AncestorType=DataGrid}}" SelectionChanged="CambiarEstado"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellEditingTemplate>
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -29,13 +30,23 @@ namespace Vista
             (this.DataContext as PedidoVistaModelo).GenerarGrafico();
         }
 
-        private void CambiarEstado(object sender, SelectionChangedEventArgs e)
+        private async void CambiarEstado(object sender, SelectionChangedEventArgs e)
         {
+            if (!(sender as ComboBox).IsDropDownOpen)
+            {
+                return;
+            }
             try
             {
-                (this.DataContext as PedidoVistaModelo).CambiarEstado((Modelo.Estados)e.AddedItems[0]);
+                await (this.DataContext as PedidoVistaModelo).CambiarEstado((Modelo.Estados)e.AddedItems[0]);
+                new ToastContentBuilder()
+                    .AddHeader("1234", "Gestión de pedidos", "")
+                    .AddText("Pedido actualizado")
+                    .AddAudio(null, silent: true)
+                    .SetToastScenario(ToastScenario.Default)
+                    .Show(); // No
             }
-            catch(HttpRequestException excepcion)
+            catch (HttpRequestException excepcion)
             {
                 MessageBox.Show(excepcion.Message);
             }
@@ -43,7 +54,14 @@ namespace Vista
 
         private void Consultar(object sender, RoutedEventArgs e)
         {
-            (this.DataContext as PedidoVistaModelo).Consultar();
+            try
+            {
+                (this.DataContext as PedidoVistaModelo).Consultar();
+            }
+            catch(HttpRequestException excepcion) 
+            {
+                MessageBox.Show(excepcion.Message);
+            }
         }
     }
 }

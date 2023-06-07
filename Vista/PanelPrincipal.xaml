@@ -31,7 +31,7 @@
                 <xctk:DropDownButton
                     VerticalContentAlignment="Center"
                     x:Name="Button_Perfil"
-                    Visibility="Collapsed"
+                    Visibility="{Binding Credenciales.VisibilidadMiembro}"
                     Width="auto"
                     MaxWidth="500">
                     <StackPanel>
@@ -48,11 +48,13 @@
                                 Content="Perfil" 
                                 Width="100" 
                                 Grid.Row="0" 
-                                Click="VerPerfil"/>
+                                Click="VerPerfil"
+                                Visibility="{Binding Credenciales.VisibilidadMiembro}"/>
                             <Button 
                                 Content="Salir" 
                                 Width="100" 
                                 Grid.Row="1" 
+                                Visibility="{Binding Credenciales.VisibilidadMiembro}"
                                 Click="Salir" />
                         </Grid>
                     </xctk:DropDownButton.DropDownContent>
@@ -61,7 +63,8 @@
                     Click="IniciarSesion"
                     Name="Button_Entrar"
                     Padding="30,0"
-                    FontSize="15">
+                    FontSize="15"
+                    Visibility="{Binding Credenciales.VisibilidadConsultante}">
                     Entrar
                 </Button>
             </StackPanel>
@@ -69,7 +72,8 @@
         </Grid>
         <TabControl 
             TabStripPlacement="Left"
-            Grid.Row="1">
+            Grid.Row="1"
+            Name="TabControl">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="HeaderTemplate">
@@ -87,13 +91,18 @@
                 </Style>
             </TabControl.Resources>
 
-            <TabItem Header="Menu">
+            <TabItem 
+                Header="Menu" 
+                FontSize="20">
                 <Frame 
                     Grid.Row="1"
                     Name="Frame_Menu" 
                     NavigationUIVisibility="Hidden"/>
             </TabItem>
-            <TabItem Header="Reseñas" Selector.Selected="CargarResenas">
+            <TabItem 
+                Header="Reseñas" 
+                FontSize="20"
+                Selector.Selected="CargarResenas">
                 <Frame 
                     Grid.Row="1"
                     Name="Frame_VerResenas" 
@@ -101,7 +110,9 @@
             </TabItem>
             <TabItem 
                 Header="Pedidos"
-                Selector.Selected="CargarPedidos">
+                Selector.Selected="CargarPedidos"
+                FontSize="20"
+                Visibility="{Binding Credenciales.VisibilidadMiembro}">
                 <Frame
                     Grid.Row="2"
                     Name="Frame_Pedidos"

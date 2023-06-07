@@ -36,7 +36,10 @@ namespace Servicios
                 response.EnsureSuccessStatusCode();
 
                 alimentos = new ObservableCollection<AlimentoModelo>(
-                    response.Content.ReadAsAsync<List<AlimentoModelo>>().Result
+                    response.Content
+                            .ReadAsAsync<Respuesta<List<AlimentoModelo>>>()
+                            .Result
+                            .Datos
                 );
                 HashSet<int> idImagenes = this.ObtenerIdAlimentosUnicos(alimentos);
 
@@ -105,17 +108,16 @@ namespace Servicios
         }
 
 
-        public void ActualizarExistenciaAlimentos(Dictionary<int,int> alimentoPedido)
+        public async void ActualizarExistenciaAlimentos(Dictionary<int,int> alimentoPedido)
         {
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
-                    clienteHttp.PatchAsJsonAsync(
-                        "menu",
-                        alimentoPedido
-                    ).Result;
-                ValidadorRespuestaHttp.Validar(respuesta);
+                    await clienteHttp.PatchAsJsonAsync("menu",alimentoPedido);
+                ValidadorRespuestaHttp.Validar(
+                    await respuesta.Content.ReadAsAsync<Respuesta<Dictionary<int, int>>>()
+                );
             }
             foreach (KeyValuePair<int,int> registro in alimentoPedido)
             {
