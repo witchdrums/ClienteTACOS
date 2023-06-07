@@ -11,13 +11,11 @@ namespace Servicios
 {
     public class ValidadorRespuestaHttp
     {
-        public static void Validar(HttpResponseMessage respuesta)
+        public static void Validar<T>(Respuesta<T> respuesta)
         {
-            if (!respuesta.IsSuccessStatusCode)
+            if (!respuesta.OperacionExitosa)
             {   
-                throw new HttpRequestException(
-                    respuesta.Content.ReadAsAsync<Error>().Result.Mensaje
-                );
+                throw new HttpRequestException(respuesta.Mensaje);
             }
         }
         private class Error

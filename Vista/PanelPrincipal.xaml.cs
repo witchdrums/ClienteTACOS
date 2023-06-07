@@ -23,17 +23,40 @@ namespace Vista
         {
             InitializeComponent();
             this.vistaModelo = (this.DataContext as PanelPrincipalVistaModelo);
-            this.vistaModelo.Perfil = this.Button_Perfil;
-            this.vistaModelo.Entrar = this.Button_Entrar;
-            this.Frame_Menu.Navigate(new Menu(new MenuVistaModelo()));
+
+            this.Frame_Menu.Navigate(this.CrearPaginaMenu());
+        }
+
+        private Menu CrearPaginaMenu()
+        {
+            Menu paginaMenu = new Menu(new MenuVistaModelo());
+            paginaMenu.panelPrincipalVistaModelo = this.vistaModelo;
+            return paginaMenu;
         }
         private void IniciarSesion(object sender, RoutedEventArgs e)
         {
-           NavigationService.Navigate(new InicioDeSesion((this.DataContext as PanelPrincipalVistaModelo)));
+            int pestana= this.TabControl.SelectedIndex;
+            Frame frame;
+            switch (pestana)
+            {
+                case 0:
+                    frame = this.Frame_Menu;
+                    break;
+                case 1:
+                    frame = this.Frame_VerResenas;
+                    break;
+                case 2:
+                    frame = this.Frame_Pedidos;
+                    break;
+                default:
+                    frame= this.Frame_Menu;
+                    break;
+            }
+            frame.Navigate(new InicioDeSesion(this.vistaModelo));
         }
         private void CargarMenu(object sender, RoutedEventArgs e)
         {
-            this.Frame_Menu.Navigate(new Menu(new MenuVistaModelo()));
+            this.Frame_Menu.Navigate(this.CrearPaginaMenu());
         }
 
         private void CargarResenas(object sender, RoutedEventArgs e)
@@ -54,6 +77,7 @@ namespace Vista
         private void Salir(object sender, RoutedEventArgs e)
         {
             this.vistaModelo.Salir();
+
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Modelo;
+using Modelo.PeticionesRespuestas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace Vista
                 }
                 else
                 {
-                    panelPrincipalVistaModelo.CambiarEstadoSesion(true);
+                    this.panelPrincipalVistaModelo.CambiarEstadoSesion();
                     this.NavigationService.GoBack();
                 }
             }

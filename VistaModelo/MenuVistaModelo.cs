@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace VistaModelo
@@ -96,17 +97,24 @@ namespace VistaModelo
 
         public void RegistrarPedido()
         {
-            this.consultanteMgr.RegistrarPedido(
-                new PedidoModelo()
-                {
-                    IdMiembro = Sesion.Credenciales.Miembro.Id,
-                    //IdMiembroNavigation = Sesion.Credenciales,
-                    Total = this.Total,
-                    Estado = (int)Estados.Ordenado,
-                    Alimentospedidos = this.alimentosPedidos,
-                    Fecha = DateTime.Now,
-                }
-            );
+            if (Sesion.MiembroEnLinea)
+            {
+                this.consultanteMgr.RegistrarPedido(
+                    new PedidoModelo()
+                    {
+                        IdMiembro = Sesion.Credenciales.Miembro.Id,
+                        //IdMiembroNavigation = Sesion.Credenciales,
+                        Total = this.Total,
+                        Estado = (int)Estados.Ordenado,
+                        Alimentospedidos = this.alimentosPedidos,
+                        Fecha = DateTime.Now,
+                    }
+                );
+                this.alimentosPedidos.Clear();
+                this.Total=0;
+                MessageBox.Show("¡Gracias por tu preferencia!");
+            }
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

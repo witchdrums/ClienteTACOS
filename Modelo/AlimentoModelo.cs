@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Newtonsoft.Json;
 
 namespace Modelo
 {
@@ -37,6 +38,7 @@ namespace Modelo
 
 
         //Otros
+        [JsonIgnore]
         public BitmapSource ImagenConvertida => byteArrayToImage();
         public BitmapSource byteArrayToImage()
         {

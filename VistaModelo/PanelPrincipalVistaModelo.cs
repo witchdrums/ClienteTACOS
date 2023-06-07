@@ -15,21 +15,19 @@ namespace VistaModelo
 {
     public class PanelPrincipalVistaModelo
     {
-        public Credenciales Credenciales { get; set; } = Sesion.Credenciales;
-        public DropDownButton Perfil { get; set; }
-        public Button Entrar { get; set; }
-
-        public void CambiarEstadoSesion(bool inicioSesion)
+        public static Credenciales Credenciales { get; set; }
+        public PanelPrincipalVistaModelo() 
         {
-            this.Credenciales.Loggeado = inicioSesion;
-            this.Perfil.Visibility = inicioSesion ? Visibility.Visible : Visibility.Collapsed;
-            this.Entrar.Visibility = inicioSesion ? Visibility.Collapsed : Visibility.Visible;
+            Credenciales = Sesion.Credenciales;
         }
-
+        public void CambiarEstadoSesion()
+        {
+            Credenciales.EsMiembro = Sesion.Credenciales.ValidarMiembroLoggeado();
+        }
         public void Salir()
         {
             Sesion.Credenciales = new Credenciales();
-            this.CambiarEstadoSesion(false);
+            this.CambiarEstadoSesion();
         }
     }
 }

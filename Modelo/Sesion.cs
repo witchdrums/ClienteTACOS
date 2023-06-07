@@ -16,6 +16,8 @@ namespace Modelo
         private static readonly Sesion instancia = new Sesion();
         public static Credenciales Credenciales { get; set; } = new Credenciales();
         public static bool MiembroConfirmado => Credenciales.Miembro.CodigoConfirmacion == 0;
+        public static bool MiembroEnLinea => 
+            Credenciales.Miembro != null && !String.IsNullOrEmpty(Credenciales.Token);
         public static ObservableCollection<AlimentoPedidoModelo> AlimentosPedidos { get; set; } = 
             new ObservableCollection<AlimentoPedidoModelo>();
         static Sesion()
