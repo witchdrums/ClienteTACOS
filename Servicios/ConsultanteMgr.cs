@@ -37,16 +37,18 @@ namespace Servicios
             return miembro;
         }
 
-        public void ConfirmarRegistro(MiembroModelo miembro)
+        public Respuesta<MiembroModelo> ConfirmarRegistro(MiembroModelo miembro)
         {
+            Respuesta<MiembroModelo> respuesta;
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuestaHttp =
                     clienteHttp.PutAsJsonAsync("miembro",miembro).Result;
-                var respuesta = respuestaHttp.Content.ReadAsAsync<Respuesta<MiembroModelo>>().Result;
+                respuesta = respuestaHttp.Content.ReadAsAsync<Respuesta<MiembroModelo>>().Result;
                 ValidadorRespuestaHttp.Validar(respuesta);
             }
+            return respuesta;
         }
 
         public async Task<Credenciales> IniciarSesion(string email, string contrasena)
