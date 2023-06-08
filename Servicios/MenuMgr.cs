@@ -108,7 +108,7 @@ namespace Servicios
         }
 
 
-        public async void ActualizarExistenciaAlimentos(Dictionary<int,int> alimentoPedido)
+        public async Task ActualizarExistenciaAlimentos(Dictionary<int,int> alimentoPedido)
         {
             using (var clienteHttp = new HttpClient())
             {

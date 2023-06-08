@@ -71,22 +71,20 @@ namespace Servicios
             }
             return credencialesObtenidas;
         }
-        public async void RegistrarPedido(PedidoModelo pedidoNuevo)
+        public Respuesta<PedidoModelo> RegistrarPedido(PedidoModelo pedidoNuevo)
         {
+            Respuesta<PedidoModelo> respuesta;
             using (var cliente = new HttpClient())
-            {
+            { 
                 cliente.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 Console.WriteLine(JsonConvert.SerializeObject(pedidoNuevo).ToString());
-                HttpResponseMessage respuesta =
-                    cliente.PostAsJsonAsync(
-                        "pedidos",
-                        pedidoNuevo
-                    ).Result;
-
-                ValidadorRespuestaHttp.Validar(respuesta.Content.ReadAsAsync<Respuesta<PedidoModelo>>().Result);
+                HttpResponseMessage respuestaHttp = cliente.PostAsJsonAsync("pedidos",pedidoNuevo).Result;
+                respuesta = respuestaHttp.Content.ReadAsAsync<Respuesta<PedidoModelo>>().Result;
+                ValidadorRespuestaHttp.Validar(respuesta);
             }
+            return respuesta;
         }
         public ObservableCollection<PedidoModelo> ObtenerPedidos(DateTime desde, DateTime hasta)
         {
@@ -108,17 +106,19 @@ namespace Servicios
             }
             return pedidosObtenidos;
         }
-        public async Task ActualizarPedido(PedidoModelo pedido)
+        public Respuesta<PedidoModelo> ActualizarPedido(PedidoModelo pedido)
         {
+            Respuesta<PedidoModelo> respuesta;
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
-                var respuestaHttp = await cliente.PatchAsJsonAsync("pedidos",new PedidoSimple(pedido));
-                ValidadorRespuestaHttp.Validar(
-                    await respuestaHttp.Content.ReadAsAsync<Respuesta<ObservableCollection<PedidoSimple>>>());
+                var respuestaHttp = cliente.PatchAsJsonAsync("pedidos",new PedidoSimple(pedido)).Result;
+                respuesta = respuestaHttp.Content.ReadAsAsync<Respuesta<PedidoModelo>>().Result;
+                ValidadorRespuestaHttp.Validar(respuesta);
             }
+            return respuesta;
         }
 
         public ObservableCollection<ResenaModelo> ObtenerResenas()
