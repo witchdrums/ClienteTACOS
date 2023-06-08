@@ -108,7 +108,7 @@ namespace VistaModelo
 
             PedidoModelo pedidoSeleccionado = (this.Pedidos.CurrentItem as PedidoModelo);
             pedidoSeleccionado.Estado = (int)nuevoEstado;
-            await this.consultanteMgr.ActualizarPedido(pedidoSeleccionado);
+            this.consultanteMgr.ActualizarPedido(pedidoSeleccionado);
 
         }
 
