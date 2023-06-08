@@ -1,4 +1,5 @@
-﻿using Modelo;
+﻿using MahApps.Metro.Controls;
+using Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,9 @@ namespace Vista
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
+        private PanelPrincipalVistaModelo panelPrincipalVistaModelo;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,12 +37,18 @@ namespace Vista
             //this.NavigationService.Navigate(new TestPage());
             //this.Frame.Navigate(new VerResenas(new ResenaVistaModelo()));
             //Frame_PagesNavigation.Navigate(new PanelPrincipal());
-            this.Frame_PagesNavigation.Navigate(new PanelPrincipal());
+            this.panelPrincipalVistaModelo = this.DataContext as PanelPrincipalVistaModelo;
+            this.Frame_PagesNavigation.Navigate(new PanelPrincipal(this.panelPrincipalVistaModelo));
         }
 
         private void LimpiarPedido(object sender, System.ComponentModel.CancelEventArgs e)
         {
             new MenuVistaModelo().DevolverPedido();
+        }
+
+        private void Entrar(object sender, RoutedEventArgs e)
+        {
+            this.Frame_PagesNavigation.Navigate(new InicioDeSesion(this.panelPrincipalVistaModelo));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Vista
     public partial class PanelPrincipal : Page
     {
         private PanelPrincipalVistaModelo vistaModelo;
-        public PanelPrincipal()
+        public PanelPrincipal(PanelPrincipalVistaModelo vistaModelo)
         {
             InitializeComponent();
             this.vistaModelo = (this.DataContext as PanelPrincipalVistaModelo);

@@ -45,12 +45,12 @@ namespace Vista
             }
         }
 
-        private void Entrar(object sender, RoutedEventArgs e)
+        private async void Entrar(object sender, RoutedEventArgs e)
         {
             try
             {
                 MiembroVistaModelo contexto = this.DataContext as MiembroVistaModelo;
-                contexto.IniciarSesion(
+                await contexto.IniciarSesion(
                     this.TextBox_Email.Text,
                     this.TextBox_Contrasena.Password
                 );

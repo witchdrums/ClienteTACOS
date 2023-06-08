@@ -29,9 +29,9 @@ namespace VistaModelo
             Sesion.Credenciales.Miembro = this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
         }
 
-        public void IniciarSesion(string email, string contrasena)
+        public async Task IniciarSesion(string email, string contrasena)
         {
-            Sesion.Credenciales = this.consultanteMgr.IniciarSesion(email, contrasena);
+            Sesion.Credenciales = await this.consultanteMgr.IniciarSesion(email, contrasena);
         }
 
         public void EnviarCodigoConfirmacion(MiembroModelo persona)
