@@ -15,10 +15,10 @@ namespace VistaModelo
 {
     public class PanelPrincipalVistaModelo
     {
-        public static Credenciales Credenciales { get; set; }
+        public Credenciales Credenciales { get; set; }
         public PanelPrincipalVistaModelo() 
         {
-            Credenciales = Sesion.Credenciales;
+            this.Credenciales = Sesion.Credenciales;
         }
         public void CambiarEstadoSesion()
         {
@@ -29,5 +29,6 @@ namespace VistaModelo
             Sesion.Credenciales = new Credenciales();
             this.CambiarEstadoSesion();
         }
+
     }
 }

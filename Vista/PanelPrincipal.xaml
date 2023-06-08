@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Vista"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
+      xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       ShowsNavigationUI="False"
@@ -15,81 +16,13 @@
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="500"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel
-                Orientation="Horizontal"
-                HorizontalAlignment="Right"
-                Grid.Column="1">
-
-                <xctk:DropDownButton
-                    VerticalContentAlignment="Center"
-                    x:Name="Button_Perfil"
-                    Visibility="{Binding Credenciales.VisibilidadMiembro}"
-                    Width="auto"
-                    MaxWidth="500">
-                    <StackPanel>
-                        <TextBlock Text="Hola,"/>
-                        <TextBlock TextWrapping="WrapWithOverflow" Text="NombreDelMiembro" FontSize="15"/>
-                    </StackPanel>
-                    <xctk:DropDownButton.DropDownContent>
-                        <Grid Width="100">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="30"/>
-                            </Grid.RowDefinitions>
-                            <Button 
-                                Content="Perfil" 
-                                Width="100" 
-                                Grid.Row="0" 
-                                Click="VerPerfil"
-                                Visibility="{Binding Credenciales.VisibilidadMiembro}"/>
-                            <Button 
-                                Content="Salir" 
-                                Width="100" 
-                                Grid.Row="1" 
-                                Visibility="{Binding Credenciales.VisibilidadMiembro}"
-                                Click="Salir" />
-                        </Grid>
-                    </xctk:DropDownButton.DropDownContent>
-                </xctk:DropDownButton>
-                <Button 
-                    Click="IniciarSesion"
-                    Name="Button_Entrar"
-                    Padding="30,0"
-                    FontSize="15"
-                    Visibility="{Binding Credenciales.VisibilidadConsultante}">
-                    Entrar
-                </Button>
-            </StackPanel>
-
-        </Grid>
-        <TabControl 
-            TabStripPlacement="Left"
+        <mah:MetroTabControl
+            TabStripPlacement="Top"
+            
             Grid.Row="1"
             Name="TabControl">
-            <TabControl.Resources>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="HeaderTemplate">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <ContentPresenter Content="{TemplateBinding Content}">
-                                    <ContentPresenter.LayoutTransform>
-                                        <RotateTransform Angle="270" />
-                                    </ContentPresenter.LayoutTransform>
-                                </ContentPresenter>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Padding" Value="3" />
-                </Style>
-            </TabControl.Resources>
 
             <TabItem 
                 Header="Menu" 
@@ -118,6 +51,6 @@
                     Name="Frame_Pedidos"
                     NavigationUIVisibility="Hidden"/>
             </TabItem>
-        </TabControl>
+        </mah:MetroTabControl>
     </Grid>
 </Page>

@@ -49,19 +49,19 @@ namespace Servicios
             }
         }
 
-        public Credenciales IniciarSesion(string email, string contrasena)
+        public async Task<Credenciales> IniciarSesion(string email, string contrasena)
         {
             Credenciales credencialesObtenidas = new Credenciales();
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
-                    clienteHttp.PostAsJsonAsync(
+                    await clienteHttp.PostAsJsonAsync(
                         "Login",
                         new { Email = email, Contrasena = contrasena}
-                    ).Result;
+                    );
                 
-                credencialesObtenidas = respuesta.Content.ReadAsAsync<Credenciales>().Result;
+                credencialesObtenidas = await respuesta.Content.ReadAsAsync<Credenciales>();
                 ValidadorRespuestaHttp.Validar(
                     new Respuesta<object> { 
                         Codigo = (int)respuesta.StatusCode, 
