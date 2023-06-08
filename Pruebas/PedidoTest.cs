@@ -20,6 +20,9 @@ namespace Pruebas
     {
         private ConsultanteMgr consultanteMgr = new ConsultanteMgr();
         private int idPedidoExistente = 53;
+        private int idPedidoPagado = 3;
+        private DateTime desde = new DateTime(2023,06,04);
+        private DateTime hasta = new DateTime(2023,06,07);
         private PedidoModelo pedidoPrueba = new PedidoModelo()
         {
             Fecha = DateTime.Now,
@@ -51,15 +54,13 @@ namespace Pruebas
         }
 
         [TestMethod]
-        public void RegistrarPedido_Fallo_IdAlimento()
+        public void RegistrarPedido_Fallo_NoAlimentos()
         {
             try
             {
                 this.pedidoPrueba.Alimentospedidos =
                 new ObservableCollection<AlimentoPedidoModelo>
                 {
-                new AlimentoPedidoModelo { IdAlimento = -1, Cantidad = 420 },
-                new AlimentoPedidoModelo { IdAlimento = 2, Cantidad = 69 },
                 };
                 Respuesta<PedidoModelo> respuesta = this.consultanteMgr.RegistrarPedido(this.pedidoPrueba);
                 Assert.Fail();
@@ -67,7 +68,27 @@ namespace Pruebas
             catch (Exception excepcion)
             {
                 Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
-                Assert.AreEqual("Error en el servidor.", excepcion.Message);
+                Assert.AreEqual("El pedido debe contener al menos un alimento, y todos los alimentos deben tener una cantidad mayor a 0.", excepcion.Message);
+            }
+        }
+
+        [TestMethod]
+        public void RegistrarPedido_Fallo_AlimentoSinCantidad()
+        {
+            try
+            {
+                this.pedidoPrueba.Alimentospedidos =
+                new ObservableCollection<AlimentoPedidoModelo>
+                {
+                    new AlimentoPedidoModelo { IdAlimento = 1, Cantidad = 0 },
+                };
+                Respuesta<PedidoModelo> respuesta = this.consultanteMgr.RegistrarPedido(this.pedidoPrueba);
+                Assert.Fail();
+            }
+            catch (Exception excepcion)
+            {
+                Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
+                Assert.AreEqual("El pedido debe contener al menos un alimento, y todos los alimentos deben tener una cantidad mayor a 0.", excepcion.Message);
             }
         }
 
@@ -80,7 +101,109 @@ namespace Pruebas
             Assert.IsNotNull(respuesta);
             Assert.AreEqual(200, respuesta.Codigo);
             Assert.AreEqual(this.pedidoPrueba.Estado, respuesta.Datos.Estado);
-            
+        }
+
+        [TestMethod]
+        public void ActualizarPedido_Fallo_IdPedidoVacio()
+        {
+            try
+            {
+                this.pedidoPrueba.Id = 0;
+                this.pedidoPrueba.Estado = 0;
+                Respuesta<PedidoModelo> respuesta = this.consultanteMgr.ActualizarPedido(this.pedidoPrueba);
+                Assert.Fail();
+            }
+            catch (Exception excepcion)
+            {
+                Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
+                Assert.AreEqual("Debe seleccionar un pedido.", excepcion.Message);
+            }
+        }
+
+        [TestMethod]
+        public void ActualizarPedido_Fallo_MiembroDistinto()
+        {
+            try
+            {
+                this.pedidoPrueba.Id = this.idPedidoExistente;
+                this.pedidoPrueba.IdMiembro = -1;
+                this.pedidoPrueba.Estado = 0;
+                Respuesta<PedidoModelo> respuesta = this.consultanteMgr.ActualizarPedido(this.pedidoPrueba);
+                Assert.Fail();
+            }
+            catch (Exception excepcion)
+            {
+                Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
+                Assert.AreEqual("El pedido solicitado pertenece a un miembro distinto.", excepcion.Message);
+            }
+        }
+
+        [TestMethod]
+        public void ActualizarPedido_Fallo_IdPedidoNoExiste()
+        {
+            try
+            {
+                this.pedidoPrueba.Id = 42069;
+                this.pedidoPrueba.Estado = 0;
+                Respuesta<PedidoModelo> respuesta = this.consultanteMgr.ActualizarPedido(this.pedidoPrueba);
+                Assert.Fail();
+            }
+            catch (Exception excepcion)
+            {
+                Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
+                Assert.AreEqual("El pedido solicitado no existe.", excepcion.Message);
+            }
+        }
+
+        [TestMethod]
+        public void ActualizarPedido_Fallo_PedidoPagado()
+        {
+            try
+            {
+                this.pedidoPrueba.Id = this.idPedidoPagado;
+                this.pedidoPrueba.IdMiembro = 1;
+                this.pedidoPrueba.Estado = 0;
+                Respuesta<PedidoModelo> respuesta = this.consultanteMgr.ActualizarPedido(this.pedidoPrueba);
+                Assert.Fail();
+            }
+            catch (Exception excepcion)
+            {
+                Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
+                Assert.AreEqual("El pedido no puede cambiar su estado, pues ya fue pagado.", excepcion.Message);
+            }
+        }
+
+        [TestMethod]
+        public void ObtenerPedidosEntre_Exito()
+        {
+            this.pedidoPrueba.Id = this.idPedidoExistente;
+            this.pedidoPrueba.Estado = 0;
+            ObservableCollection<PedidoModelo> pedidosObtenidos = 
+                this.consultanteMgr.ObtenerPedidos(this.desde, this.hasta);
+            Assert.IsNotNull(pedidosObtenidos);
+            Assert.AreEqual(9, pedidosObtenidos.Count);
+            foreach (PedidoModelo pedido in pedidosObtenidos)
+            {
+                Assert.IsTrue(
+                    ((DateTime)pedido.Fecha).Date == this.desde
+                    || ((DateTime)pedido.Fecha).Date == this.hasta
+               );
+            }
+        }
+
+        [TestMethod]
+        public void ObtenerPedidosEntre_Fallo_NoHayPedidos()
+        {
+            try
+            {
+                this.consultanteMgr.ObtenerPedidos(this.hasta, this.desde);
+                Assert.Fail();
+            }
+            catch (Exception excepcion)
+            {
+                Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
+                Assert.AreEqual("No se encontraron pedidos en el rango especificado.", excepcion.Message);
+            }
         }
     }
 }
