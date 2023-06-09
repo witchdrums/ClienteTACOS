@@ -10,7 +10,7 @@
       Title="VerResenas">
 
     <Grid>
-        <ListView
+        <ListView x:Name="ListView_Resenas"
             Grid.Row="1"
             ItemsSource="{Binding Resenas}"
             IsSynchronizedWithCurrentItem="True"

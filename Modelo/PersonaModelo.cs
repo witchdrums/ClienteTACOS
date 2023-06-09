@@ -27,6 +27,8 @@ namespace Modelo
 
         public string NombreCompleto => $"{this.Nombre} {this.ApellidoPaterno} {this.ApellidoMaterno}";
 
+        public string NombreUsuario => $"{this.Nombre} {this.ApellidoPaterno}";
+
         public PersonaModelo() 
         {
             this.Miembros = new List<MiembroModelo>();

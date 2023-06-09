@@ -136,5 +136,19 @@ namespace Servicios
             }
             return resenas;
         }
+
+        public HttpResponseMessage BorrarResena(int idResena)
+        {
+            HttpResponseMessage respuestaHttp = new HttpResponseMessage();
+            using (var cliente = new HttpClient())
+            {
+                /*cliente.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);*/
+                cliente.DefaultRequestHeaders.Add("User-Agent", "Anything");
+                cliente.BaseAddress = this.uri;
+                respuestaHttp = cliente.PostAsync($"Resenas?idResena={idResena}", null).Result;
+            }
+            return respuestaHttp;
+        }
     }
 }
