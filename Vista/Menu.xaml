@@ -8,16 +8,84 @@
       mc:Ignorable="d" 
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
+      xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      Loaded="Cargar"
       Title="Menu">
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBox}" x:Key="TextBoxDeshabilitado">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property = "Foreground" Value="Black"/>
+                    <Setter Property = "BorderBrush" Value="Transparent"/>
+                    <Setter Property = "Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type xctk:IntegerUpDown}" x:Key="IntegerUpDownDeshabilitado">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property = "Foreground" Value="Black"/>
+                    <Setter Property = "BorderBrush" Value="Transparent"/>
+                    <Setter Property = "Background" Value="Transparent"/>
+                    <Setter Property = "ShowButtonSpinner" Value="False"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
+        <vistaModelo:BindingProxy x:Key="proxy" Data="{Binding}"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
+        <ToolBarTray 
+            Background="White" 
+            Grid.Row="0"
+            >
+            <ToolBar Band="1" BandIndex="1">
+                <Button>
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern 
+                                    Width="20"
+                                    Height="20"
+                                    VerticalAlignment="Center"
+                                    Kind="Add" />
+                                <TextBlock Margin="10,0,0,0">Agregar</TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <mah:ToggleSwitch 
+                    Toggled="HabilitarEdicion"
+                    x:Name="ToggleSwitch_Editar">
+                    Editar
+                </mah:ToggleSwitch>
+                <Button
+                    Click="GuardarCambios">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <iconPacks:PackIconModern 
+                            Width="20"
+                            Height="20"
+                            VerticalAlignment="Center"
+                            Kind="Save" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+
         <Expander 
-            Grid.Row="1"
+            Grid.Row="2"
             Name="Expander_Pedido"
             Background="White"
             Header="Pedido"
@@ -138,29 +206,79 @@
                                 <RowDefinition Height="1*"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-
-                            <TextBlock 
+                            
+                            
+                            <TextBox 
                                 Grid.Row="0"
-                                Text="{Binding Nombre}"
+                                TextWrapping="Wrap"
+                                AcceptsReturn="True"
+                                AcceptsTab="True"
+                                IsEnabled="{Binding Data.EditarMenu, Source={StaticResource proxy}}"
+                                FontWeight="DemiBold"
+                                SpellCheck.IsEnabled="True"
+                                Text="{Binding Nombre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource TextBoxDeshabilitado}"
                                 FontSize="20"/>
-                            <TextBlock 
+                            <TextBox 
+                                TextWrapping="Wrap"
+                                AcceptsReturn="True"
+                                AcceptsTab="True"
+                                IsEnabled="{Binding Data.EditarMenu, Source={StaticResource proxy}}"
+                                SpellCheck.IsEnabled="True"
                                 Grid.Row="1"
-                                Text="{Binding Descripcion}"
+                                Text="{Binding Descripcion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource TextBoxDeshabilitado}"
                                 FontSize="15"/>
-                            <TextBlock 
+                            <StackPanel
                                 Grid.Row="2"
-                                FontSize="15"
-                                Text="{Binding Existencia,
-                                       StringFormat='Disponibles: {0}'}"/>
+                                Orientation="Horizontal">
+                                <TextBlock 
+                                    FontSize="15"
+                                    VerticalAlignment="Center">Existencia: </TextBlock>
+                                <xctk:IntegerUpDown
+                                    FontSize="15"
+                                    Minimum="0"
+                                    FontWeight="Bold"
+                                    IsEnabled="{Binding Data.EditarMenu, Source={StaticResource proxy}}"
+                                    Watermark="Existencia"
+                                    Style="{StaticResource IntegerUpDownDeshabilitado}"
+                                    Value="{Binding Existencia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+
                         </Grid>
-                        <Button Grid.Column="2"/>
-                        <Button Grid.Column="3"/>
+                        <Button 
+                            Grid.Column="3"
+                            Visibility="{Binding Data.EsStaff, Source={StaticResource proxy},
+                            Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <iconPacks:PackIconModern 
+                                            Width="20"
+                                            Height="20"
+                                            VerticalAlignment="Center"
+                                            Kind="Edit" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
                         <Button 
                             Grid.Column="4"
                             Tag="{Binding }"
                             Name="Button_AgregarAlimentoAPedido"
-                            Click="AgregarAlimentoAPedido"
-                            Content="+"/>
+                            Click="AgregarAlimentoAPedido">
+                            <Button.ContentTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <iconPacks:PackIconModern 
+                                            Width="20"
+                                            Height="20"
+                                            VerticalAlignment="Center"
+                                            Kind="Add" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Button.ContentTemplate>
+                        </Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

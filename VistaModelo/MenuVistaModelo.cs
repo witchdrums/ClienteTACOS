@@ -23,6 +23,29 @@ namespace VistaModelo
         private readonly MenuMgr menuMgr;
         private readonly ConsultanteMgr consultanteMgr;
 
+        private bool esStaff = false;
+        public bool EsStaff
+        {
+            get { return esStaff; }
+            set
+            {
+                this.esStaff = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+
+        private bool editarMenu = false;
+        public bool EditarMenu
+        {
+            get { return editarMenu; }
+            set
+            {
+                this.editarMenu = value;
+                this.OnPropertyChanged();
+            }
+        }
+
         private double total = 0;
         public double Total 
         {
@@ -115,6 +138,17 @@ namespace VistaModelo
                 MessageBox.Show("¡Gracias por tu preferencia!");
             }
 
+        }
+
+        public void GuardarCambios()
+        {
+            foreach (AlimentoModelo alimento in this.menuMgr.Menu)
+            {
+                if (alimento.Actualizado)
+                {
+                    Console.WriteLine(alimento.Nombre);
+                }
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

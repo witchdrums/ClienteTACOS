@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingProxy.cs" />
     <Compile Include="MenuVistaModelo.cs" />
     <Compile Include="MiembroVistaModelo.cs" />
     <Compile Include="PanelPrincipalVistaModelo.cs" />

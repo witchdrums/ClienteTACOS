@@ -18,8 +18,27 @@ namespace Modelo
     {
         //Columnas
         public int Id { get; set; }
-        public string Nombre { set; get; }
-        public string Descripcion { set; get; }
+
+        public string nombre { set; get; }
+        public string Nombre
+        {
+            set
+            {
+                this.nombre = value;
+                OnPropertyChanged();
+            }
+            get { return this.nombre; }
+        }
+        private string descripcion;
+        public string Descripcion
+        {
+            set
+            {
+                this.descripcion = value;
+                OnPropertyChanged();
+            }
+            get { return this.descripcion; }
+        }
 
         private int existencia;
         public int Existencia
@@ -38,6 +57,8 @@ namespace Modelo
 
 
         //Otros
+        [JsonIgnore]
+        public bool Actualizado { set; get; } = false;
         [JsonIgnore]
         public BitmapSource ImagenConvertida => byteArrayToImage();
         public BitmapSource byteArrayToImage()
@@ -70,6 +91,10 @@ namespace Modelo
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
+            if (!name.Equals(nameof(this.Cantidad)))
+            {
+                this.Actualizado = true;
+            }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 

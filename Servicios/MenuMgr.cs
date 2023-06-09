@@ -24,6 +24,10 @@ namespace Servicios
         public MenuMgr()
         {
             this.Menu = ObtenerAlimentos();
+            foreach (var alimento in this.Menu) 
+            {
+                alimento.Actualizado = false;
+            }
         }
 
         public ObservableCollection<AlimentoModelo> ObtenerAlimentos()

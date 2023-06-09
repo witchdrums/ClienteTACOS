@@ -1,8 +1,10 @@
 ﻿using Modelo;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.IconPacks;
 
 using VistaModelo;
 
@@ -26,6 +29,7 @@ namespace Vista
     {
         private MenuVistaModelo contexto;
         public PanelPrincipalVistaModelo panelPrincipalVistaModelo;
+
         public Menu(MenuVistaModelo contexto)
         {
             InitializeComponent();
@@ -86,6 +90,21 @@ namespace Vista
         private void QuitarDePedido(object sender, RoutedEventArgs e)
         {
             this.contexto.DevolverAlimento((sender as Button).Tag as AlimentoPedidoModelo);
+        }
+
+        private void Cargar(object sender, RoutedEventArgs e)
+        {
+            this.contexto.EsStaff = Sesion.Credenciales.EsMiembro;
+        }
+
+        private void HabilitarEdicion(object sender, RoutedEventArgs e)
+        {
+            this.contexto.EditarMenu = !this.contexto.EditarMenu;
+        }
+
+        private void GuardarCambios(object sender, RoutedEventArgs e)
+        {
+            this.contexto.GuardarCambios();
         }
     }
 }

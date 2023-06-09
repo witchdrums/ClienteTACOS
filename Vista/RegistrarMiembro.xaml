@@ -28,7 +28,7 @@
             Source="./ImagenesEstaticas/tacos2.png"
             HorizontalAlignment="Left"
             Stretch="UniformToFill"/>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" x:Name="Grid_Formulario">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -45,40 +45,46 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <xctk:WatermarkTextBox
-            Grid.Row="1"
-            VerticalContentAlignment="Center"
-            Watermark="Email"
-            Text="{Binding MiembroModelo.Persona.Email, Mode=TwoWay}"/>
+                x:Name="TextBox_Email"
+                Grid.Row="1"
+                VerticalContentAlignment="Center"
+                Watermark="Email"
+                Text="{Binding MiembroModelo.Persona.Email, Mode=TwoWay}"/>
             <xctk:WatermarkPasswordBox
-            Name="PasswordBox"
-            Grid.Row="2"
-            VerticalContentAlignment="Center"
-            Watermark="Contraseña"/>
+                Name="PasswordBox"
+                Grid.Row="2"
+                VerticalContentAlignment="Center"
+                Watermark="Contraseña"/>
             <xctk:WatermarkTextBox
-            Grid.Row="4"
-            VerticalContentAlignment="Center"
-            Watermark="Nombre(s)"
-            Text="{Binding MiembroModelo.Persona.Nombre, Mode=TwoWay}"/>
+                x:Name="TextBox_Nombre"
+                Grid.Row="4"
+                VerticalContentAlignment="Center"
+                Watermark="Nombre(s)"
+                Text="{Binding MiembroModelo.Persona.Nombre, Mode=TwoWay}"/>
             <xctk:WatermarkTextBox
-            Grid.Row="5"
-            VerticalContentAlignment="Center"
-            Watermark="Apellido paterno"
-            Text="{Binding MiembroModelo.Persona.ApellidoPaterno, Mode=TwoWay}"/>
+                x:Name="TextBox_ApellidoPaterno"
+                Grid.Row="5"
+                VerticalContentAlignment="Center"
+                Watermark="Apellido paterno"
+                Text="{Binding MiembroModelo.Persona.ApellidoPaterno, Mode=TwoWay}"/>
             <xctk:WatermarkTextBox
-            Grid.Row="6"
-            VerticalContentAlignment="Center"
-            Watermark="Apellido materno"
-            Text="{Binding MiembroModelo.Persona.ApellidoMaterno, Mode=TwoWay}"/>
+                x:Name="TextBox_ApellidoMaterno"
+                Grid.Row="6"
+                VerticalContentAlignment="Center"
+                Watermark="Apellido materno"
+                Text="{Binding MiembroModelo.Persona.ApellidoMaterno, Mode=TwoWay}"/>
             <xctk:WatermarkTextBox
-            Grid.Row="7"
-            VerticalContentAlignment="Center"
-            Watermark="Dirección"
-            Text="{Binding MiembroModelo.Persona.Direccion, Mode=TwoWay}"/>
+                x:Name="TextBox_Direccion"
+                Grid.Row="7"
+                VerticalContentAlignment="Center"
+                Watermark="Dirección"
+                Text="{Binding MiembroModelo.Persona.Direccion, Mode=TwoWay}"/>
             <xctk:WatermarkTextBox
-            Grid.Row="8"
-            VerticalContentAlignment="Center"
-            Watermark="Teléfono"
-            Text="{Binding MiembroModelo.Persona.Telefono, Mode=TwoWay}"/>
+                x:Name="TextBox_Telefono"
+                Grid.Row="8"
+                VerticalContentAlignment="Center"
+                Watermark="Teléfono"
+                Text="{Binding MiembroModelo.Persona.Telefono, Mode=TwoWay}"/>
             <Grid
                 Grid.Row="10">
                 <Grid.ColumnDefinitions>
