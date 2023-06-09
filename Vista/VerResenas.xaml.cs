@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,14 +26,17 @@ namespace Vista
             InitializeComponent();
             this.contexto = contexto;
             this.DataContext = this.contexto;
-            
-            
+
+
         }
 
         private void EliminarResenaSeleccionada(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hola");
-            //this.contexto.EliminarResena();
+            ResenaModelo resena = (sender as Button).Tag as ResenaModelo;
+            this.contexto.BorrarResena(resena.Id);
+            var collection = this.contexto.Resenas.SourceCollection as ICollection<ResenaModelo>;
+            collection.Remove(resena);
+            this.contexto.Resenas.Refresh();
         }
     }
 }
