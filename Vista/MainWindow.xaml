@@ -46,10 +46,10 @@
                     </DataTemplate>
                 </Button.ContentTemplate>
             </Button>
-            <Button  
+            <Button
                 Content="Perfil"
                 FontSize="15"
-                Click="Entrar"
+                Click="Salir"
                 Visibility="{Binding Credenciales.VisibilidadMiembro}">
                 <Button.ContentTemplate>
                     <DataTemplate>

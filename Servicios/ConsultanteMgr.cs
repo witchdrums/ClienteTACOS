@@ -69,7 +69,6 @@ namespace Servicios
                         Codigo = (int)respuesta.StatusCode, 
                         Mensaje=credencialesObtenidas.Mensaje}
                 );
-
             }
             return credencialesObtenidas;
         }

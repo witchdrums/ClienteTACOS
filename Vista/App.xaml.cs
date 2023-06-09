@@ -21,7 +21,7 @@ namespace Vista
 
         void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            new MenuVistaModelo().DevolverPedido();
+            new MenuVistaModelo(new PanelPrincipalVistaModelo()).DevolverPedido();
             MessageBox.Show("Unhandled exception occurred: \n" + e.Exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             
         }

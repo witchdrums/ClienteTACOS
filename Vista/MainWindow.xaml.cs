@@ -28,27 +28,23 @@ namespace Vista
         public MainWindow()
         {
             InitializeComponent();
-            //this.Frame.Navigate(new Menu(new MenuVistaModelo()));
-            //this.Frame.Navigate(new GestionarPedidos());
-            //this.Frame_Main.Navigate(new RegistrarMiembro());
-            //this.Frame.Navigate(new PanelPrincipal());
-            //this.NavigationService.Navigate(new InicioDeSesion());
-            //this.NavigationService.Navigate(new GestionarPedidos());
-            //this.NavigationService.Navigate(new TestPage());
-            //this.Frame.Navigate(new VerResenas(new ResenaVistaModelo()));
-            //Frame_PagesNavigation.Navigate(new PanelPrincipal());
             this.panelPrincipalVistaModelo = this.DataContext as PanelPrincipalVistaModelo;
             this.Frame_PagesNavigation.Navigate(new PanelPrincipal(this.panelPrincipalVistaModelo));
         }
 
         private void LimpiarPedido(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            new MenuVistaModelo().DevolverPedido();
+            new MenuVistaModelo(this.panelPrincipalVistaModelo).DevolverPedido();
         }
 
         private void Entrar(object sender, RoutedEventArgs e)
         {
             this.Frame_PagesNavigation.Navigate(new InicioDeSesion(this.panelPrincipalVistaModelo));
+        }
+
+        private void Salir(object sender, RoutedEventArgs e)
+        {
+            this.panelPrincipalVistaModelo.CambiarEstadoSesion(false);
         }
     }
 }

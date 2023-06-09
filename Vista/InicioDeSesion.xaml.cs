@@ -61,7 +61,7 @@ namespace Vista
                 }
                 else
                 {
-                    this.panelPrincipalVistaModelo.CambiarEstadoSesion();
+                    this.panelPrincipalVistaModelo.CambiarEstadoSesion(true);
                     this.NavigationService.GoBack();
                 }
             }

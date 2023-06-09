@@ -44,6 +44,25 @@ namespace Modelo.PeticionesRespuestas
             }
         }
 
+        private bool esStaff = false;
+        public bool EsStaff
+        {
+            get { return this.esStaff; }
+            set
+            {
+                this.esStaff = value;
+                if (value)
+                {
+                    this.VisibilidadStaff = Visibility.Visible;
+                }
+                else
+                {
+                    this.VisibilidadStaff = Visibility.Collapsed;
+                }
+                this.OnPropertyChanged();
+            }
+        }
+
         //Bindea esta propiedad con todos los elementos GUI que sean exclusivos del miembro.
         private Visibility visibilidadMiembro = Visibility.Collapsed;
         public Visibility VisibilidadMiembro
@@ -66,6 +85,18 @@ namespace Modelo.PeticionesRespuestas
                 this.OnPropertyChanged();
             }
         }
+
+        private Visibility visibilidadStaff = Visibility.Collapsed;
+        public Visibility VisibilidadStaff
+        {
+            get { return this.visibilidadStaff; }
+            set
+            {
+                this.visibilidadStaff = value;
+                this.OnPropertyChanged();
+            }
+        }
+
         public string Token { get; set; }
         public string Expera { get; set; }
         public int Codigo { get; set; }

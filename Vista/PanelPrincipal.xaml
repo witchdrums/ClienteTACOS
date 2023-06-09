@@ -45,7 +45,7 @@
                 Header="Pedidos"
                 Selector.Selected="CargarPedidos"
                 FontSize="20"
-                Visibility="{Binding Credenciales.VisibilidadMiembro}">
+                Visibility="{Binding Credenciales.VisibilidadStaff}">
                 <Frame
                     Grid.Row="2"
                     Name="Frame_Pedidos"

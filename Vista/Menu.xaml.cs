@@ -94,17 +94,33 @@ namespace Vista
 
         private void Cargar(object sender, RoutedEventArgs e)
         {
-            this.contexto.EsStaff = Sesion.Credenciales.EsMiembro;
+            this.contexto.EsStaff = Sesion.Credenciales.EsStaff;
         }
 
         private void HabilitarEdicion(object sender, RoutedEventArgs e)
         {
             this.contexto.EditarMenu = !this.contexto.EditarMenu;
+            if (!this.contexto.EditarMenu)
+            {
+                this.ForzarGuardarCambios();
+            }
+        }
+
+        private void ForzarGuardarCambios()
+        {
+            try
+            {
+                this.contexto.GuardarCambios();
+            }
+            catch (HttpRequestException excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
         }
 
         private void GuardarCambios(object sender, RoutedEventArgs e)
         {
-            this.contexto.GuardarCambios();
+            this.ForzarGuardarCambios();
         }
     }
 }

@@ -130,5 +130,19 @@ namespace Servicios
                     .Existencia += registro.Value;
             }
         }
+
+        public Respuesta<List<AlimentoModelo>> ActualizarAlimentos(List<AlimentoModelo> alimentosAModificar)
+        {
+            var respuesta = new Respuesta<List <AlimentoModelo>>();
+            using (var clienteHttp = new HttpClient())
+            {
+                clienteHttp.BaseAddress = this.uri;
+                HttpResponseMessage respuestaHttp =
+                    clienteHttp.PutAsJsonAsync("menu",alimentosAModificar).Result;
+                respuesta = respuestaHttp.Content.ReadAsAsync<Respuesta<List<AlimentoModelo>>>().Result;
+                ValidadorRespuestaHttp.Validar(respuesta);
+            }
+            return respuesta;
+        }
     }
 }
