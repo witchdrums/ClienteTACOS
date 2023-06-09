@@ -29,7 +29,7 @@ namespace Vista
 
         private Menu CrearPaginaMenu()
         {
-            Menu paginaMenu = new Menu(new MenuVistaModelo());
+            Menu paginaMenu = new Menu(new MenuVistaModelo(this.vistaModelo));
             paginaMenu.panelPrincipalVistaModelo = this.vistaModelo;
             return paginaMenu;
         }
@@ -74,10 +74,5 @@ namespace Vista
 
         }
 
-        private void Salir(object sender, RoutedEventArgs e)
-        {
-            this.vistaModelo.Salir();
-
-        }
     }
 }

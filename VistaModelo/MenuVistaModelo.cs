@@ -22,6 +22,7 @@ namespace VistaModelo
         private ObservableCollection<AlimentoPedidoModelo> alimentosPedidos = Sesion.AlimentosPedidos;
         private readonly MenuMgr menuMgr;
         private readonly ConsultanteMgr consultanteMgr;
+        public PanelPrincipalVistaModelo PanelPrincipalVistaModelo { get; private set; }
 
         private bool esStaff = false;
         public bool EsStaff
@@ -56,13 +57,13 @@ namespace VistaModelo
                 OnPropertyChanged();
             }
         }
-        public MenuVistaModelo()
+        public MenuVistaModelo(PanelPrincipalVistaModelo panelPrincipalVistaModelo)
         {
             this.menuMgr = new MenuMgr();
             this.consultanteMgr = new ConsultanteMgr();
             this.Menu = CollectionViewSource.GetDefaultView(menuMgr.Menu);
             this.Pedido = CollectionViewSource.GetDefaultView(this.alimentosPedidos);
-            //this.menuMgr.ConectarAMenu();
+            this.PanelPrincipalVistaModelo=panelPrincipalVistaModelo;
         }
 
         public void ReservarAlimentoEnBD(AlimentoModelo alimento)
@@ -126,7 +127,6 @@ namespace VistaModelo
                     new PedidoModelo()
                     {
                         IdMiembro = Sesion.Credenciales.Miembro.Id,
-                        //IdMiembroNavigation = Sesion.Credenciales,
                         Total = this.Total,
                         Estado = (int)Estados.Ordenado,
                         Alimentospedidos = this.alimentosPedidos,
@@ -137,17 +137,14 @@ namespace VistaModelo
                 this.Total=0;
                 MessageBox.Show("¡Gracias por tu preferencia!");
             }
-
         }
 
         public void GuardarCambios()
         {
-            foreach (AlimentoModelo alimento in this.menuMgr.Menu)
+            var alimentosPorActualizar = this.menuMgr.Menu.Where(alimento => alimento.Actualizado).ToList();
+            if (alimentosPorActualizar.Count > 0)
             {
-                if (alimento.Actualizado)
-                {
-                    Console.WriteLine(alimento.Nombre);
-                }
+                this.menuMgr.ActualizarAlimentos(alimentosPorActualizar);
             }
         }
 

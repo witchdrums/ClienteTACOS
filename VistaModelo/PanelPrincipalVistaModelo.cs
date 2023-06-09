@@ -20,15 +20,20 @@ namespace VistaModelo
         {
             this.Credenciales = Sesion.Credenciales;
         }
-        public void CambiarEstadoSesion()
+        public void CambiarEstadoSesion(bool entrar)
         {
-            Credenciales.EsMiembro = Sesion.Credenciales.ValidarMiembroLoggeado();
+            if (entrar)
+            {
+                this.Credenciales.EsMiembro = Sesion.Credenciales.ValidarMiembroLoggeado();
+                this.Credenciales.EsStaff = Sesion.Credenciales.EsStaff =
+                    Sesion.Credenciales.Miembro.Persona.Email.Equals("admin");
+            }
+            else
+            {
+                Sesion.Credenciales = new Credenciales();
+                this.Credenciales.EsMiembro = false;
+                this.Credenciales.EsStaff = false;
+            }
         }
-        public void Salir()
-        {
-            Sesion.Credenciales = new Credenciales();
-            this.CambiarEstadoSesion();
-        }
-
     }
 }
