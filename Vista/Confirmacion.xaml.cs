@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VistaModelo;
 using Modelo;
+using System.Net.Http;
+using System.Text.RegularExpressions;
 
 namespace Vista
 {
@@ -39,13 +41,33 @@ namespace Vista
                 miembro = Sesion.Credenciales.Miembro;
             }
             miembro.CodigoConfirmacion = Int32.Parse(this.TextBox_Codigo.Text);
-            (this.DataContext as MiembroVistaModelo).EnviarCodigoConfirmacion(miembro);
-            this.Close();
+            try
+            {
+                (this.DataContext as MiembroVistaModelo).EnviarCodigoConfirmacion(miembro);
+                this.TextBlock_Cabecera.Text = "¡Confirmado!";
+                this.TextBlock_Contenido.Text = "Ya puedes entrar con tu email y contraseña.";
+                this.TextBox_Codigo.Visibility = Visibility.Hidden;
+                this.Button_Salir.Content="Continuar";
+                this.Button_Enviar.Visibility = Visibility.Collapsed;
+            }
+            catch (HttpRequestException excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
+        }
+        private void ValidacionNumerica(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
         }
 
-        private void Cancelar(object sender, RoutedEventArgs e)
+
+        private void Salir(object sender, RoutedEventArgs e)
         {
-            Sesion.Credenciales = null;
+            if ((sender as Button).Content.Equals("Cancelar"))
+            {
+                Sesion.Credenciales = null;
+            }
             this.Close();
         }
 

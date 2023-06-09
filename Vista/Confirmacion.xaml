@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vista"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Confirmacion" Height="350" Width="500"
         ResizeMode="NoResize"
@@ -31,9 +32,11 @@
                 Grid.Row="0"
                 VerticalAlignment="Center">
                 <TextBlock 
+                    x:Name="TextBlock_Cabecera"
                     Text="¡Confirma tu registro!"
                     FontSize="30"/>
                 <TextBlock 
+                    x:Name="TextBlock_Contenido"
                     Text="Por favor, ingresa el código que enviamos al correo 
                           electrónico que nos proporcionaste al crear tu cuenta." 
                     TextWrapping="Wrap"
@@ -46,20 +49,25 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 FontSize="23"
-                MaxLength="5"/>
+                MaxLength="5"
+                PreviewTextInput="ValidacionNumerica"/>
             <StackPanel
                 Orientation="Horizontal"
                 Grid.Row="2"
                 HorizontalAlignment="Right"
                 Margin="0,0,0,0">
                 <Button
+                    x:Name="Button_Enviar"
                     Content="Enviar codigo"
                     Padding="30,0"
-                    Margin="15" Click="EnviarCodigo"/>
+                    Margin="15" 
+                    Click="EnviarCodigo"/>
                 <Button
+                    x:Name="Button_Salir"
                     Content="Cancelar"
                     Padding="30,0"
-                    Margin="15" Click="Cancelar"/>
+                    Margin="15" 
+                    Click="Salir"/>
             </StackPanel>
         </Grid>
     </Grid>

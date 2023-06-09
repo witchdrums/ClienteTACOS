@@ -35,11 +35,24 @@ namespace Vista
                 MiembroVistaModelo contexto = this.DataContext as MiembroVistaModelo;
                 contexto.RegistrarMiembro(this.PasswordBox.Password);
                 new Confirmacion(contexto).ShowDialog();
+                this.LimpiarCampos();
+                this.NavigationService.GoBack();
             }
             catch (HttpRequestException excepcion)
             {
                 MessageBox.Show(excepcion.Message);
             }
+        }
+
+        private void LimpiarCampos()
+        {
+            this.TextBox_Email.Clear();
+            this.PasswordBox.Clear();
+            this.TextBox_Nombre.Clear();
+            this.TextBox_ApellidoPaterno.Clear();
+            this.TextBox_ApellidoMaterno.Clear();
+            this.TextBox_Direccion.Clear();
+            this.TextBox_Telefono.Clear();
         }
 
         private void Regresar(object sender, RoutedEventArgs e)

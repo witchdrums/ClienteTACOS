@@ -34,9 +34,10 @@ namespace VistaModelo
             Sesion.Credenciales = await this.consultanteMgr.IniciarSesion(email, contrasena);
         }
 
-        public void EnviarCodigoConfirmacion(MiembroModelo persona)
+        public bool EnviarCodigoConfirmacion(MiembroModelo persona)
         {
-            this.consultanteMgr.ConfirmarRegistro(persona);
+            return this.consultanteMgr.ConfirmarRegistro(persona).Codigo == 200;
+            
         }
     }
 }
