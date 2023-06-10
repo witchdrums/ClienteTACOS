@@ -1,4 +1,5 @@
 ﻿using Modelo;
+using Modelo.PeticionesRespuestas;
 using Servicios;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,13 @@ namespace VistaModelo
         {
             this.MiembroModelo.Contrasena = contrasena;
             this.MiembroModelo.PedidosPagados = 0;
-            Sesion.Credenciales = new Modelo.PeticionesRespuestas.Credenciales();
-            Sesion.Credenciales.Miembro = this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
+            Sesion.Instancia.Credenciales.Miembro = this.consultanteMgr.RegistrarMiembro(this.MiembroModelo);
         }
 
-        public async Task IniciarSesion(string email, string contrasena)
+        public async Task IniciarSesion(PeticionCredenciales peticionCredenciales)
         {
-            Sesion.Credenciales = await this.consultanteMgr.IniciarSesion(email, contrasena);
+            
+            Sesion.Instancia.Credenciales = await this.consultanteMgr.IniciarSesion(peticionCredenciales);
         }
 
         public bool EnviarCodigoConfirmacion(MiembroModelo persona)

@@ -61,7 +61,7 @@
                 <Button 
                     Grid.Column="0"
                     Margin="0,10,10,10"
-                    Content="Entrar como staff"/>                
+                    Content="Entrar como staff" Click="EntrarStaff"/>                
                 <Button 
                     Grid.Column="1"
                     Margin="10,10,0,10"

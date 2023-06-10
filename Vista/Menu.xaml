@@ -10,6 +10,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
+      xmlns:modelo="clr-namespace:Modelo;assembly=Modelo"
       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       Loaded="Cargar"
       Title="Menu">
@@ -35,6 +36,8 @@
         </Style>
 
         <vistaModelo:BindingProxy x:Key="proxy" Data="{Binding}"/>
+        
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -45,8 +48,9 @@
         <ToolBarTray 
             Background="White" 
             Grid.Row="0"
-            Visibility="{Binding PanelPrincipalVistaModelo.Credenciales.VisibilidadStaff}"
-            >
+            Visibility="{Binding Source={x:Static modelo:Sesion.Instancia}, 
+                        Path=EsGerente, UpdateSourceTrigger=PropertyChanged,
+                        Converter={StaticResource BoolToVisibility}}">
             <ToolBar Band="1" BandIndex="1">
                 <Button>
                     <Button.ContentTemplate>
@@ -251,6 +255,9 @@
                             Grid.Column="4"
                             Tag="{Binding }"
                             Name="Button_AgregarAlimentoAPedido"
+                            Visibility="{Binding Source={x:Static modelo:Sesion.Instancia}, 
+                                Path=EsMiembro, UpdateSourceTrigger=PropertyChanged,
+                                Converter={StaticResource BoolToVisibility}}"
                             Click="AgregarAlimentoAPedido">
                             <Button.ContentTemplate>
                                 <DataTemplate>

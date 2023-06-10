@@ -18,22 +18,12 @@ namespace VistaModelo
         public Credenciales Credenciales { get; set; }
         public PanelPrincipalVistaModelo() 
         {
-            this.Credenciales = Sesion.Credenciales;
+            this.Credenciales = Sesion.Instancia.Credenciales;
         }
-        public void CambiarEstadoSesion(bool entrar)
+        public void Salir()
         {
-            if (entrar)
-            {
-                this.Credenciales.EsMiembro = Sesion.Credenciales.ValidarMiembroLoggeado();
-                this.Credenciales.EsStaff = Sesion.Credenciales.EsStaff =
-                    Sesion.Credenciales.Miembro.Persona.Email.Equals("admin");
-            }
-            else
-            {
-                Sesion.Credenciales = new Credenciales();
-                this.Credenciales.EsMiembro = false;
-                this.Credenciales.EsStaff = false;
-            }
+            Sesion.Instancia.Credenciales = new Credenciales();
+            Sesion.Instancia.RevocarPermisos();
         }
     }
 }

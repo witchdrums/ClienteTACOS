@@ -32,7 +32,12 @@ namespace Pruebas
         };
         public PedidoTest()
         {
-            Sesion.Credenciales = consultanteMgr.IniciarSesion("maledict@proton.me","asdf").Result;
+            PeticionCredenciales peticion = new PeticionCredenciales
+            {
+                Email="maledict@proton.me",
+                Contrasena="asdf"
+            };
+            Sesion.Instancia.Credenciales = consultanteMgr.IniciarSesion(peticion).Result;
         }
 
         [TestMethod]

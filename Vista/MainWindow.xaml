@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:Vista"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
+        xmlns:modelo="clr-namespace:Modelo;assembly=Modelo"
         WindowState="Maximized"
         xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
         TitleBarHeight="50"
@@ -14,6 +15,10 @@
     <mah:MetroWindow.DataContext>
         <vistaModelo:PanelPrincipalVistaModelo/>
     </mah:MetroWindow.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
@@ -31,7 +36,9 @@
                 Content="Entrar" 
                 FontSize="15"
                 Click="Entrar"
-                Visibility="{Binding Credenciales.VisibilidadConsultante}">
+                Visibility="{Binding Source={x:Static modelo:Sesion.Instancia}, 
+                            Path=EsConsultante, UpdateSourceTrigger=PropertyChanged,
+                            Converter={StaticResource BoolToVisibility}}">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -50,7 +57,9 @@
                 Content="Perfil"
                 FontSize="15"
                 Click="Salir"
-                Visibility="{Binding Credenciales.VisibilidadMiembro}">
+                Visibility="{Binding Source={x:Static modelo:Sesion.Instancia}, 
+                            Path=EsAsociado, UpdateSourceTrigger=PropertyChanged,
+                            Converter={StaticResource BoolToVisibility}}">
                 <Button.ContentTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
