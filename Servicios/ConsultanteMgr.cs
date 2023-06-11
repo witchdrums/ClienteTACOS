@@ -51,7 +51,7 @@ namespace Servicios
             return respuesta;
         }
 
-        public async Task<Credenciales> IniciarSesion(string email, string contrasena)
+        public async Task<Credenciales> IniciarSesion(PeticionCredenciales peticionCredenciales)
         {
             Credenciales credencialesObtenidas = new Credenciales();
             using (var clienteHttp = new HttpClient())
@@ -60,7 +60,7 @@ namespace Servicios
                 HttpResponseMessage respuesta =
                     await clienteHttp.PostAsJsonAsync(
                         "Login",
-                        new { Email = email, Contrasena = contrasena}
+                        peticionCredenciales
                     );
                 
                 credencialesObtenidas = await respuesta.Content.ReadAsAsync<Credenciales>();
@@ -78,7 +78,7 @@ namespace Servicios
             using (var cliente = new HttpClient())
             { 
                 cliente.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                    new AuthenticationHeaderValue("Bearer", Sesion.Instancia.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 Console.WriteLine(JsonConvert.SerializeObject(pedidoNuevo).ToString());
                 HttpResponseMessage respuestaHttp = cliente.PostAsJsonAsync("pedidos",pedidoNuevo).Result;
@@ -93,7 +93,7 @@ namespace Servicios
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                    new AuthenticationHeaderValue("Bearer", Sesion.Instancia.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 var respuestaHttp = cliente.PostAsJsonAsync(
                     "pedidos/ObtenerPedidosEntre",
@@ -113,7 +113,7 @@ namespace Servicios
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                    new AuthenticationHeaderValue("Bearer", Sesion.Instancia.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 var respuestaHttp = cliente.PatchAsJsonAsync("pedidos",new PedidoSimple(pedido)).Result;
                 respuesta = respuestaHttp.Content.ReadAsAsync<Respuesta<PedidoModelo>>().Result;

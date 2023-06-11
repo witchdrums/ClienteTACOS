@@ -44,7 +44,7 @@ namespace Vista
 
         private void Salir(object sender, RoutedEventArgs e)
         {
-            this.panelPrincipalVistaModelo.CambiarEstadoSesion(false);
+            this.panelPrincipalVistaModelo.Salir();
         }
     }
 }

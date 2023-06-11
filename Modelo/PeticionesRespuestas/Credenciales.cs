@@ -11,104 +11,27 @@ namespace Modelo.PeticionesRespuestas
 {
     public class Credenciales : INotifyPropertyChanged
     {
-        private MiembroModelo miembro = null;
+        private MiembroModelo miembro = new MiembroModelo();
         public MiembroModelo Miembro 
         {
             get { return this.miembro; }
             set
             { 
                 this.miembro = value;
-                this.EsMiembro = (value != null);
                 this.OnPropertyChanged();
             }
         }
 
-        private bool esMiembro = false;
-        public bool EsMiembro
-        {
-            get { return this.esMiembro; }
-            set
-            {
-                this.esMiembro = value;
-                if (value)
-                { 
-                    this.VisibilidadMiembro = Visibility.Visible; 
-                    this.VisibilidadConsultante = Visibility.Collapsed;
-                }
-                else
-                {
-                    this.VisibilidadMiembro = Visibility.Collapsed;
-                    this.VisibilidadConsultante = Visibility.Visible;
-                }
-                this.OnPropertyChanged();
-            }
-        }
+        public StaffModelo Staff { get; set; } = new StaffModelo();
 
-        private bool esStaff = false;
-        public bool EsStaff
-        {
-            get { return this.esStaff; }
-            set
-            {
-                this.esStaff = value;
-                if (value)
-                {
-                    this.VisibilidadStaff = Visibility.Visible;
-                }
-                else
-                {
-                    this.VisibilidadStaff = Visibility.Collapsed;
-                }
-                this.OnPropertyChanged();
-            }
-        }
+        public bool EsStaff => this.Staff != null;
 
-        //Bindea esta propiedad con todos los elementos GUI que sean exclusivos del miembro.
-        private Visibility visibilidadMiembro = Visibility.Collapsed;
-        public Visibility VisibilidadMiembro
-        {
-            get { return this.visibilidadMiembro; }
-            set
-            {
-                this.visibilidadMiembro = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-        private Visibility visibilidadConsultante = Visibility.Visible;
-        public Visibility VisibilidadConsultante
-        {
-            get { return this.visibilidadConsultante; }
-            set
-            {
-                this.visibilidadConsultante = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-        private Visibility visibilidadStaff = Visibility.Collapsed;
-        public Visibility VisibilidadStaff
-        {
-            get { return this.visibilidadStaff; }
-            set
-            {
-                this.visibilidadStaff = value;
-                this.OnPropertyChanged();
-            }
-        }
+        public bool EsMiembro => this.Miembro != null;
 
         public string Token { get; set; }
         public string Expera { get; set; }
         public int Codigo { get; set; }
         public string Mensaje { get; set; }
-
-        public bool ValidarMiembroLoggeado()
-        {
-            return this.EsMiembro =
-                !(this.Miembro is null)
-                && (this.Miembro.Id > 0)
-                && (this.Miembro.CodigoConfirmacion == 0);
-        }
 
         //INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

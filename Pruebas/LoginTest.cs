@@ -35,10 +35,19 @@ namespace Pruebas
                 Telefono="gjhg"
             }
         };
+
+        private PeticionCredenciales peticion = new PeticionCredenciales
+        {
+            Contrasena="asdf",
+            Email="maledict@proton.me",
+            EsStaff=false
+        };
+
+
         [TestMethod]
         public void IniciarSesion_Exito()
         {
-            Credenciales credenciales = consultanteMgr.IniciarSesion("maledict@proton.me","asdf").Result;
+            Credenciales credenciales = consultanteMgr.IniciarSesion(this.peticion).Result;
             Assert.IsNotNull(credenciales);
             Assert.AreEqual("Operación exitosa.", credenciales.Mensaje);
             Assert.AreEqual(this.miembroEsperado.Contrasena, credenciales.Miembro.Contrasena);
@@ -53,7 +62,8 @@ namespace Pruebas
         {
             try
             {
-                Credenciales credenciales = this.consultanteMgr.IniciarSesion("","asdf").Result;
+                this.peticion.Email="";
+                Credenciales credenciales = this.consultanteMgr.IniciarSesion(this.peticion).Result;
                 Assert.Fail();
             }
             catch (Exception excepcion)
@@ -67,7 +77,8 @@ namespace Pruebas
         {
             try
             {
-                Credenciales credenciales = this.consultanteMgr.IniciarSesion("maledict@proton.me","").Result;
+                this.peticion.Contrasena="";
+                Credenciales credenciales = this.consultanteMgr.IniciarSesion(this.peticion).Result;
                 Assert.Fail();
             }
             catch (Exception excepcion)
@@ -81,7 +92,9 @@ namespace Pruebas
         {
             try
             {
-                Credenciales credenciales = this.consultanteMgr.IniciarSesion("","").Result;
+                this.peticion.Contrasena="";
+                this.peticion.Email="";
+                Credenciales credenciales = this.consultanteMgr.IniciarSesion(this.peticion).Result;
                 Assert.Fail();
             }
             catch (Exception excepcion)
@@ -95,7 +108,9 @@ namespace Pruebas
         {
             try
             {
-                Credenciales credenciales = this.consultanteMgr.IniciarSesion("string","string").Result;
+                this.peticion.Contrasena="string";
+                this.peticion.Contrasena="string";
+                Credenciales credenciales = this.consultanteMgr.IniciarSesion(this.peticion).Result;
                 Assert.Fail();
             }
             catch (Exception excepcion)

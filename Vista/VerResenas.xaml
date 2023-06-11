@@ -7,8 +7,11 @@
       mc:Ignorable="d" 
       Background="White"
       d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:modelo="clr-namespace:Modelo;assembly=Modelo"
       Title="VerResenas">
-
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </Page.Resources>
     <Grid>
         <ListView x:Name="ListView_Resenas"
             Grid.Row="1"
@@ -75,6 +78,9 @@
                             Tag="{Binding}"
                             Name="Button_EliminarResena"
                             Click="EliminarResenaSeleccionada"
+                            Visibility="{Binding Source={x:Static modelo:Sesion.Instancia}, 
+                                        Path=EsGerente, UpdateSourceTrigger=PropertyChanged,
+                                        Converter={StaticResource BoolToVisibility}}"
                             Content="X"/>
                     </Grid>
                 </DataTemplate>

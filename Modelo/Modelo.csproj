@@ -87,6 +87,7 @@
     <Compile Include="PedidoSimple.cs" />
     <Compile Include="PersonaModelo.cs" />
     <Compile Include="PeticionesRespuestas\Credenciales.cs" />
+    <Compile Include="PeticionesRespuestas\PeticionCredenciales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PuestoModelo.cs" />
     <Compile Include="ResenaModelo.cs" />
