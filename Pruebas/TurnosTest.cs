@@ -22,7 +22,8 @@ namespace Pruebas
             PeticionCredenciales peticion = new PeticionCredenciales
             {
                 Email = "maledict@proton.me",
-                Contrasena = "asdf"
+                Contrasena = "asdf",
+                EsStaff=true
             };
             Sesion.Instancia.Credenciales = consultanteMgr.IniciarSesion(peticion).Result;
         }

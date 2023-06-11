@@ -25,7 +25,8 @@ namespace Pruebas
             PeticionCredenciales peticion = new PeticionCredenciales
             {
                 Email = "maledict@proton.me",
-                Contrasena = "asdf"
+                Contrasena = "asdf",
+                EsStaff=true
             };
             Sesion.Instancia.Credenciales = consultanteMgr.IniciarSesion(peticion).Result;
         }
@@ -73,9 +74,9 @@ namespace Pruebas
         [TestMethod]
         public void RegistrarStaff_Exito()
         {
-            persona.Nombre = "Test";
-            persona.ApellidoMaterno = "Test";
-            persona.ApellidoPaterno = "Test";
+            persona.Nombre = "Tests";
+            persona.ApellidoMaterno = "Tests";
+            persona.ApellidoPaterno = "Tests";
             persona.Direccion = "Calle Test #Tes Col.Test";
             persona.Email = "test@gmail.com";
             persona.Telefono = "2244556677";
