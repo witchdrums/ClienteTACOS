@@ -32,11 +32,17 @@ namespace Vista
 
         private void EliminarResenaSeleccionada(object sender, RoutedEventArgs e)
         {
-            ResenaModelo resena = (sender as Button).Tag as ResenaModelo;
-            this.contexto.BorrarResena(resena.Id);
-            var collection = this.contexto.Resenas.SourceCollection as ICollection<ResenaModelo>;
-            collection.Remove(resena);
-            this.contexto.Resenas.Refresh();
+            MessageBoxResult resultadoMessageBox =
+               MessageBox.Show("¿Esta seguro de eleiminar esta reseña?", "Confirmación",
+               MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (resultadoMessageBox == MessageBoxResult.Yes)
+            {
+                ResenaModelo resena = (sender as Button).Tag as ResenaModelo;
+                this.contexto.BorrarResena(resena.Id);
+                var collection = this.contexto.Resenas.SourceCollection as ICollection<ResenaModelo>;
+                collection.Remove(resena);
+                this.contexto.Resenas.Refresh();
+            }
         }
     }
 }
