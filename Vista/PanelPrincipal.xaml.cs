@@ -74,5 +74,9 @@ namespace Vista
 
         }
 
+        private void IrVentanaRegistrarEmpleadoStaff(object sender, RoutedEventArgs e)
+        {
+            this.Frame_Staff.Navigate(new NuevoEmpleadoStaff());
+        }
     }
 }

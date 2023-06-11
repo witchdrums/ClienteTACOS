@@ -28,20 +28,20 @@ namespace VistaModelo
 
         public void BorrarResena(int idResena)
         {
-            //if (Sesion.MiembroEnLinea)
-            //{
-            HttpResponseMessage response = this.consultanteMgr.BorrarResena(idResena);
-            if (!response.IsSuccessStatusCode)
+            if (Sesion.MiembroEnLinea)
             {
-                string jsonContent = response.Content.ReadAsStringAsync().Result;
-                dynamic responseObject = JsonConvert.DeserializeObject(jsonContent);
-                MessageBox.Show(responseObject["mensaje"].ToString());
+                HttpResponseMessage response = this.consultanteMgr.BorrarResena(idResena);
+                if (!response.IsSuccessStatusCode)
+                {
+                    string jsonContent = response.Content.ReadAsStringAsync().Result;
+                    dynamic responseObject = JsonConvert.DeserializeObject(jsonContent);
+                    MessageBox.Show(responseObject["mensaje"].ToString());
+                }
+                else
+                {
+                    MessageBox.Show("Reseña borrada", "Operaci+on exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
-            else
-            {
-                MessageBox.Show("Reseña borrada");
-            }
-            //}
 
         }
 

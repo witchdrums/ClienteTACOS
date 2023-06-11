@@ -143,11 +143,55 @@ namespace Servicios
             HttpResponseMessage respuestaHttp = new HttpResponseMessage();
             using (var cliente = new HttpClient())
             {
-                /*cliente.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);*/
-                cliente.DefaultRequestHeaders.Add("User-Agent", "Anything");
+                cliente.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 respuestaHttp = cliente.PostAsync($"Resenas?idResena={idResena}", null).Result;
+            }
+            return respuestaHttp;
+        }
+
+        public HttpResponseMessage ObtenerPuestos()
+        {
+            HttpResponseMessage respuestaHttp = new HttpResponseMessage();
+            using (var cliente = new HttpClient())
+            {
+
+                cliente.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                cliente.BaseAddress = this.uri;
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                respuestaHttp = cliente.GetAsync("Puestos").Result;
+            }
+            return respuestaHttp;
+        }
+
+        public HttpResponseMessage ObtenerTurnos()
+        {
+            HttpResponseMessage respuestaHttp = new HttpResponseMessage();
+            using (var cliente = new HttpClient())
+            {
+
+                cliente.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                cliente.BaseAddress = this.uri;
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                respuestaHttp = cliente.GetAsync("Turnos").Result;
+            }
+            return respuestaHttp;
+        }
+
+        public HttpResponseMessage RegistrarStaff(StaffModelo integranteStaff)
+        {
+            HttpResponseMessage respuestaHttp = new HttpResponseMessage();
+            using (var cliente = new HttpClient())
+            {
+                cliente.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                cliente.BaseAddress = this.uri;
+                respuestaHttp = cliente.PostAsJsonAsync("Staff", integranteStaff).Result;
             }
             return respuestaHttp;
         }

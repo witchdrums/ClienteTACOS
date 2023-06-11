@@ -51,6 +51,15 @@
                     Name="Frame_Pedidos"
                     NavigationUIVisibility="Hidden"/>
             </TabItem>
+            <TabItem 
+                Header="Staff"
+                Selector.Selected="IrVentanaRegistrarEmpleadoStaff"
+                FontSize="20">
+                <Frame
+                    Grid.Row="3"
+                    Name="Frame_Staff"
+                    NavigationUIVisibility="Hidden"/>
+            </TabItem>
         </mah:MetroTabControl>
     </Grid>
 </Page>
