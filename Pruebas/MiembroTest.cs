@@ -26,10 +26,10 @@ namespace Pruebas
             Persona=new PersonaModelo()
             {
                 Id=0,
-                Nombre="TEST",
-                ApellidoPaterno="TEST",
-                ApellidoMaterno="TEST",
-                Direccion="TEST",
+                Nombre="PRUEBA",
+                ApellidoPaterno="PRUEBA",
+                ApellidoMaterno="PRUEBA",
+                Direccion="PRUEBA",
                 Email=$"{RandomString(10)}@{RandomString(10)}.com",
                 Telefono="2288184512"
             }
