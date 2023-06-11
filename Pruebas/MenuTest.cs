@@ -35,7 +35,7 @@ namespace Pruebas
         {
             AlimentoModelo alimento = this.menuMgr.Menu.ElementAt(0);
             int existenciaOriginal = alimento.Existencia;
-            Task.WaitAll(this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { alimento.Id, -1 } }));
+            this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { alimento.Id, -1 } });
             int existenciaActual = alimento.Existencia;
             
             Assert.AreNotEqual(existenciaOriginal, existenciaActual);
@@ -52,7 +52,7 @@ namespace Pruebas
             int existenciaOriginal = alimento.Existencia;
             try
             {
-                Task.WaitAll(this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { -1, -1 } }));
+                this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { -1, -1 } });
                 Assert.Fail();
             }
             catch (Exception excepcion) 
@@ -70,7 +70,7 @@ namespace Pruebas
             int existenciaOriginal = alimento.Existencia;
             try
             {
-                Task.WaitAll(this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { 1, -200 } }));
+                this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { 1, -200 } });
                 Assert.Fail();
             }
             catch (Exception excepcion)
