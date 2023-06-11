@@ -19,14 +19,14 @@ namespace Pruebas
     public class PedidoTest
     {
         private ConsultanteMgr consultanteMgr = new ConsultanteMgr();
-        private int idPedidoExistente = 53;
-        private int idPedidoPagado = 3;
-        private DateTime desde = new DateTime(2023,06,04);
-        private DateTime hasta = new DateTime(2023,06,07);
+        private int idPedidoExistente = 13;
+        private int idPedidoPagado = 14;
+        private DateTime desde = new DateTime(2023,05,10);
+        private DateTime hasta = new DateTime(2023,05,11);
         private PedidoModelo pedidoPrueba = new PedidoModelo()
         {
             Fecha = DateTime.Now,
-            IdMiembro=61,
+            IdMiembro=20,
             Total = 420.69,
             Estado = 1,
         };
@@ -34,8 +34,8 @@ namespace Pruebas
         {
             PeticionCredenciales peticion = new PeticionCredenciales
             {
-                Email="maledict@proton.me",
-                Contrasena="asdf"
+                Email="admin",
+                Contrasena="ASDFasdf1234"
             };
             Sesion.Instancia.Credenciales = consultanteMgr.IniciarSesion(peticion).Result;
         }
@@ -166,7 +166,7 @@ namespace Pruebas
             try
             {
                 this.pedidoPrueba.Id = this.idPedidoPagado;
-                this.pedidoPrueba.IdMiembro = 1;
+                this.pedidoPrueba.IdMiembro = 20;
                 this.pedidoPrueba.Estado = 0;
                 Respuesta<PedidoModelo> respuesta = this.consultanteMgr.ActualizarPedido(this.pedidoPrueba);
                 Assert.Fail();
@@ -186,7 +186,7 @@ namespace Pruebas
             ObservableCollection<PedidoModelo> pedidosObtenidos = 
                 this.consultanteMgr.ObtenerPedidos(this.desde, this.hasta);
             Assert.IsNotNull(pedidosObtenidos);
-            Assert.AreEqual(9, pedidosObtenidos.Count);
+            Assert.AreEqual(7, pedidosObtenidos.Count);
             foreach (PedidoModelo pedido in pedidosObtenidos)
             {
                 Assert.IsTrue(
