@@ -148,6 +148,17 @@ namespace VistaModelo
             }
         }
 
+        public void HabilitarAlimentosAgotados()
+        {
+            foreach (AlimentoModelo alimento in this.Menu)
+            {
+                if (!alimento.Disponible)
+                {
+                    alimento.Disponible = true;
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

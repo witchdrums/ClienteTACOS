@@ -191,8 +191,8 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
+                <DataTemplate >
+                    <Grid IsEnabled="{Binding Disponible}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="1*"/>
@@ -255,6 +255,7 @@
                             Grid.Column="4"
                             Tag="{Binding }"
                             Name="Button_AgregarAlimentoAPedido"
+                            IsEnabled="{Binding Disponible}"
                             Visibility="{Binding Source={x:Static modelo:Sesion.Instancia}, 
                                 Path=EsMiembro, UpdateSourceTrigger=PropertyChanged,
                                 Converter={StaticResource BoolToVisibility}}"

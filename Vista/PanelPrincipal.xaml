@@ -30,6 +30,7 @@
 
             <TabItem 
                 Header="Menu" 
+                Selector.Selected="CargarMenu"
                 FontSize="20">
                 <Frame 
                     Grid.Row="1"
@@ -60,7 +61,10 @@
             <TabItem 
                 Header="Staff"
                 Selector.Selected="IrVentanaRegistrarEmpleadoStaff"
-                FontSize="20">
+                FontSize="20"
+                Visibility="{Binding Source={x:Static modelo:Sesion.Instancia}, 
+                            Path=EsGerente, UpdateSourceTrigger=PropertyChanged,
+                            Converter={StaticResource BoolToVisibility}}">
                 <Frame
                     Grid.Row="3"
                     Name="Frame_Staff"

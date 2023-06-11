@@ -79,14 +79,6 @@ namespace Vista
             this.contexto.DevolverPedido();
         }
 
-        private void CrashearApp()
-        {
-            //Para mostrar que los alimentos reservados se regresan a BD
-            //en caso de crash.
-            int x = 0;
-            double a = 1/x;
-        }
-
         private void QuitarDePedido(object sender, RoutedEventArgs e)
         {
             this.contexto.DevolverAlimento((sender as Button).Tag as AlimentoPedidoModelo);
@@ -100,6 +92,7 @@ namespace Vista
         private void HabilitarEdicion(object sender, RoutedEventArgs e)
         {
             this.contexto.EditarMenu = !this.contexto.EditarMenu;
+            this.contexto.HabilitarAlimentosAgotados();
             if (!this.contexto.EditarMenu)
             {
                 this.ForzarGuardarCambios();
