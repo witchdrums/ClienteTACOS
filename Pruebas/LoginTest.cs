@@ -19,27 +19,27 @@ namespace Pruebas
         ConsultanteMgr consultanteMgr = new ConsultanteMgr();
         private MiembroModelo miembroEsperado = new MiembroModelo()
         {
-            Id= 61,
-            Contrasena="$2a$11$mNY8fms2cPVBvw32T2eYbeTkel4N28C9B45GYlH509SuA/gxHwcY2",
-            PedidosPagados=0,
-            IdPersona=105,
+            Id= 51,
+            Contrasena="$2a$11$uuoruMSUPg6k3p7afix30ub2aJuIndaQMvOdQD8rXYaZ2B1xv9vuK",
+            PedidosPagados=69,
+            IdPersona=117,
             CodigoConfirmacion=0,
             Persona=new PersonaModelo()
             {
-                Id=105,
-                Nombre="hjg",
-                ApellidoPaterno="jhg",
-                ApellidoMaterno="jhg",
-                Direccion="jh",
-                Email="maledict@proton.me",
-                Telefono="gjhg"
+                Id=117,
+                Nombre="Ricardo",
+                ApellidoPaterno="Restrepo",
+                ApellidoMaterno="Salazar",
+                Direccion="calle Pintores #56 Col.Del Rio",
+                Email="admin",
+                Telefono="2266787890"
             }
         };
 
         private PeticionCredenciales peticion = new PeticionCredenciales
         {
-            Contrasena="asdf",
-            Email="maledict@proton.me",
+            Contrasena="ASDFasdf1234",
+            Email="admin",
             EsStaff=false
         };
 
@@ -116,7 +116,7 @@ namespace Pruebas
             catch (Exception excepcion)
             {
                 Assert.AreEqual(typeof(HttpRequestException), excepcion.InnerException.GetType());
-                Assert.AreEqual("Error en el servidor.", excepcion.InnerException.Message);
+                Assert.AreEqual("No se encontró ninguna cuenta con ese email y/o contraseña.", excepcion.InnerException.Message);
             }
         }
     }
