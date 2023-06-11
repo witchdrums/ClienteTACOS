@@ -28,7 +28,7 @@ namespace VistaModelo
 
         public void BorrarResena(int idResena)
         {
-            if (Sesion.MiembroEnLinea)
+            if (Sesion.Instancia.MiembroEnLinea)
             {
                 HttpResponseMessage response = this.consultanteMgr.BorrarResena(idResena);
                 if (!response.IsSuccessStatusCode)

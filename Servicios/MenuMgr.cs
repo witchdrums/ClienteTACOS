@@ -30,6 +30,12 @@ namespace Servicios
             }
         }
 
+        public void RecargarMenu()
+        {
+            this.Menu.Clear();
+            this.Menu = ObtenerAlimentos();
+        }
+
         public ObservableCollection<AlimentoModelo> ObtenerAlimentos()
         {
             ObservableCollection<AlimentoModelo> alimentos;
@@ -112,15 +118,15 @@ namespace Servicios
         }
 
 
-        public async Task ActualizarExistenciaAlimentos(Dictionary<int,int> alimentoPedido)
+        public void ActualizarExistenciaAlimentos(Dictionary<int,int> alimentoPedido)
         {
             using (var clienteHttp = new HttpClient())
             {
                 clienteHttp.BaseAddress = this.uri;
                 HttpResponseMessage respuesta =
-                    await clienteHttp.PatchAsJsonAsync("menu",alimentoPedido);
+                    clienteHttp.PatchAsJsonAsync("menu",alimentoPedido).Result;
                 ValidadorRespuestaHttp.Validar(
-                    await respuesta.Content.ReadAsAsync<Respuesta<Dictionary<int, int>>>()
+                    respuesta.Content.ReadAsAsync<Respuesta<Dictionary<int, int>>>().Result
                 );
             }
             foreach (KeyValuePair<int,int> registro in alimentoPedido)

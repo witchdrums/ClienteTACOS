@@ -46,6 +46,7 @@ namespace Modelo
             set
             {
                 this.existencia = value;
+                this.Disponible = this.existencia > 0;
                 OnPropertyChanged();
             }
             get { return this.existencia; }
@@ -54,9 +55,30 @@ namespace Modelo
         public int IdImagen { set; get; }
         public double Precio { set; get; }
         public int IdCategoria { get; set; }
-
+        private int cantidad;
+        public int Cantidad
+        {
+            set
+            {
+                this.cantidad = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Subtotal));
+            }
+            get { return this.cantidad; }
+        }
+        public double Subtotal => this.Cantidad * this.Precio;
 
         //Otros
+        private bool disponible = true;
+        public bool Disponible
+        {
+            get => this.disponible;
+            set
+            {
+                this.disponible = value;
+                this.OnPropertyChanged();
+            }
+        }
         [JsonIgnore]
         public bool Actualizado { set; get; } = false;
         [JsonIgnore]
@@ -73,19 +95,6 @@ namespace Modelo
             return Imaging.CreateBitmapSourceFromHBitmap(puntero, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             
         }
-
-        private int cantidad;
-        public int Cantidad
-        {
-            set
-            {
-                this.cantidad = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(Subtotal));
-            }
-            get { return this.cantidad; }
-        }
-        public double Subtotal => this.Cantidad * this.Precio;
 
         //INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

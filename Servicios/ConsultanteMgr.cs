@@ -144,7 +144,7 @@ namespace Servicios
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                    new AuthenticationHeaderValue("Bearer", Sesion.Instancia.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 respuestaHttp = cliente.PostAsync($"Resenas?idResena={idResena}", null).Result;
             }
@@ -158,7 +158,7 @@ namespace Servicios
             {
 
                 cliente.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                    new AuthenticationHeaderValue("Bearer", Sesion.Instancia.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -174,7 +174,7 @@ namespace Servicios
             {
 
                 cliente.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                    new AuthenticationHeaderValue("Bearer", Sesion.Instancia.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -189,7 +189,7 @@ namespace Servicios
             using (var cliente = new HttpClient())
             {
                 cliente.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", Sesion.Credenciales.Token);
+                    new AuthenticationHeaderValue("Bearer", Sesion.Instancia.Credenciales.Token);
                 cliente.BaseAddress = this.uri;
                 respuestaHttp = cliente.PostAsJsonAsync("Staff", integranteStaff).Result;
             }

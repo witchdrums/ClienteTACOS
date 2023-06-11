@@ -21,14 +21,22 @@ namespace Vista
         private PanelPrincipalVistaModelo vistaModelo;
         public PanelPrincipal(PanelPrincipalVistaModelo vistaModelo)
         {
-            InitializeComponent();
-            this.vistaModelo = (this.DataContext as PanelPrincipalVistaModelo);
+            try
+            {
+                InitializeComponent();
+                this.vistaModelo = (this.DataContext as PanelPrincipalVistaModelo);
 
-            this.Frame_Menu.Navigate(this.CrearPaginaMenu());
+                this.Frame_Menu.Navigate(this.CrearPaginaMenu());
+            }
+            catch (Exception excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
         }
 
         private Menu CrearPaginaMenu()
         {
+
             Menu paginaMenu = new Menu(new MenuVistaModelo(this.vistaModelo));
             paginaMenu.panelPrincipalVistaModelo = this.vistaModelo;
             return paginaMenu;
@@ -56,7 +64,14 @@ namespace Vista
         }
         private void CargarMenu(object sender, RoutedEventArgs e)
         {
-            this.Frame_Menu.Navigate(this.CrearPaginaMenu());
+            try
+            {
+                this.Frame_Menu.Navigate(this.CrearPaginaMenu());
+            }
+            catch (Exception excepcion)
+            {
+                MessageBox.Show(excepcion.Message);
+            }
         }
 
         private void CargarResenas(object sender, RoutedEventArgs e)
@@ -67,11 +82,6 @@ namespace Vista
         private void CargarPedidos(object sender, RoutedEventArgs e)
         {
             this.Frame_Pedidos.Navigate(new GestionarPedidos());
-        }
-
-        private void VerPerfil(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void IrVentanaRegistrarEmpleadoStaff(object sender, RoutedEventArgs e)
