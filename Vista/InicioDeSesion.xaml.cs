@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -27,10 +28,12 @@ namespace Vista
     public partial class InicioDeSesion : Page
     {
         private PanelPrincipalVistaModelo panelPrincipalVistaModelo;
+        private readonly MiembroVistaModelo contexto;
         public InicioDeSesion(PanelPrincipalVistaModelo panelPrincipalVistaModelo)
         {
             this.panelPrincipalVistaModelo = panelPrincipalVistaModelo;
             InitializeComponent();
+            this.contexto = this.DataContext as MiembroVistaModelo;
         }
 
         private void Unirse(object sender, RoutedEventArgs e)
@@ -47,28 +50,43 @@ namespace Vista
 
         private async void Entrar(object sender, RoutedEventArgs e)
         {
+            await this.IniciarSesion(false);
+            if (!Sesion.Instancia.MiembroConfirmado)
+            {
+                Confirmacion confirmacino = new Confirmacion(this.contexto);
+                confirmacino.ShowDialog();
+            }
+            else
+            {
+                //this.panelPrincipalVistaModelo.Salir(true);
+                this.NavigationService.GoBack();
+            }
+        }
+
+        private async void EntrarStaff(object sender, RoutedEventArgs e)
+        {
+            await this.IniciarSesion(true);
+            //this.panelPrincipalVistaModelo.Salir(true);
+            this.NavigationService.GoBack();
+        }
+
+        private async Task IniciarSesion(bool esStaff)
+        {
             try
             {
-                MiembroVistaModelo contexto = this.DataContext as MiembroVistaModelo;
-                await contexto.IniciarSesion(
-                    this.TextBox_Email.Text,
-                    this.TextBox_Contrasena.Password
-                );
-                if ( !Sesion.MiembroConfirmado ) 
-                {
-                    Confirmacion confirmacino = new Confirmacion(contexto);
-                    confirmacino.ShowDialog();
-                }
-                else
-                {
-                    this.panelPrincipalVistaModelo.CambiarEstadoSesion(true);
-                    this.NavigationService.GoBack();
-                }
+                await this.contexto.IniciarSesion(
+                    new PeticionCredenciales
+                    {
+                        Email = this.TextBox_Email.Text,
+                        Contrasena = this.TextBox_Contrasena.Password,
+                        EsStaff = esStaff                    
+                    });
             }
-            catch (HttpRequestException excepcion)
+            catch(HttpRequestException excepcion)
             {
                 MessageBox.Show(excepcion.Message);
             }
+
         }
 
         private void Regresar(object sender, RoutedEventArgs e)

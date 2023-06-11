@@ -121,12 +121,12 @@ namespace VistaModelo
 
         public void RegistrarPedido()
         {
-            if (Sesion.MiembroEnLinea)
+            if (Sesion.Instancia.MiembroEnLinea)
             {
                 this.consultanteMgr.RegistrarPedido(
                     new PedidoModelo()
                     {
-                        IdMiembro = Sesion.Credenciales.Miembro.Id,
+                        IdMiembro = Sesion.Instancia.Credenciales.Miembro.Id,
                         Total = this.Total,
                         Estado = (int)Estados.Ordenado,
                         Alimentospedidos = this.alimentosPedidos,

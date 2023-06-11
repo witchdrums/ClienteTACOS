@@ -32,18 +32,19 @@ namespace Vista
         private void EnviarCodigo(object sender, RoutedEventArgs e)
         {
             MiembroModelo miembro;
-            if (Sesion.Credenciales.Miembro.Persona.Id == 0)
+            if (Sesion.Instancia.Credenciales.Miembro.Persona.Id == 0)
             {
                 miembro = new MiembroModelo();
             }
             else
             {
-                miembro = Sesion.Credenciales.Miembro;
+                miembro = Sesion.Instancia.Credenciales.Miembro;
             }
             miembro.CodigoConfirmacion = Int32.Parse(this.TextBox_Codigo.Text);
             try
             {
                 (this.DataContext as MiembroVistaModelo).EnviarCodigoConfirmacion(miembro);
+                Sesion.Instancia.RevocarPermisos();
                 this.TextBlock_Cabecera.Text = "¡Confirmado!";
                 this.TextBlock_Contenido.Text = "Ya puedes entrar con tu email y contraseña.";
                 this.TextBox_Codigo.Visibility = Visibility.Hidden;
@@ -66,16 +67,16 @@ namespace Vista
         {
             if ((sender as Button).Content.Equals("Cancelar"))
             {
-                Sesion.Credenciales = null;
+                Sesion.Instancia.Credenciales = null;
             }
             this.Close();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (Sesion.Credenciales != null && !Sesion.MiembroConfirmado)
+            if (Sesion.Instancia.Credenciales != null && !Sesion.Instancia.MiembroConfirmado)
             {
-                Sesion.Credenciales = null;
+                Sesion.Instancia.Credenciales = null;
             }
         }
     }

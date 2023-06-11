@@ -7,6 +7,7 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:vistaModelo="clr-namespace:VistaModelo;assembly=VistaModelo"
       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+       xmlns:modelo="clr-namespace:Modelo;assembly=Modelo"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       ShowsNavigationUI="False"
@@ -14,6 +15,9 @@
     <Page.DataContext>
         <vistaModelo:PanelPrincipalVistaModelo/>
     </Page.DataContext>
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -45,7 +49,9 @@
                 Header="Pedidos"
                 Selector.Selected="CargarPedidos"
                 FontSize="20"
-                Visibility="{Binding Credenciales.VisibilidadStaff}">
+                Visibility="{Binding Source={x:Static modelo:Sesion.Instancia}, 
+                            Path=EsGerente, UpdateSourceTrigger=PropertyChanged,
+                            Converter={StaticResource BoolToVisibility}}">
                 <Frame
                     Grid.Row="2"
                     Name="Frame_Pedidos"

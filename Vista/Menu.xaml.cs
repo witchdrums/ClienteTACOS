@@ -52,7 +52,7 @@ namespace Vista
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if ( Sesion.MiembroEnLinea)
+            if ( Sesion.Instancia.MiembroEnLinea)
             {
                 this.RegistrarPedido();
             }
@@ -94,7 +94,7 @@ namespace Vista
 
         private void Cargar(object sender, RoutedEventArgs e)
         {
-            this.contexto.EsStaff = Sesion.Credenciales.EsStaff;
+            this.contexto.EsStaff = Sesion.Instancia.Credenciales.EsStaff;
         }
 
         private void HabilitarEdicion(object sender, RoutedEventArgs e)

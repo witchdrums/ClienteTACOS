@@ -122,6 +122,12 @@
     <Compile Include="MenuMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+	<!--
+	
+	  <ItemGroup>
+    <Protobuf Include="./*.proto" OutputDir="%(RelativePath)ProtoModelos/" />
+  </ItemGroup>
+	-->
   <ItemGroup>
     <None Include="app.config" />
     <None Include="imagen.proto" />
@@ -138,9 +144,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Recursos.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Protobuf Include="./*.proto" OutputDir="%(RelativePath)ProtoModelos/" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
