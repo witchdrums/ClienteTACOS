@@ -47,9 +47,6 @@ namespace Pruebas
         [TestMethod]
         public void ActualizarExistenciaAlimentos_Fallo_AlimentoNoExiste()
         {
-            //using (var context = new TacosdbContext())
-            AlimentoModelo alimento = this.menuMgr.Menu.ElementAt(0);
-            int existenciaOriginal = alimento.Existencia;
             try
             {
                 this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { -1, -1 } });
@@ -57,26 +54,25 @@ namespace Pruebas
             }
             catch (Exception excepcion) 
             {
-                Assert.AreEqual(typeof(HttpRequestException), excepcion.InnerException.GetType());
-                Assert.AreEqual("El alimento solicitado no existe.", excepcion.InnerException.Message);
+                Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
+                Assert.AreEqual("El alimento solicitado no existe.", excepcion.Message);
             }
         }
 
         [TestMethod]
         public void ActualizarExistenciaAlimentos_Fallo_CantidadInvalida()
         {
-            //using (var context = new TacosdbContext())
             AlimentoModelo alimento = this.menuMgr.Menu.ElementAt(0);
             int existenciaOriginal = alimento.Existencia;
             try
             {
-                this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { 1, -200 } });
+                this.menuMgr.ActualizarExistenciaAlimentos(new Dictionary<int, int>() { { 1, -400000 } });
                 Assert.Fail();
             }
             catch (Exception excepcion)
             {
-                Assert.AreEqual(typeof(HttpRequestException), excepcion.InnerException.GetType());
-                Assert.AreEqual("La existencia del alimento solicitado ya no puede decrecer.", excepcion.InnerException.Message);
+                Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
+                Assert.AreEqual("La existencia del alimento solicitado ya no puede decrecer.", excepcion.Message);
             }
         }
     }

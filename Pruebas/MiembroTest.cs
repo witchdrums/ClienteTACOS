@@ -30,10 +30,19 @@ namespace Pruebas
                 ApellidoPaterno="TEST",
                 ApellidoMaterno="TEST",
                 Direccion="TEST",
-                Email="vitocfdz@gmail.com",
+                Email=$"{RandomString(10)}@{RandomString(10)}.com",
                 Telefono="2288184512"
             }
         };
+
+        private static Random random = new Random();
+
+        public static string RandomString(int length)
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
 
         private int IdMiembroNoConfirmado = 50;
 
@@ -101,7 +110,7 @@ namespace Pruebas
             {
                 Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
                 Assert.AreEqual(
-                   "Los nombres sólo pueden contener letras y números",
+                   "Los nombres sólo pueden contener letras.",
                     excepcion.Message
                 );
             }
@@ -120,7 +129,7 @@ namespace Pruebas
             {
                 Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
                 Assert.AreEqual(
-                   "Los nombres sólo pueden contener letras y números",
+                   "Los nombres sólo pueden contener letras.",
                     excepcion.Message
                 );
             }
@@ -139,7 +148,7 @@ namespace Pruebas
             {
                 Assert.AreEqual(typeof(HttpRequestException), excepcion.GetType());
                 Assert.AreEqual(
-                   "Los nombres sólo pueden contener letras y números",
+                   "Los nombres sólo pueden contener letras.",
                     excepcion.Message
                 );
             }
@@ -167,7 +176,6 @@ namespace Pruebas
         [TestMethod]
         public void ConfirmarRegistro_Exito()
         {
-            this.miembroValido.Persona.Email = "asdf@asdf.asdf";
             MiembroModelo miembroObtenido = this.consultanteMgr.RegistrarMiembro(this.miembroValido);
             Respuesta<MiembroModelo> respuesta = this.consultanteMgr.ConfirmarRegistro(miembroObtenido);
 
