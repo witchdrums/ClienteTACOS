@@ -12,6 +12,7 @@ using System.Windows;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Net.Http.Formatting;
+using VistaModelo.Properties;
 
 namespace VistaModelo
 {
@@ -31,63 +32,74 @@ namespace VistaModelo
         }
         private void ObtenerPuestos()
         {
-            HttpResponseMessage respuesta = this.consultanteMgr.ObtenerPuestos();
-            if (!respuesta.IsSuccessStatusCode)
+            if (Sesion.Instancia.MiembroEnLinea)
             {
-                string jsonContent = respuesta.Content.ReadAsStringAsync().Result;
-                dynamic responseObject = JsonConvert.DeserializeObject(jsonContent);
-                MessageBox.Show(responseObject["mensaje"].ToString());
-            }
-            else
-            {
-                ObservableCollection<PuestoModelo> puestosEncontrados =
-                    respuesta.Content.ReadAsAsync<ObservableCollection<PuestoModelo>>().Result;
-                CollectionViewSource viewSource = new CollectionViewSource();
-                viewSource.Source = puestosEncontrados;
-                this.Puestos = viewSource.View;
+                HttpResponseMessage respuesta = this.consultanteMgr.ObtenerPuestos();
+                if (!respuesta.IsSuccessStatusCode)
+                {
+                    string jsonContent = respuesta.Content.ReadAsStringAsync().Result;
+                    dynamic responseObject = JsonConvert.DeserializeObject(jsonContent);
+                    MessageBox.Show(responseObject["mensaje"].ToString());
+                }
+                else
+                {
+                    ObservableCollection<PuestoModelo> puestosEncontrados =
+                        respuesta.Content.ReadAsAsync<ObservableCollection<PuestoModelo>>().Result;
+                    CollectionViewSource viewSource = new CollectionViewSource();
+                    viewSource.Source = puestosEncontrados;
+                    this.Puestos = viewSource.View;
 
+                }
             }
         }
         private void ObtenerTurnos()
         {
-            HttpResponseMessage respuesta = this.consultanteMgr.ObtenerTurnos();
-            if (!respuesta.IsSuccessStatusCode)
+            if (Sesion.Instancia.MiembroEnLinea)
             {
-                string jsonContent = respuesta.Content.ReadAsStringAsync().Result;
-                dynamic responseObject = JsonConvert.DeserializeObject(jsonContent);
-                MessageBox.Show(responseObject["mensaje"].ToString());
-            }
-            else
-            {
-                ObservableCollection<TurnoModelo> turnosEncontrados =
-                    respuesta.Content.ReadAsAsync<ObservableCollection<TurnoModelo>>().Result;
-                CollectionViewSource viewSource = new CollectionViewSource();
-                viewSource.Source = turnosEncontrados;
-                this.Turnos = viewSource.View;
+                HttpResponseMessage respuesta = this.consultanteMgr.ObtenerTurnos();
+                if (!respuesta.IsSuccessStatusCode)
+                {
+                    string jsonContent = respuesta.Content.ReadAsStringAsync().Result;
+                    dynamic responseObject = JsonConvert.DeserializeObject(jsonContent);
+                    MessageBox.Show(responseObject["mensaje"].ToString());
+                }
+                else
+                {
+                    ObservableCollection<TurnoModelo> turnosEncontrados =
+                        respuesta.Content.ReadAsAsync<ObservableCollection<TurnoModelo>>().Result;
+                    CollectionViewSource viewSource = new CollectionViewSource();
+                    viewSource.Source = turnosEncontrados;
+                    this.Turnos = viewSource.View;
 
+                }
             }
         }
 
         public Boolean RegistrarStaff(PuestoModelo puestoSeleccionado, TurnoModelo turnoSeleccionado, string contrasena)
         {
-            this.StaffModelo.IdPuesto = puestoSeleccionado.Id;
-            this.StaffModelo.IdTurno = turnoSeleccionado.Id;
-            this.StaffModelo.Contrasena = contrasena;
+            if (Sesion.Instancia.MiembroEnLinea)
+            {
+                this.StaffModelo.IdPuesto = puestoSeleccionado.Id;
+                this.StaffModelo.IdTurno = turnoSeleccionado.Id;
+                this.StaffModelo.Contrasena = contrasena;
 
-            HttpResponseMessage respuesta = this.consultanteMgr.RegistrarStaff(this.StaffModelo);
-            if (!respuesta.IsSuccessStatusCode)
-            {
-                string jsonContent = respuesta.Content.ReadAsStringAsync().Result;
-                dynamic responseObject = JsonConvert.DeserializeObject(jsonContent);
-                MessageBox.Show(responseObject["mensaje"].ToString());
-                return false;
+                HttpResponseMessage respuesta = this.consultanteMgr.RegistrarStaff(this.StaffModelo);
+                if (!respuesta.IsSuccessStatusCode)
+                {
+                    string jsonContent = respuesta.Content.ReadAsStringAsync().Result;
+                    dynamic responseObject = JsonConvert.DeserializeObject(jsonContent);
+                    MessageBox.Show(responseObject["mensaje"].ToString());
+                    return false;
+                }
+                else
+                {
+                    MessageBox.Show(Mensajes.RegistrarStaffText_Exito, Mensajes.RegistrarStaffTitle_Exito, 
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    return true;
+                   
+                }
             }
-            else
-            {
-                MessageBox.Show("Miembro agregado al staff, recuerda nuestro lema: " + "¡TODOS SOMOS FAMILIA! :D",
-                    "Nuevo integrante agregado", MessageBoxButton.OK, MessageBoxImage.Information);
-                return true;
-            }
+            return false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

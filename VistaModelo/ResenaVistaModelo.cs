@@ -13,6 +13,7 @@ using ScottPlot.Renderable;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using VistaModelo.Properties;
 
 namespace VistaModelo
 {
@@ -39,7 +40,8 @@ namespace VistaModelo
                 }
                 else
                 {
-                    MessageBox.Show("Reseña borrada", "Operaci+on exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Mensajes.ResenaBorradaText_Exito, Mensajes.OperacionExitosaTitle, MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                 }
             }
 
