@@ -77,9 +77,9 @@ namespace Pruebas
         [TestMethod]
         public void BorrarResena_Exito()
         {
-            //Como los id son llaves foraneas autoincrementables es recomandable insertar un registro en la base de datos
+            //Como los id son llaves primarias autoincrementables es recomandable insertar un registro en la base de datos
             //Seleccionar el id del registro ingresado o bien seleccionar uno de los existentes
-            int idResenaElimar = 17;
+            int idResenaElimar = 18;
            
             this.respuestaHttp = consultanteMgr.BorrarResena(idResenaElimar);
             respuestaHttp.IsSuccessStatusCode.Should().BeTrue();
@@ -88,9 +88,9 @@ namespace Pruebas
         [TestMethod]
         public void BorrarResena_Fallo_IdResenaInexistente()
         {
-            int idResenaElimar = -99997;
+            int idResenaEliminar = -99997;
 
-            this.respuestaHttp = consultanteMgr.BorrarResena(idResenaElimar);
+            this.respuestaHttp = consultanteMgr.BorrarResena(idResenaEliminar);
             string mensajeEsperado = "Ningun registro coincide con la reseña que desea eliminar.";
 
             string jsonContent = respuestaHttp.Content.ReadAsStringAsync().Result;
